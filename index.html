@@ -445,14 +445,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#section-introduction-and-goals">1. Introduction and Goals</a>
+<li><a href="#section-introduction-and-goals">1. Introducción y Objetivos</a>
 <ul class="sectlevel2">
-<li><a href="#_requirements_overview">1.1. Requirements Overview</a></li>
-<li><a href="#_quality_goals">1.2. Quality Goals</a></li>
+<li><a href="#_descripción_de_los_requisitos">1.1. Descripción de los requisitos</a></li>
+<li><a href="#_objetivos_de_calidad">1.2. Objetivos de Calidad</a></li>
 <li><a href="#_stakeholders">1.3. Stakeholders</a></li>
 </ul>
 </li>
-<li><a href="#section-architecture-constraints">2. Architecture Constraints</a></li>
+<li><a href="#section-architecture-constraints">2. Restricciones de arquitectura</a></li>
 <li><a href="#section-context-and-scope">3. Contexto y Alcance</a>
 <ul class="sectlevel2">
 <li><a href="#_contexto_de_negocio">3.1. Contexto de Negocio</a></li>
@@ -550,132 +550,164 @@ For documentation of your own system you use better the <em>plain</em> version.<
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-introduction-and-goals">1. Introduction and Goals</h2>
+<h2 id="section-introduction-and-goals">1. Introducción y Objetivos</h2>
 <div class="sectionbody">
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<p>Describes the relevant requirements and the driving forces that software architects and development team must consider.
-These include</p>
+<p>Describe las necesidades importantes y las fuerzas mayores que los arquitectos del software y el equipo de desarrollo deben considerar
+Esto incluye</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>underlying business goals,</p>
+<p>Objetivos comerciales subyacentes,</p>
 </li>
 <li>
-<p>essential features,</p>
+<p>Características esenciales,</p>
 </li>
 <li>
-<p>essential functional requirements,</p>
+<p>Requisitos funcionales esenciales,</p>
 </li>
 <li>
-<p>quality goals for the architecture and</p>
+<p>Objetivos de calidad para la arquitectura y</p>
 </li>
 <li>
-<p>relevant stakeholders and their expectations</p>
+<p>Partes interesadas relevantes y sus expectativas.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_requirements_overview">1.1. Requirements Overview</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>Short description of the functional requirements, driving forces, extract (or abstract)
-of requirements. Link to (hopefully existing) requirements documents
-(with version number and information where to find it).</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>From the point of view of the end users a system is created or modified to
-improve support of a business activity and/or improve the quality.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Short textual description, probably in tabular use-case format.
-If requirements documents exist this overview should refer to these documents.</p>
-</div>
-<div class="paragraph">
-<p>Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-1/">Introduction and Goals</a> in the arc42 documentation.</p>
-</div>
-</div>
+<h3 id="_descripción_de_los_requisitos">1.1. Descripción de los requisitos</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Registro e Inicio de Sesión de Usuarios:</strong> Los usuarios deberán registrarse para participar en los juegos, o iniciar sesión si ya se han registrado previamente.</p>
+</li>
+<li>
+<p><strong>Generación de Preguntas y Respuestas:</strong> El sistema proporcionará preguntas de diversas temáticas. Se generarán automáticamente respuestas correctas e incorrectas utilizando datos de Wikidata. Cada pregunta tendrá 4 posibles respuestas.</p>
+</li>
+<li>
+<p><strong>Interacción con el Sistema de Pistas:</strong> Los usuarios podrán interactuar con la aplicación para obtener pistas sobre las preguntas Las pistas serán generadas de forma conversacional mediante un modelo de lenguaje (LLM), accediendo a través de una API.</p>
+</li>
+<li>
+<p><strong>Historial de Participación del Usuario:</strong> El sistema registrará el historial de los usuarios. Se almacenarán datos como el número de juegos jugados, preguntas acertadas y falladas, y el tiempo utilizado.</p>
+</li>
+<li>
+<p><strong>Límite de Tiempo para Responder:</strong> Cada pregunta tendrá un límite de tiempo determinado para ser respondida por los usuarios.</p>
+</li>
+<li>
+<p><strong>API de Acceso a la Información:</strong> Se ofrecerá una API documentada para acceder a la información de los usuarios y a las preguntas generadas. Esto facilitará la integración con otros servicios o plataformas.</p>
+</li>
+<li>
+<p><strong>Generación Automática de Contenidos:</strong> Las imágenes de las preguntas y las pistas serán generadas automáticamente utilizando datos de Wikidata. Esto garantizará la variedad y el contexto adecuado de las preguntas.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_quality_goals">1.2. Quality Goals</h3>
+<h3 id="_objetivos_de_calidad">1.2. Objetivos de Calidad</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>The top three (max five) quality goals for the architecture whose fulfillment is of highest importance to the major stakeholders.
-We really mean quality goals for the architecture. Don&#8217;t confuse them with project goals.
-They are not necessarily identical.</p>
+<div class="title">Contenido</div>
+<p>Los tres (máximo cinco) objetivos de calidad más importantes para la arquitectura, cuya satisfacción es de máxima importancia para los principales interesados.
+Nos referimos realmente a los objetivos de calidad de la arquitectura. No los confundas con los objetivos del proyecto.
+No son necesariamente idénticos.</p>
 </div>
 <div class="paragraph">
-<p>Consider this overview of potential topics (based upon the ISO 25010 standard):</p>
+<p>Considera esta visión general de posibles temas (basados en el estándar ISO 25010):</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/01_2_iso-25010-topics-EN.drawio.png" alt="Categories of Quality Requirements">
+<img src="./images/01_2_iso-25010-topics-EN.drawio.png" alt="Categorías de Requisitos de Calidad">
 </div>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should know the quality goals of your most important stakeholders, since they will influence fundamental architectural decisions.
-Make sure to be very concrete about these qualities, avoid buzzwords.
-If you as an architect do not know how the quality of your work will be judged&#8230;&#8203;</p>
+<div class="title">Motivación</div>
+<p>Debes conocer los objetivos de calidad de tus interesados más importantes, ya que influirán en decisiones arquitectónicas fundamentales.
+Asegúrate de ser muy concreto sobre estas cualidades y evita palabras de moda.
+Si como arquitecto no sabes cómo se juzgará la calidad de tu trabajo&#8230;&#8203;</p>
 </div>
 <div class="paragraph">
-<div class="title">Form</div>
-<p>A table with quality goals and concrete scenarios, ordered by priorities</p>
+<div class="title">Formato</div>
+<p>Una tabla con los objetivos de calidad y escenarios concretos, ordenados por prioridades.</p>
 </div>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Meta</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rendimiento</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El sistema debe garantizar tiempos de respuesta dentro de los límites aceptables, incluso en condiciones de alta demanda. Se optimizará el uso de recursos para minimizar la latencia y mejorar la experiencia del usuario. Además, se implementarán optimizaciones de consultas para reducir la carga en los servidores y mejorar la velocidad de ejecución de las funciones más críticas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Escalabilidad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El diseño del sistema debe permitir un crecimiento eficiente, asegurando que pueda manejar un aumento en la cantidad de usuarios y datos sin afectar negativamente el rendimiento.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Seguridad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se establecerán medidas de seguridad para proteger los datos de los usuarios y prevenir accesos no autorizados. Se implementarán mecanismos de autenticación y estándares básicos para garantizar la integridad y privacidad de la información.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mantenibilidad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El código del sistema debe ser claro, modular y bien documentado para facilitar futuras modificaciones y mejoras. Se adoptarán buenas prácticas de desarrollo, como la separación de responsabilidades, la reutilización de código y la escritura de pruebas unitarias para garantizar la estabilidad del sistema a lo largo del tiempo. Además, se fomentará el uso de herramientas de control de versiones para gestionar los cambios de manera eficiente.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usabilidad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para asegurar una experiencia de usuario óptima, el sistema contará con una interfaz intuitiva y coherente. Se priorizará un diseño claro y accesible, facilitando la navegación. Se tendrán en cuenta principios de usabilidad como la predictibilidad, la coherencia visual y la retroalimentación adecuada, de manera que cualquier usuario, independientemente de su experiencia, pueda utilizar el sistema sin dificultades.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_stakeholders">1.3. Stakeholders</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>Explicit overview of stakeholders of the system, i.e. all person, roles or organizations that</p>
+<div class="title">Contenido</div>
+<p>Descripción explícita de los interesados del sistema, es decir, todas las personas, roles u organizaciones que</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>should know the architecture</p>
+<p>deben conocer la arquitectura</p>
 </li>
 <li>
-<p>have to be convinced of the architecture</p>
+<p>les debe convencer la arquitectura</p>
 </li>
 <li>
-<p>have to work with the architecture or with code</p>
+<p>deben trabajar con la arquitectura o con el código</p>
 </li>
 <li>
-<p>need the documentation of the architecture for their work</p>
+<p>necesitan la documentación de la arquitectura para su trabajo</p>
 </li>
 <li>
-<p>have to come up with decisions about the system or its development</p>
+<p>deben tomar decisiones sobre el sistema o su desarrollo</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should know all parties involved in development of the system or affected by the system.
-Otherwise, you may get nasty surprises later in the development process.
-These stakeholders determine the extent and the level of detail of your work and its results.</p>
+<div class="title">Motivación</div>
+<p>Debe conocer a todas las partes involucradas en el desarrollo del sistema o afectadas por el sistema.
+De lo contrario, puede tener sorpresas desagradables más adelante en el proceso de desarrollo.
+Estos interesados determinan el alcance y el nivel de detalle de su trabajo y sus resultados.</p>
 </div>
 <div class="paragraph">
-<div class="title">Form</div>
-<p>Table with role names, person names, and their expectations with respect to the architecture and its documentation.</p>
+<div class="title">Forma</div>
+<p>Tabla con nombres de roles, nombres de personas y sus expectativas con respecto a la arquitectura y su documentación.</p>
 </div>
 </div>
 </div>
@@ -687,21 +719,31 @@ These stakeholders determine the extent and the level of detail of your work and
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Role/Name</th>
-<th class="tableblock halign-left valign-top">Contact</th>
-<th class="tableblock halign-left valign-top">Expectations</th>
+<th class="tableblock halign-left valign-top">Rol/Nombre</th>
+<th class="tableblock halign-left valign-top">Contacto</th>
+<th class="tableblock halign-left valign-top">Expectativas</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Cliente</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>RTVE</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Alta disponibilidad, seguridad y cumplimiento de normativas</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Compañía Contratada</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>ChattySw</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Entrega a tiempo, dentro del presupuesto y con alta calidad</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Equipo de Desarrollo</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Andrea Acero Suárez, Ana Díez Díaz, Aitor Gómez Ogueta, Adriana Herrero González, Claudia Nistal Martínez, Javier Sanabria Miranda</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Claridad en los requisitos, apoyo continuo del cliente y herramientas adecuadas</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usuarios</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Futuros usuarios de la aplicación</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Facilidad en el uso, rendimiento eficiente y características claras e innovadoras</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -710,32 +752,165 @@ These stakeholders determine the extent and the level of detail of your work and
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-architecture-constraints">2. Architecture Constraints</h2>
+<h2 id="section-architecture-constraints">2. Restricciones de arquitectura</h2>
 <div class="sectionbody">
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>Any requirement that constraints software architects in their freedom of design and implementation decisions or decision about the development process. These constraints sometimes go beyond individual systems and are valid for whole organizations and companies.</p>
+<div class="title">Contenidos</div>
+<p>Cualquier requisito que limite la libertad de los arquitectos de software en sus decisiones de diseño e implementación, o en decisiones sobre el proceso de desarrollo. Estas restricciones a veces van más allá de los sistemas individuales y son aplicables a organizaciones y empresas enteras.</p>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
-<p>Architects should know exactly where they are free in their design decisions and where they must adhere to constraints.
-Constraints must always be dealt with; they may be negotiable, though.</p>
+<div class="title">Motivación</div>
+<p>Los arquitectos deben saber exactamente dónde tienen libertad en sus decisiones de diseño y dónde deben adherirse a restricciones.
+Las restricciones siempre deben ser consideradas; sin embargo, pueden ser negociables.</p>
 </div>
 <div class="paragraph">
-<div class="title">Form</div>
-<p>Simple tables of constraints with explanations.
-If needed you can subdivide them into
-technical constraints, organizational and political constraints and
-conventions (e.g. programming or versioning guidelines, documentation or naming conventions)</p>
+<div class="title">Formato</div>
+<p>Tablas simples de restricciones con explicaciones.
+Si es necesario, puedes subdividirlas en: Restricciones técnicas, Restricciones organizativas y políticas, y convenciones (por ejemplo, guías de programación o versionado, documentación o convenciones de nomenclatura).</p>
 </div>
 <div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-2/">Architecture Constraints</a> in the arc42 documentation.</p>
+<div class="title">Información Adicional</div>
+<p>Consulta <a href="https://docs.arc42.org/section-2/">Architecture Constraints</a> en la documentación de arc42.</p>
 </div>
 </div>
 </div>
+<div class="paragraph">
+<p>Para desarrollar cualquier proyecto de software, aparecen limitaciones y condiciones que debemos tener en cuenta.
+No tenemos total libertad ni para diseñar el sistema ni para implementarlo. Además, el nivel y la cantidad de restricciones aumentan a medida que el desarrollo evoluciona. Un ejemplo de esto es la mayor dificultad para modificar el modelo de datos a medida que pasa el tiempo.</p>
+</div>
+<div class="paragraph">
+<p>Es importante que el arquitecto sepa cómo equilibrar los requisitos del proyecto con las restricciones del mismo. Las restricciones encontradas en nuestro proyecto han sido las siguientes:</p>
+</div>
+<div class="paragraph">
+<p><strong>RESTRICCIONES TÉCNICAS</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Restricción</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Uso de un LLM</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizará un modelo de lenguaje grande (LLM) para generar automáticamente preguntas y respuestas y permitir obtener pistas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wikidata</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Las preguntas y respuestas, así como las pistas, se generarán a partir de los datos de Wikidata.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docker</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La web deberá estar desplegada y accesible a través de la Web.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Generación de Preguntas</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Las preguntas tendrán una respuesta correcta y varias incorrectas. Las respuestas se generarán automáticamente.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>API Usage</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizarán APIs para acceder a la información de usuarios y preguntas generadas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Frontend Web</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El sistema tendrá al menos un frontend web desplegado y accesible a través de la Web.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Límite de tiempo</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Las preguntas deben ser respondidas dentro de un plazo de tiempo determinado.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>RESTRICCIONES ORGANIZATIVAS</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Restricción</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Gestión de Usuarios</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Los usuarios podrán registrarse, iniciar sesión y revisar su historial de participación en el sistema.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Grupos de 4-6 personas</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grupos pequeños de alumnos para realizar el trabajo, elegidos por el profesor.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>RESTRICCIONES POLÍTICAS</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Restricción</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Tema de la Aplicación</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La aplicación será similar al programa "Saber y Ganar", por lo que las preguntas estarán relacionadas con imágenes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Uso de Arc42</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El proyecto seguirá el estándar de documentación Arc42.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Repositorio Público</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El código fuente estará alojado en un repositorio público en GitHub, y será accesible para los miembros del equipo.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>CONVENCIONES</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Restricción</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Convenciones de Nombres</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El nombre de la aplicación será WIChat.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Uso de Git y Github</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizará Git como sistema de control de versiones, y el repositorio será alojado en GitHub.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Documentación Arc42</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se seguirá la convención de documentación Arc42.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -757,7 +932,7 @@ sus interlocutores (sistemas y usuarios vecinos, es decir, el contexto del siste
 <p>Las interfaces de dominio y las interfaces técnicas con los socios de comunicación se encuentran entre los aspectos más críticos de su sistema. Asegúrese de comprenderlas por completo.</p>
 </div>
 <div class="paragraph">
-<div class="title">Forma</div>
+<div class="title">Formato</div>
 <p>Varias opciones:</p>
 </div>
 <div class="ulist">
@@ -829,7 +1004,7 @@ Opcionalmente, puede añadir formatos o protocolos de comunicación específicos
 <p>Todas las partes interesadas deben comprender qué datos se intercambian con el entorno del sistema.</p>
 </div>
 <div class="paragraph">
-<div class="title">Forma</div>
+<div class="title">Formato</div>
 <p>Todo tipo de diagramas que muestran el sistema como una caja negra y especifican las interfaces del dominio con los socios de comunicación.</p>
 </div>
 <div class="paragraph">
@@ -1961,7 +2136,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2025-01-28 14:23:23 +0100
+Last updated 2025-02-18 13:08:22 +0100
 </div>
 </div>
 </body>
