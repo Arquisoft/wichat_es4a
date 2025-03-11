@@ -247,7 +247,7 @@ export const Game = () => {
                 </button>
             </div>
             <div className='game-question'>
-                <p className={question.text === "Generando Pregunta..." ? 'question-loading' : ''}>{question.text}</p>
+                <p className={question.text === t('question-generation-message') ? 'question-loading' : ''}>{question.text}</p>
             </div>
             <div className='div-question-img'>
                 {isLoading ? <Spinner animation="border" /> : <img className="question-img" src={question.image} />}
