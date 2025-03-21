@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: Questions API
+  description: API para generar preguntas a partir de plantillas y consultas a Wikidata.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8002
+    description: Servidor local
+
+paths:
+  /api/questions/generate:
+    post:
+      summary: Genera una pregunta con opciones
+      description: Devuelve una pregunta generada a partir de una plantilla y una consulta SPARQL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                topics:
+                  type: array
+                  items:
+                    type: string
+                  example: ["historia", "ciencia"]
+                lang:
+                  type: string
+                  example: "es"
+      responses:
+        "200":
+          description: Pregunta generada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  question:
+                    type: string
+                    example: "¿Quién fue el primer presidente de Estados Unidos?"
+                  correct:
+                    type: string
+                    example: "George Washington"
+                  image:
+                    type: string
+                    example: "https://upload.wikimedia.org/wikipedia/commons/6/6f/George_Washington.jpg"
+                  options:
+                    type: array
+                    items:
+                      type: string
+                    example: ["John Adams", "Thomas Jefferson", "Benjamin Franklin"]
+        "400":
+          description: Parámetros inválidos en la solicitud
+        "500":
+          description: Error interno del servidor
+
+  /api/questions/tags:
+    post:
+      summary: Obtiene todas las etiquetas de preguntas disponibles
+      description: Devuelve una lista de etiquetas que pueden usarse como temas para generar preguntas.
+      responses:
+        "200":
+          description: Lista de etiquetas obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["historia", "ciencia", "arte", "música"]
+        "500":
+          description: Error al obtener las etiquetas
+
+  /health:
+    get:
+      summary: Verifica el estado del servicio
+      description: Retorna el estado del servicio para monitoreo.
+      responses:
+        "200":
+          description: El servicio está funcionando correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "OK"

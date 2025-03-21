@@ -14,6 +14,7 @@ const YAML = require('yaml');
 // My own libs
 const { newGame, next, answer, update, getGameSettingsByUser, getHistory, getHistoryByUser, setGameSettingsByUser, getNumberOfQuestions, getQuestion } = require("./game/GameService");
 const { saveQuestionsInDB, deleteOlderQuestions, loadInitialQuestions } = require('./game/questionService');
+const {requestQuestion} = require('./game/QuestionAsk');
 
 const port = 8003;
 const app = express();
@@ -89,11 +90,37 @@ app.post('/api/connectMongo', (req, res) => {
   res.status(200).send('Conexión a MongoDB establecida.');
 });
 
+/*
 // Función para guardar las preguntas en la base de datos, solo cuando se llame explícitamente
 app.post('/api/game/save-questions', async (req, res) => {
   console.log('Guardando preguntas...');
-  await saveQuestionsInDB(); // Solo se ejecuta cuando se hace la solicitud
+  await requestQuestion();
+  //await saveQuestionsInDB(); // Solo se ejecuta cuando se hace la solicitud
   res.status(200).send('Preguntas guardadas');
+});
+*/
+//soy ana y las imprimo por pantalla para verificar que esta funcionando bien la comunicacion entre microservicios
+app.post('/api/game/save-questions', async (req, res) => {
+  console.log('Guardando preguntas...');
+
+  try {
+    // Llamamos a la función requestQuestion para obtener la pregunta
+    const questionData = await requestQuestion();
+
+    // Devolvemos la pregunta generada en la respuesta HTTP
+    res.status(200).json({
+      message: "Preguntas guardadas correctamente",
+      question: questionData.question,
+      correct: questionData.answer,
+      imageUrl: questionData.imageUrl,
+      options: questionData.options,
+      correctAnswer: questionData.correct,
+      topics: questionData.topics
+    });
+  } catch (error) {
+    console.error("Error al guardar las preguntas", error);
+    res.status(500).json({ message: "Hubo un error al guardar las preguntas" });
+  }
 });
 
 // Función para eliminar preguntas antiguas, solo cuando se llame explícitamente
