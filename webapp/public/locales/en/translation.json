@@ -55,7 +55,16 @@
     "rules-content-1": "1. WiChat is a quiz game where you must answer correctly within a time limit, which you choose yourself.",
     "rules-content-2": "2. According to the selected topic or topics, each question will have a related image and four options, one of which is correct.", 
     "rules-content-3": "3. You can skip some questions if you wish.",
-    "question-generation-message": "Generating question..."
-
+    "question-generation-message": "Generating question...",
+    "password-message": "Password",
+    "username-message": "Username",
+    "user-added": "User added successfully.",
+    "user-not-added": "User could not be added: ",
+    "add-user-title": "Add User",
+    "signup-message-sponsor": "Show off your knowledge! Join Wichat and compete by answering questions from different categories. Ready for the challenge?",
+    "login-title": "Login",
+    "login-message-sponsor": "Welcome back to Wichat! Log in to continue enjoying. We're glad to see you again!",
+    "login-success": "Login successful.",
+    "login-failure": "Your username or password is incorrect."
 }
 

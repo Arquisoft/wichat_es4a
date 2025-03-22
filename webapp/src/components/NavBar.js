@@ -6,7 +6,7 @@ import i18n from "../i18n/i18next";
 import { useTranslation } from "react-i18next";
 import Rules from "./Rules"; 
 import "./nav.css";
-import logo from "../images/logo.png";
+
 
 const NavBar = () => {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ const NavBar = () => {
     <>
       <Navbar expand="lg" fixed="top" className="navbar-custom w-500">
         <Nav.Link href="/" className="navbar-logo">
-          <img src={logo} alt="Logo" className="navbar-logo" />
+          <img src={"/images/logo.png"} alt="Logo" className="navbar-logo" />
         </Nav.Link>
         <Container>
           <Nav className="ms-auto">
