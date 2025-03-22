@@ -90,8 +90,7 @@ export const Game = () => {
             setStopTimer(false);
             unblockAnswerButtons();
         }
-        );
-        
+        ); 
     }
 
     // UseEffect to call getNextQuestion on initial render

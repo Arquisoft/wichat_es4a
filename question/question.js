@@ -8,6 +8,8 @@ const port = 8002;
 const app = express();
 const url = "https://query.wikidata.org/sparql";
 
+app.use(express.json());
+
 /**
  * Loads and filters question templates based on the specified topics and language.
  * This function reads the 'question_template.json' file, parses its content, 
@@ -182,18 +184,27 @@ function generateQuestionWithOptions(results, labelKey, imageKey, randomTemplate
 app.post('/api/questions/generate', async (req, res) => {
   try {
     const lang = "es";
-    const hardcodedTopics = ["geography", "character"];
-    //const { lang, topics } = req.body;
+    const { topics } = req.body;
 
-    const questionData = await generateQuestion(hardcodedTopics, lang);
+    console.log("🟢 Body recibido:", req.body);
+    console.log("🟢 Topics extraídos:", topics);
+
+    if (!topics || !Array.isArray(topics) || topics.length === 0) {
+      console.error("❌ No se proporcionaron topics válidos");
+      return res.status(400).json({ error: "No topics provided or invalid format" });
+    }
+
+    const questionData = await generateQuestion(topics, lang);
     if (!questionData) {
       return res.status(404).json({ error: "No valid question generated" });
     }
     res.status(200).json(questionData);
   } catch (error) {
+    console.error("❌ Error en el endpoint:", error);
     res.status(500).json({ error: "Failed to generate question" });
   }
 });
+
 
 
 /**

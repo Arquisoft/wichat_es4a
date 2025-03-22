@@ -104,10 +104,11 @@ app.post('/api/game/save-questions', async (req, res) => {
   console.log('Guardando preguntas...');
 
   try {
-    // Llamamos a la función requestQuestion para obtener la pregunta
-    const questionData = await requestQuestion();
+    const { topics } = req.body; // Obtener los topics del request
+    console.log('Topics recibidos:', topics);
 
-    // Devolvemos la pregunta generada en la respuesta HTTP
+    const questionData = await requestQuestion(topics); // Pasar los topics
+
     res.status(200).json({
       message: "Preguntas guardadas correctamente",
       question: questionData.question,
@@ -115,13 +116,14 @@ app.post('/api/game/save-questions', async (req, res) => {
       imageUrl: questionData.imageUrl,
       options: questionData.options,
       correctAnswer: questionData.correct,
-      topics: questionData.topics
+      topics: questionData.topics // Devolver los topics generados
     });
   } catch (error) {
     console.error("Error al guardar las preguntas", error);
     res.status(500).json({ message: "Hubo un error al guardar las preguntas" });
   }
 });
+
 
 // Función para eliminar preguntas antiguas, solo cuando se llame explícitamente
 app.post('/api/game/delete-old-questions', async (req, res) => {

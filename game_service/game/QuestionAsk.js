@@ -37,50 +37,43 @@ const getCurrentQuestion = async (userId) => {
 
 // Hace una solicitud para generar una nueva pregunta a un servicio externo
 // Modificación en requestQuestion para usar una pregunta predeterminada si el servicio no responde
-const requestQuestion = async () => {
+const requestQuestion = async (topics) => {
     let url = "http://question:8002/api/questions/generate";
     
-    // Si no está en entorno de producción, usa localhost
     if (process.env.NODE_ENV !== "production") {
         url = "http://localhost:8002/api/questions/generate";
     }
 
     try {
-        // Intentamos hacer la solicitud al servicio externo
-        const res = await axios.post(url);
-        
-        // Aseguramos que la respuesta tenga la estructura correcta
+        const res = await axios.post(url, { topics });
+
         const { question, correct, image, options } = res.data;
 
-        // Verificamos si la respuesta sigue el formato esperado
         if (!question || !correct || !image || !options || options.length < 1) {
             throw new Error("La pregunta no tiene el formato esperado.");
         }
 
-        // Retornar la respuesta procesada en el formato adecuado
         return {
-            question: question,      // La pregunta en sí
-            answer: correct,         // La respuesta correcta
-            imageUrl: image,         // URL de la imagen
-            options: options,        // Opciones incorrectas
-            correct: options.includes(correct) // Confirmar si la respuesta correcta está en las opciones
+            question,
+            answer: correct,
+            imageUrl: image,
+            options,
+            correct: options.includes(correct),
+            topics // Añadir los topics para asegurarnos de que se están pasando correctamente
         };
 
     } catch (error) {
         console.error("Error al obtener la pregunta desde el servicio externo, usando pregunta simulada");
 
-        // Si el servicio no responde, devolvemos una pregunta predeterminada
-      
         return {
             question: '¿A qué país pertenece este contorno?',
             answer: 'Sri Lanka',
             imageUrl: 'http://commons.wikimedia.org/wiki/Special:FilePath/Topography%20Sri%20Lanka.jpg',
             options: ['Catar', 'México', 'Kenia'],
             correct: true,
-            topics: ["Geografia"]  // Asignar un topic válido (Array de ObjectId)
+            topics: ["geography"]
         };
     }
-    
 };
 
 module.exports = { validate, getCurrentQuestion, requestQuestion };
