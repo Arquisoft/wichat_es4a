@@ -1,5 +1,5 @@
 // Importar mongoose
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const { Schema, model, Types } = mongoose;
 const { ObjectId } = Types;
@@ -31,16 +31,16 @@ const gamePlayedSchema = new Schema({
       ref: "Question"
     }
   ],
-    isActive: [
+    isActive: 
       {
       type: Boolean,
       default: false 
     }
-  ]
+  
 });
 
 // Crear modelo
 const GamePlayed = model("GamePlayed", gamePlayedSchema);
 
 // Exportación en ES Module
-export default GamePlayed;
+module.exports =  GamePlayed;

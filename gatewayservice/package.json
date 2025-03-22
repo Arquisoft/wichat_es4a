@@ -2,7 +2,7 @@
     "name": "gatewayservice",
     "version": "1.0.0",
     "description": "Gateway service, in charge distributing the requests",
-    "main": "service.js",
+    "main": "gateway-service.js",
     "scripts": {
         "start": "node gateway-service.js",
         "test": "jest"

@@ -1,16 +1,16 @@
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
-const promBundle = require('express-prom-bundle');
-const GameSession = require('../facade/GameSession');
+import express from 'express';
+import axios  from 'axios';
+import cors from  'cors';
+import promBundle  from 'express-prom-bundle';
+
 
 //libraries required for OpenAPI-Swagger
-const swaggerUi = require('swagger-ui-express'); 
-const fs = require("fs")
-const YAML = require('yaml')
+import swaggerUi from 'swagger-ui-express'; 
+import fs from "fs";
+import YAML from 'yaml';
 
 // Utils
-const { getLanguage, normalizeString } = require('./gateway-service-utils');
+import { getLanguage, normalizeString } from './gateway-service-utils.js';
 
 const app = express();
 const port = 8000;
@@ -18,6 +18,7 @@ const port = 8000;
 const llmServiceUrl = process.env.LLM_SERVICE_URL || 'http://localhost:8003';
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
+const gameServiceUrl = process.env.GAME_SERVICE_URL || 'http://localhost:8004';
 
 app.use(cors());
 app.use(express.json());
@@ -62,16 +63,51 @@ app.post('/askllm', async (req, res) => {
   }
 });
 
-// Endpoint to get a question from the Wikidata service
-app.get('/api/questions', async (req, res) => {
-  const gameSession = new GameSession.default("user123", ["geography", "history"], "easy");
-  const question = await gameSession.playQuestions();
-  if (question) {
-      res.json(question);
-  } else {
-      res.status(500).json({ error: "No se pudo obtener la pregunta" });
+
+// Iniciar una nueva partida
+app.get('/api/game/start', async (req, res) => {
+  console.log("voy");
+  try {
+   
+    const gameResponse = await axios.post(`${gameServiceUrl}/api/game/new`, req.body);
+    res.json(gameResponse.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json({ error: error.response?.data?.error || 'Error starting game' });
   }
 });
+
+// Obtener la siguiente pregunta de la partida actual
+   
+app.get('/api/game/question', async (req, res) => { 
+  console.log("Pido pregunta");   
+
+  try {
+   
+    const { userId } = req.query;
+    
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+
+    const questionResponse = await axios.post(`${gameServiceUrl}/api/game/currentquestion`, { userId });
+    res.json(questionResponse.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json({ error: error.response?.data?.error || 'Error retrieving question' });
+  }
+});
+
+// Enviar respuesta del usuario
+app.get('/api/game/answer', async (req, res) => {
+  console.log("quieres respuesta");
+  try {
+    
+    const answerResponse = await axios.post(`${gameServiceUrl}/api/game/awnser`, req.body);
+    res.json(answerResponse.data);
+  } catch (error) {
+    res.status(error.response?.status || 500).json({ error: error.response?.data?.error || 'Error submitting answer' });
+  }
+});
+
 
 // Endpoint to get a clue from the LLM service
 app.post('/askllm/clue', async (req, res) => {
@@ -161,4 +197,4 @@ const server = app.listen(port, () => {
   console.log(`Gateway Service listening at http://localhost:${port}`);
 });
 
-module.exports = server
+export default server;

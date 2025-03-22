@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose";
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;  
 
 // Definir el esquema de usuario
 const userSchema = new Schema({
@@ -47,4 +48,4 @@ userSchema.pre("save", async function (next) {
 
 // Crear el modelo a partir del esquema
 const User = model("User", userSchema);
-export default User;
+module.exports =  User;
