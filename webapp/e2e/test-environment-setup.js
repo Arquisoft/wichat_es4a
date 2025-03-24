@@ -1,10 +1,15 @@
 const { MongoMemoryServer } = require('mongodb-memory-server');
+const dotenv = require('dotenv');
+const path = require('path');
 
 let mongoserver;
 let userservice;
 let authservice;
 let llmservice;
 let gatewayservice;
+
+// Make available the .env file for the e2e tests so the enviroment variables are loaded
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 async function startServer() {
     console.log('Starting MongoDB memory server...');
