@@ -91,7 +91,6 @@ app.post('/ask', async (req, res) => {
 
 const server = app.listen(port, () => {
   console.log(`LLM Service listening at http://localhost:${port}`);
-  console.log(process.env.LLM_API_KEY);
 });
 
 module.exports = server
