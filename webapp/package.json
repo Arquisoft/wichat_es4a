@@ -28,6 +28,7 @@
     "react-simple-typewriter": "^5.0.1",
     "recharts": "^2.15.1",
     "typewriter-effect": "^2.21.0",
+    "util": "^0.12.5",
     "web-vitals": "^3.5.1"
   },
   "scripts": {

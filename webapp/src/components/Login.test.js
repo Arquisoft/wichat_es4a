@@ -1,8 +1,12 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {Login}  from './Login';
+import { Login } from './Login';
+import { MemoryRouter } from 'react-router';
+import { AuthProvider } from './contextProviders/AuthContext';
+import i18n from 'i18next';
 
 const mockAxios = new MockAdapter(axios);
 
@@ -11,52 +15,72 @@ describe('Login component', () => {
     mockAxios.reset();
   });
 
-  it('should log in successfully', async () => {
-    render(<Login />);
+  it('should log in successfully and show a confirmation message', async () => {
+    // Render the Login component with i18n in English and MemoryRouter
+    render(
+      <AuthProvider>
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      </AuthProvider>
+    );
 
-    const usernameInput = screen.getByLabelText(/Username/i);
-    const passwordInput = screen.getByLabelText(/Password/i);
+    // Gets the username and password labels from i18n translations
+    const usernameText = i18n.t('username-message');
+    const passwordText = i18n.t('password-message');
+
+    // Get the username and password input fields and the login button
+    const usernameInput = screen.getByLabelText(usernameText);
+    const passwordInput = screen.getByLabelText(passwordText);
     const loginButton = screen.getByRole('button', { name: /Login/i });
 
     // Mock the axios.post request to simulate a successful response
-    mockAxios.onPost('http://localhost:8000/login').reply(200, { createdAt: '2024-01-01T12:34:56Z' });
-    mockAxios.onPost('http://localhost:8000/askllm').reply(200, { answer: 'Hello test user' });
+    mockAxios.onPost('http://localhost:8000/login').reply(200, { success: true });
 
-    // Simulate user input
+    // Use act to wrap the user interactions
     await act(async () => {
-        fireEvent.change(usernameInput, { target: { value: 'testUser' } });
-        fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
-        fireEvent.click(loginButton);
-      });
+      // Simulate user input
+      await userEvent.type(usernameInput, 'testUser');
+      await userEvent.type(passwordInput, 'testPassword');
+      await userEvent.click(loginButton);
+    });
 
-    // Verify that the user information is displayed
-    expect(screen.getByText(/Your account was created on 1\/1\/2024/i)).toBeInTheDocument();
+    // Verify that the confirm login message is displayed
+    const confirmMessage = i18n.t('login-success');
+    expect(screen.getByText(confirmMessage)).toBeInTheDocument();
   });
 
-  it('should handle error when logging in', async () => {
-    render(<Login />);
 
-    const usernameInput = screen.getByLabelText(/Username/i);
-    const passwordInput = screen.getByLabelText(/Password/i);
+  it('should handle error when logging in and show an error message', async () => {
+    render(
+      <AuthProvider>
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      </AuthProvider>
+    );
+
+    // Gets the username and password labels from i18n translations
+    const usernameText = i18n.t('username-message');
+    const passwordText = i18n.t('password-message');
+
+    // Get the username and password input fields and the login button
+    const usernameInput = screen.getByLabelText(usernameText);
+    const passwordInput = screen.getByLabelText(passwordText);
     const loginButton = screen.getByRole('button', { name: /Login/i });
 
     // Mock the axios.post request to simulate an error response
     mockAxios.onPost('http://localhost:8000/login').reply(401, { error: 'Unauthorized' });
 
-    // Simulate user input
-    fireEvent.change(usernameInput, { target: { value: 'testUser' } });
-    fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
-
-    // Trigger the login button click
-    fireEvent.click(loginButton);
-
-    // Wait for the error Snackbar to be open
-    await waitFor(() => {
-      expect(screen.getByText(/Error: Unauthorized/i)).toBeInTheDocument();
+    // Use act to wrap the user interactions
+    await act(async () => {
+      // Simulate user input
+      await userEvent.type(usernameInput, 'testUser');
+      await userEvent.type(passwordInput, 'testPassword');
+      await userEvent.click(loginButton);
     });
 
-    // Verify that the user information is not displayed
-    expect(screen.queryByText(/Hello testUser!/i)).toBeNull();
-    expect(screen.queryByText(/Your account was created on/i)).toBeNull();
+    // Verify that the error login message is displayed
+    expect(screen.getByRole('alert')).toBeInTheDocument();
   });
 });
