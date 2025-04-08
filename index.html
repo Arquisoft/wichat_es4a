@@ -1061,55 +1061,65 @@ junto a una tabla de mapeo mostrando las relaciones entre canales y la entrada/s
 <h4 id="_diagrama_de_despliegue">3.2.1. Diagrama de Despliegue</h4>
 <div class="imageblock">
 <div class="content">
-<img src="./images/diagrama-despliegue.png" alt="Diagrama de Despliegue">
+<img src="./images/03-Diagrama-Despliegue.png" alt="Diagrama de Despliegue">
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_explicación_de_interfaces_técnicas">3.2.2. Explicación de Interfaces Técnicas</h4>
 <div class="sect4">
-<h5 id="_gateway">Gateway</h5>
-<div class="paragraph">
-<p>API que hace de enlace entre las distintas partes de la aplicación</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_aplicación_react">Aplicación React</h5>
+<h5 id="_webapp">WebApp</h5>
 <div class="paragraph">
 <p>Aplicación web hecha con React que aporta al usuario una interfaz con la que interactuar y por medio de la cual hacer las peticiones
 correspondientes al backend</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_base_de_datos_de_usuarios">Base de Datos de Usuarios</h5>
+<h5 id="_gatewayservice">gatewayservice</h5>
 <div class="paragraph">
-<p>Base de datos que almacena toda la información referente a los usuarios como su nombre de usuario, sus datos de logIn, su histórico de partidas, etc</p>
+<p>API que hace de enlace entre las distintas partes de la aplicación. Funciona como una especie de fachada que sirve para que los
+distintos microservicios no tengan por qué conocerse entre ellos, para comunicarse solo deben de hacer peticiones al gateway y este
+hará una redirección de la petición al servicio correspondiente.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_servicio_de_autenticación">Servicio de Autenticación</h5>
+<h5 id="_authservice">authservice</h5>
 <div class="paragraph">
-<p>Interfaz que se comunica con la base de datos de usuarios a fin de comprobar si los datos introducidos de inicio de sesión
-se corresponden con un usuario relaciones</p>
+<p>Servicio que se comunica con la base de datos de usuarios a fin de comprobar si los datos introducidos de inicio de sesión
+se corresponden con un usuario</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_servicio_de_usuario">Servicio de Usuario</h5>
+<h5 id="_userservice">userservice</h5>
 <div class="paragraph">
-<p>Interfaz que se comunica con la base de datos de usuarios a fin de consultar y actualizar la información referente a los usuarios y
-sus partidas</p>
+<p>Servicio que se comunica con la base de datos de usuarios a fin de añadir usuarios y modificar los datos relativos a los usuarios</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_servicio_llm">Servicio LLM</h5>
+<h5 id="_base_de_datos_userdb">Base de Datos "userdb"</h5>
 <div class="paragraph">
-<p>Servicio que, por medio de las pistas obtenidas de WikiData, procesará y responderá a las pistas que pida el usuario</p>
+<p>Base de datos que almacena toda la información de los usuarios como su nombre de usuario, sus datos de logIn, etc</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_api_llm">API LLM</h5>
+<h5 id="_gameservice">gameservice</h5>
 <div class="paragraph">
-<p>Servicio externo que nos permite acceder al modelo de lenguaje y utilizarlo</p>
+<p>Servicio que guarda la información relativa a las partidas de los usuarios en la base de datos "bd". Además, gestiona
+los datos de configuración de la partida (topics e idioma), almacenandolos en una caché para un rápido acceso. Estos datos posteriormente
+son utilizados por el questionservice para obtener las preguntas usando dicha configuración.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_base_de_datos_bd">Base de Datos "bd"</h5>
+<div class="paragraph">
+<p>Base de datos que almacena la información de las partidas jugadas por los usuarios</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_questionservice">questionservice</h5>
+<div class="paragraph">
+<p>Servicio que genera las preguntas por medio de plantillas para los diferentes topics e idiomas y utiliza Wikidata para la
+obtención de las respuestas correctas y falsas.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1117,6 +1127,19 @@ sus partidas</p>
 <div class="paragraph">
 <p>API del servicio web WikiData que aportará a la aplicación las imágenes para el juego, las respuestas a las mismas y las
 pistas que el LLM utilizará para responder a los usuarios</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_llmservice">llmservice</h5>
+<div class="paragraph">
+<p>Servicio que, por medio de la respuesta correcta a la pregunta actual de la partida, procesará y responderá a las preguntas que tenga
+el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_api_llm">API LLM</h5>
+<div class="paragraph">
+<p>Servicio externo que nos permite acceder al modelo de lenguaje y utilizarlo</p>
 </div>
 </div>
 </div>
@@ -1137,44 +1160,59 @@ pistas que el LLM utilizará para responder a los usuarios</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Aplicación React</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WebApp</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Peticiones HTTP del usuario indicando sus acciones</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Responde con información a través de la interfaz.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gateway</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Peticiones REST de webapp para obtener datos como imágenes y respuestas o solicitar operaciones como iniciar sesión</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Respuesta con la información solicitada.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gatewayservice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Peticiones REST de los microservicios para realizar acciones en la aplicación</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Respuesta con la información/acciones solicitadas obtenida de otros microservicios.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Servicio Autenticación</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">authservice</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Datos de inicio de sesión de un usuario</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Consulta de comprobación de los datos de inicio de sesión</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resultado de comprobación de los datos de inicio de sesión</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Servicio Usuario</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Datos a consultar o insertar en la base de datos</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Consulta o inserción completa a la base de datos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">userservice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Datos a insertar/modificar en la base de datos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modificación o inserción completa a la base de datos</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Base de Datos de Usuarios</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Instrucciones SQL para consultas o insercioes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base de Datos "userdb"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instrucciones para consultas o insercioes en base de datos</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Resultado de las consultas o confirmación de las inserciones</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Servicio LLM</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prompt de solicitud de pistas</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pista generada por el modelo a partir de información de Wikidata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gameservice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Información de inicio de partida o final de partida</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Responde con confirmación de las operaciones o con id de caché para rápido acceso a la configuración de la partida</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">API LLM</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prompt de solicitu de pistas</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Respuesta del modelo de lenguaje generada a partir del prompt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base de Datos "bd"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instrucciones para consultas o inserciones en base de datos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resultado de las consultas o confirmación de las inserciones</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">questionservice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuración de la partida</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pregunta con las posibles respuestas (correcta e incorrectas)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">API Wikidata</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Solicitud de imagenes o pistas</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Imagen nueva, respuesta o pista sobre la imagen ofrecida con anterioridad</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">llmservice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prompt de solicitud de pistas y respuesta correcta a la pregunta</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pista generada por el modelo evitando decir la respuesta correcta</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API LLM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prompt de solicitud de pistas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Respuesta del modelo de lenguaje generada a partir del prompt</p></td>
 </tr>
 </tbody>
 </table>
@@ -2863,7 +2901,7 @@ Lo utilizamos para describir de manera codificada los recuross necesarios para n
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2025-04-01 11:05:24 +0200
+Last updated 2025-04-08 13:19:40 +0200
 </div>
 </div>
 </body>
