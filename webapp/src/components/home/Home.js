@@ -28,7 +28,7 @@ export const Home = () => {
      */
     const fetchGreeting = async () => {
       try {
-        const response = await welcome({ name: user?.username || "", language: i18n.language });
+        const response = await welcome({ username: user?.username || "", language: i18n.language.split('-')[0] });
         setGreeting(response.data.answer);
       } catch (error) {
         console.error("Error al obtener saludo:", error);

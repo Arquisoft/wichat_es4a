@@ -12,11 +12,12 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
  * @returns {Promise<Object>} The response data from the LLM service.
  * @throws Will throw an error if the request fails.
  */
-const askClue = async ({ name, userQuestion, language }) => {
+const askClue = async ({ correctAnswer, question, context, language }) => {
     try {
         const response = await axios.post(`${apiEndpoint}/askllm/clue`, {
-            name,
-            userQuestion,
+            correctAnswer,
+            question,
+            context,
             language
         });
         return response;
@@ -35,10 +36,10 @@ const askClue = async ({ name, userQuestion, language }) => {
  * @returns {Promise<Object>} The response from the LLM service.
  * @throws Will throw an error if the request fails.
  */
-const welcome = async ({ name, language }) => {
+const welcome = async ({ username, language }) => {
     try {
         const response = await axios.post(`${apiEndpoint}/askllm/welcome`, {
-            name,
+            username,
             language
         });
         return response;

@@ -1,9 +1,10 @@
 {
-    "name": "question",
+    "name": "questionservice",
     "version": "1.0.0",
     "type": "module",
     "scripts": {
-        "start": "node question.js",
+        "start": "node question-service.js",
+        "type": "module",
         "test": "jest"
     },
     "author": "",

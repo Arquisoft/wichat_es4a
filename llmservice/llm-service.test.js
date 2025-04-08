@@ -6,18 +6,25 @@ const axios = require('axios');
 const app = require('./llm-service'); 
 
 afterAll(async () => {
-    app.close();
-  });
+  app.close();
+});
 
 jest.mock('axios');
 
 describe('LLM Service', () => {
+  // Test de health endpoint
+  it('should return health status', async () => {
+    const response = await request(app).get('/health');
+    expect(response.statusCode).toBe(200);
+    expect(response.body.status).toBe('OK');
+  });
+
   // Mock responses from external services
   axios.post.mockImplementation((url, data) => {
     if (url.startsWith('https://generativelanguage')) {
       return Promise.resolve({ data: { candidates: [{ content: { parts: [{ text: 'llmanswer' }] } }] } });
     } else if (url.startsWith('https://empathyai')) {
-      return Promise.resolve({ data: { choices: [ {message: { content: 'llmanswer' } } ] } });
+      return Promise.resolve({ data: { choices: [ { message: { content: 'llmanswer' } } ] } });
     }
   });
 
@@ -37,4 +44,35 @@ describe('LLM Service', () => {
     expect(response2.body.answer).toBe('llmanswer');
   });
 
+  // Test /askllm/clue endpoint
+  it('the llm should reply', async () => {
+    const response1 = await request(app)
+      .post('/askllm/clue')
+      .send({ correctAnswer: 'answer', question: 'a question', context: [], language: 'es' });
+  
+    const response2 = await request(app)
+      .post('/askllm/clue')
+      .send({ correctAnswer: 'answer', question: 'a question', context: [], language: 'es' });
+  
+    expect(response1.statusCode).toBe(200);
+    expect(response1.body.answer).toBe('llmanswer');
+    expect(response2.statusCode).toBe(200);
+    expect(response2.body.answer).toBe('llmanswer');
+  });
+
+  // Test /askllm/welcome endpoint
+  it('the llm should reply', async () => {
+    const response1 = await request(app)
+      .post('/askllm/welcome')
+      .send({ username: 'username', language: 'es' });
+
+    const response2 = await request(app)
+      .post('/askllm/welcome')
+      .send({ username: 'username', language: 'es' });
+
+    expect(response1.statusCode).toBe(200);
+    expect(response1.body.answer).toBe('llmanswer');
+    expect(response2.statusCode).toBe(200);
+    expect(response2.body.answer).toBe('llmanswer');
+  });
 });

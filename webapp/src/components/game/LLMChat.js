@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useTranslation } from 'react-i18next';
 import { askClue } from '../../services/LLMService';
@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
  * React component that represents a chat with the LLM to ask for clues.
  * @returns a chat with the LLM to ask for clues.
  */
-const LLMChat = ({ name }) => {
+const LLMChat = ({ correctAnswer }) => {
     const { t, i18n } = useTranslation();
 
     const [messages, setMessages] = useState([
@@ -19,6 +19,14 @@ const LLMChat = ({ name }) => {
     ]);
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
+    const scrollRef = useRef(null);
+    const [chatContext, setChatContext] = useState([]);
+
+    const scrollToBottom = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollToBottom();
+        }
+    };
 
     /**
      * Converts a text message into speech and plays it aloud.
@@ -31,6 +39,7 @@ const LLMChat = ({ name }) => {
               words={[message]}
               delaySpeed={100}
               typeSpeed={50}
+              onType={scrollToBottom}
               onLoopDone={speakLoudTheMessage(message)}
             />
         );
@@ -81,16 +90,24 @@ const LLMChat = ({ name }) => {
         setLoading(true);
 
         try {
+            setChatContext(prevContext => [
+                ...prevContext,
+                { role: 'user', content: inputValue.trim() }
+            ]);
+
             const response = await askClue({ 
-                name: name, 
-                userQuestion: inputValue, 
-                language: i18n.language 
+                correctAnswer: correctAnswer, 
+                question: inputValue, 
+                context: chatContext,
+                language: i18n.language.split('-')[0]
             });
             console.log(i18n.language);
             console.log("Respuesta del LLM:", response.data.answer);
+
+            const answerText = response.data.answer;
             const llmMsg = (
                 <p className="llm-message" key={`llm-${messages.length}`}>
-                    {writeAndspeakLoudTheMessage(response.data.answer)}
+                    {writeAndspeakLoudTheMessage(answerText)}
 
 
 
@@ -98,6 +115,10 @@ const LLMChat = ({ name }) => {
                 </p>
             );
             setMessages(prevMessages => [...prevMessages, llmMsg]);
+            setChatContext(prevContext => [
+                ...prevContext,
+                { role: 'assistant', content: answerText }
+            ]);
         } catch (error) {
             console.error("Error enviando mensaje:", error);
             const errorMsg = (
@@ -120,6 +141,7 @@ const LLMChat = ({ name }) => {
     return (
         <Card className="llm-chat" bg={'light'}>
             <Scrollbars
+                ref={scrollRef}
                 style={{ width: '100%', height: '100%' }}
                 autoHide // Oculta el scroll cuando no se usa
                 autoHideTimeout={1000} // Tiempo antes de ocultarlo
@@ -133,7 +155,7 @@ const LLMChat = ({ name }) => {
             >
                 <div className="llm-chat-messages">
                     {messages.map((msg, index) => (
-                        <Row>
+                        <Row key={`message-${index}`}>
                             {msg.props.className === "llm-message" ? (
                                 <>
                                     <Col md={2}>
@@ -145,28 +167,14 @@ const LLMChat = ({ name }) => {
                                 </>
                             ) : (
                                 <>
-                                    <Col md={4}>
-                                    </Col>
+                                    <Col md={4}></Col>
                                     <Col md={8}>
                                         {msg}
                                     </Col>
-
                                 </>
                             )}
                         </Row>
                     ))}
-                    {loading && (
-                        <Row>
-                            <Col md={2}>
-                                <img src="/iconoLLM.png" alt="LLM" className='llm-icon' />
-                            </Col>
-                            <Col md={8}>
-                                <p className="llm-message loading">
-                                    <span className="question-loading">{t('llm-chat-loading-msg')}</span>
-                                </p>
-                            </Col>
-                        </Row>
-                    )}
                 </div>
             </Scrollbars>
             <form className="llm-chat-form" onSubmit={handleSubmit}>

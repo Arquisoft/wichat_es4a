@@ -2,7 +2,7 @@
 FROM node:22
 
 # Set the working directory in the container
-WORKDIR /usr/src/game_service
+WORKDIR /usr/src/gameservice
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 8005
 
 # Define the command to run your app
-CMD ["node", "game.js"]
+CMD ["node", "game-service.js"]

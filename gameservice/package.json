@@ -1,9 +1,9 @@
 {
-  "name": "game_service",
+  "name": "gameservice",
   "version": "1.0.0",
-  "main": "game.js",
+  "main": "game-service.js",
   "scripts": {
-    "start": "node game.js",
+    "start": "node game-service.js",
     "test": "jest"
   },
   "keywords": [],

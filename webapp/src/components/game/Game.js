@@ -111,7 +111,7 @@ export const Game = () => {
         console.log("VOY A PEDIR LA SIGUIENTE PREGUNTA")
         getNextQuestion().then((questionInfo) => {
 
-            console.log("La pregunta es: " + questionInfo.question);
+            console.log("La pregunta es: " + questionInfo.question.text);
             setQuestion(questionInfo.question);
             setAnswers(questionInfo.answers);
             setStopTimer(false);
@@ -327,7 +327,7 @@ export const Game = () => {
                 </div>
             </section>
             <aside className='llm-chat-aside'>
-                <LLMChat name={correctAnswer} />
+                {correctAnswer && <LLMChat correctAnswer={correctAnswer} />}
             </aside>
             <div className="pass-button-div">
                 <Button className="pass-button" onClick={passQuestion} disabled={blockButtons} >{t('pass-button-text')}</Button>
