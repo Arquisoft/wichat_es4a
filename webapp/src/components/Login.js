@@ -77,7 +77,7 @@ export const Login = () => {
                   />
                 </Form.Group>
                 <Button type="submit" className="w-100" style={{ backgroundColor: '#FEB06A', borderColor: '#FEB06A', color: '#5D6C89' }}>
-                  Login
+                    {t('login-message')}
                 </Button>
               </Form>
               {loginSuccess && <Alert variant="success" className="mt-3">{t('login-success')}</Alert>}

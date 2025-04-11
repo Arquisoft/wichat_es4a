@@ -119,14 +119,14 @@ export const AddUser = () => {
                   <Form.Label style={{ color: '#5D6C89', 'fontWeight': 'bold' }}>{t('password-edit-confirm')}</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder={t('enter-password-placeholder')}
+                    placeholder={t('enter-confirm-password-placeholder')}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                   />
                 </Form.Group>
                 <Button type="submit" className="w-100" style={{ backgroundColor: '#FEB06A', borderColor: '#FEB06A', color: '#5D6C89' }}>
-                  Sign Up
+                    {t('signup-message')}
                 </Button>
               </Form>
               {success && <Alert variant="success" className="mt-3">{t('user-added')}</Alert>}

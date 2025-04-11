@@ -67,11 +67,14 @@
     "login-success": "Se ha iniciado sesión correctamente",
     "enter-username-placeholder": "Introduzca su nombre de usuario",
     "enter-password-placeholder": "Introduzca su contraseña",
+    "enter-confirm-password-placeholder": "Confirme su contraseña",
     "auth-error-too-many-attempts": "Demasiadas intentos. Inténtelo de nuevo más tarde.",
     "password-error-content": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y no contener espacios.",
     "confirm-logout": "¿Estás seguro de que deseas cerrar sesión?",
     "logout-message": "Cerrar Sesión",
     "cancel-button": "Cancelar",
     "confirm-button": "Aceptar",
-    "current-password": "Contraseña actual"
+    "current-password": "Contraseña actual",
+    "signup-message": "Sign Up",
+    "login-message": "Login"
 }
