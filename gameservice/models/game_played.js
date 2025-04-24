@@ -23,19 +23,19 @@ const gamePlayedSchema = new Schema({
   userId: {
     type: ObjectId,
     ref: "User",
-    required: true
+    required: false
   },
   numberOfQuestions: {
     type: Number,
-    required: true
+    required: false
   },
   numberOfCorrectAnswers: {
     type: Number,
-    required: true
+    required: false
   },
   gameMode: {
     type: String,
-    required: true
+    required: false
   },
   points: {
     type: Number,

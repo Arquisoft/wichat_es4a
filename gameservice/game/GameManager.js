@@ -18,7 +18,7 @@
  */
 
 const { GamePlayed } = require("../models/game_played");
-const Question  = require("../models/Question");
+const { Question } = require("../models/Question");
 
 
 const { requestQuestion} = require("./QuestionAsk");
@@ -46,7 +46,6 @@ const newGame = async (req, res) => {
         const allowedTopics = ["geography", "history", "science", "sport", "character", "art", "entertainment"];
         const allowedLangs = ["es", "en"];
 
-        // Validar campos obligatorios y que no estén vacíos
         if (
             !cacheId ||
             !topics ||
@@ -57,20 +56,16 @@ const newGame = async (req, res) => {
             return res.status(400).json({ error: "Missing or empty required fields: cacheId, topics, or lang." });
         }
 
-         // Normalizar topics a array
          const topicList = Array.isArray(topics) ? topics : [topics];
 
-         // Validar que todos los topics estén permitidos
          const invalidTopics = topicList.filter(t => !allowedTopics.includes(t));
-        // Validar idioma
         if (!allowedLangs.includes(lang) || invalidTopics.length > 0) {
             return res.status(400).json({ error: `Invalid topics or language` });
         }
 
         // Store values in cache
         gameCache.set(cacheId.toString(), { topics, lang });
-        res.status(200).send(cacheId.toString()); // Send the cache ID back to the client
-
+        res.status(200).json({ cacheId });
     } catch (error) {
         res.status(500).json({ error: "Internal server error" });
     }
@@ -86,12 +81,11 @@ const newGame = async (req, res) => {
 const next = async (req, res) => {
 
     try {
-        let cacheId = req.body.cacheId;
-
+        let cacheId = req.body.user.userId;
 
         // Get values from cache
         const cacheData = gameCache.get(cacheId.toString());
-        if (!cacheData) return res.status(400).json({ error: "Game settings not found." });
+        if (!cacheData || cacheId.trim() === "") return res.status(400).json({ error: "Game settings not found." });
 
         const { topics, lang } = cacheData;
 
@@ -102,7 +96,7 @@ const next = async (req, res) => {
         const formattedResponse = {
             text: questionRaw.question,  
             imageUrl: questionRaw.imageUrl || "", 
-            selectedAnswer: "",  
+            selectedAnswer: questionRaw.selectedAnswer || "",  
             answers: questionRaw.options.map(option => ({
                 text: option,
                 isCorrect: option === questionRaw.answer  
@@ -127,12 +121,26 @@ const next = async (req, res) => {
  */
 const endAndSaveGame = async (req, res) => {
     try {
+       
+        if (!req.body.user) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+        
         const game = req.body;
 
         // Validate input data
         if (!game.user.userId || !game || !game.questions || !Array.isArray(game.questions)) {
-            return res.status(400).send("Missing required fields or invalid data format.");
+            return res.status(400).json({ error: "Missing fields or invalid format" });
         }
+
+        const topicsSet = new Set();
+        game.questions.forEach(q => {
+            if (q.topics) {
+                const topicList = Array.isArray(q.topics) ? q.topics : [q.topics];
+                topicList.forEach(t => topicsSet.add(t));
+            }
+        });
+        const uniqueTopics = Array.from(topicsSet);
 
         // Create a new game entry
         const newGame = new GamePlayed({
@@ -142,24 +150,13 @@ const endAndSaveGame = async (req, res) => {
             gameMode: game.gameMode,
             points: game.points,
             questions: game.questions,
-            topi
+            topics: uniqueTopics, 
 
         });
 
 
         // Save the game to the database
-        const savedGame = await newGame.save();
-
-        // Recoger todos los topics de las preguntas sin repetir
-        const topicsSet = new Set();
-        game.questions.forEach(q => {
-            if (q.topics) {
-                // Asegura que siempre trabajas con array o único topic
-                const topicList = Array.isArray(q.topics) ? q.topics : [q.topics];
-                topicList.forEach(t => topicsSet.add(t));
-            }
-        });
-        const uniqueTopics = Array.from(topicsSet);
+        const savedGame = await newGame.save();       
 
 
         // Save all the questions related to this game
@@ -174,10 +171,9 @@ const endAndSaveGame = async (req, res) => {
                 isCorrect: ans.isCorrect, // If it is the correct answer
 
             })),
-          topics: uniqueTopics // ← aquí los topics únicos
+          topics: q.topics 
             
         }));
-
 
         // Save all the questions to the database
         const savedQuestions = await Question.insertMany(questionsToInsert);
@@ -187,8 +183,10 @@ const endAndSaveGame = async (req, res) => {
         await savedGame.save();
 
 
-        res.status(200).send("Game data saved successfully.");
+        res.status(200).json({ message: "Game data saved successfully." });
     } catch (error) {
+        console.error(error.stack); // También podemos mostrar el stack del error para tener más contexto
+    
         res.status(500).json({ error: "Internal server error" });
     }
 };
@@ -200,6 +198,7 @@ const endAndSaveGame = async (req, res) => {
  * @param {Object} res - Response object to return the questions for the specified game.
  * @returns {void}  Sends the questions associated with the specified game in JSON format.
  */
+
 const getGameQuestions = async (req, res) => {
     try {
         const gameId = req.body.gameId;  // Get the game ID from the URL parameters
@@ -215,7 +214,7 @@ const getGameQuestions = async (req, res) => {
             .exec();
 
         if (!game) {
-            return res.status(404).json({ message: 'Game not found.' });
+            return res.status(404).json({ error: 'Game not found.' });
         }
 
         // Return the questions associated with the game in JSON format
@@ -235,9 +234,10 @@ const getGameQuestions = async (req, res) => {
  */
 const getUserGamesWithoutQuestions = async (req, res) => {
     try {
+       
         const userId = req.body.user.userId ;  // Get the user ID from the request body
         if (!userId) {
-            return res.status(400).json({ error: "Missing userId in request body." });
+            return res.status(401).json({ error: "Unauthorized - missing userId." });
         }
         
 
@@ -246,7 +246,7 @@ const getUserGamesWithoutQuestions = async (req, res) => {
 
 
         if (!games || games.length === 0) {
-            return res.status(404).json({ message: 'No games found for this user.' });
+            return res.status(404).json({ "error": "No games found for this user." });
         }
 
         // Return games without associated questions in JSON format
@@ -268,6 +268,72 @@ const getUserGamesWithoutQuestions = async (req, res) => {
 };
 
 
+//MODIFICACIONES PARA QUE FUNCIONEN LOS POST
+/**
+ * Retrieves all questions associated with a specific game.
+ * 
+ * @param {Object} req - Request object containing the game ID as a URL parameter.
+ * @param {Object} res - Response object to return the questions for the specified game.
+ * @returns {void} Sends the questions associated with the specified game in JSON format.
+ */
+/*
+const getGameQuestions = async (req, res) => {
+    try {
+        const gameId = req.params.gameId;  // Get the game ID from URL params
+        if (!gameId) {
+            return res.status(400).json({ error: "Missing gameId in URL parameters." });
+        }
+
+        const game = await GamePlayed.findById(gameId)
+            .populate('questionsPlayed')
+            .exec();
+
+        if (!game) {
+            return res.status(404).json({ error: 'Game not found.' });
+        }
+
+        res.status(200).json(game.questionsPlayed);
+    } catch (error) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+};*/
+/**
+ * Retrieves all games associated with a user, excluding the associated questions.
+ * 
+ * @param {Object} req - Request object containing the user ID as a URL parameter.
+ * @param {Object} res - Response object to return the user's game history.
+ * @returns {void} Sends an array of games without associated questions in JSON format.
+ */
+/*
+const getUserGamesWithoutQuestions = async (req, res) => {
+    try {
+        const userId = req.params.userId; // Get user ID from URL params
+        if (!userId) {
+            return res.status(401).json({ error: "Unauthorized - missing userId." });
+        }
+
+        const objectId = new mongoose.Types.ObjectId(userId);
+        const games = await GamePlayed.find({ userId: objectId }).exec();
+
+        if (!games || games.length === 0) {
+            return res.status(404).json({ error: "No games found for this user." });
+        }
+
+        const formattedGames = games.map(game => ({
+            _id: game._id,
+            userId: game.user,
+            numberOfQuestions: game.numberOfQuestions,
+            numberOfCorrectAnswers: game.numberOfCorrectAnswers || 0,
+            gameMode: game.gameMode,
+            points: game.points,
+            topics: game.topics || []
+        }));
+
+        res.status(200).json(formattedGames);
+    } catch (error) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+};*/
 
 /**
  * Retrieves the number of questions played in the current game.

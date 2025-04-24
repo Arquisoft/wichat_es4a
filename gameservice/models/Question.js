@@ -23,7 +23,7 @@ const questionSchema = new Schema({
 
     imageUrl: { 
         type: String, 
-        required: false 
+        required: true 
     }, // URL of the image associated with the question
 
     wasUserCorrect: { 
@@ -65,5 +65,5 @@ const Question = model("Question", questionSchema);
 /**
  * Exports the Question model for use in other modules.
  */
-module.exports = Question;
+module.exports = {Question};
 
