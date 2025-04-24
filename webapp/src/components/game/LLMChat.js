@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 
 /**
  * React component that represents a chat with the LLM to ask for clues.
+ * @param {String} name - The name (correctAnswer) that the LLM has to avoid to say.
  * @returns a chat with the LLM to ask for clues.
  */
 const LLMChat = ({ correctAnswer }) => {
@@ -99,8 +100,6 @@ const LLMChat = ({ correctAnswer }) => {
                 context: chatContext,
                 language: i18n.language.split('-')[0]
             });
-
-            const answerText = response.data.answer;
             const llmMsg = (
                 <p className="llm-message" key={`llm-${messages.length}`}>
                     {writeAndspeakLoudTheMessage(answerText)}
@@ -151,7 +150,7 @@ const LLMChat = ({ correctAnswer }) => {
             >
                 <div className="llm-chat-messages">
                     {messages.map((msg, index) => (
-                        <Row key={`message-${index}`}>
+                        <Row key={index}>
                             {msg.props.className === "llm-message" ? (
                                 <>
                                     <Col md={2}>
@@ -183,7 +182,7 @@ const LLMChat = ({ correctAnswer }) => {
                     onChange={handleInputChange}
                     disabled={loading}
                 />
-                <button type="submit" className="send-prompt-button" disabled={loading}>
+                <button data-testid="chatSubmitButton" type="submit" className="send-prompt-button" disabled={loading}>
                     <img src="/send-message.png" alt="Enviar" />
                 </button>
             </form>

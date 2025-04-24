@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { ResultSectorChart } from './ResultSectorChart';
 import { QuestionAccordion } from "../gameHistory/QuestionAccordion";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { GameConfigProvider } from '../contextProviders/GameConfigProvider';
 import Configuration from '../home/Configuration';
 import { use } from "i18next";
@@ -60,7 +60,20 @@ export const GameResults = () => {
             </Row>
             <Row className="justify-content-md-center">
                 <Col lg={2} xs={4} className="d-flex gap-2">
-                    <Button className="game-results-button" variant="primary" onClick={() => setShowConfig(true)}>{t('play-again-button-text')}</Button>
+                    <Button
+                        className="game-results-button"
+                        variant="primary"
+                        onClick={() => {
+                            if (storedResults.isChaosMode) {
+                                navigate('/game'); 
+                            } else {
+                                setShowConfig(true); 
+                            }
+                        }}
+                    >
+                        {t('play-again-button-text')}
+                    </Button>
+
                     <Button className="game-results-button" variant="primary" onClick={() => navigate('/')}>{t('go-back-to-menu')}</Button>
                 </Col>
             </Row>

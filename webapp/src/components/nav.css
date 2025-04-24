@@ -1,30 +1,47 @@
+/* ===================== NAVBAR STYLE ===================== */
+
 .navbar-custom {
-  height: 110px; 
-  padding: 10px 30px; 
-  background-color: #5D6C89;
+  height: 110px;
+  padding: 10px 30px;
+  background-color: #5D6C89; /* Dark background for the navbar */
+  display: flex;
+  align-items: center; /* Center items vertically */
 }
 
+.navbar-inner-container {
+  display: flex;
+  justify-content: space-between; /* Space between logo and nav items */
+  align-items: center;
+  width: 100%;
+}
 
 .navbar-logo {
   height: 105px;
   width: 115px;
-  margin-left: 20px;
+  margin-left: 20px; /* Add left space to logo */
 }
 
+.navbar-custom .nav {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Space between nav items */
+}
+
+/* ===================== LINKS AND DROPDOWNS ===================== */
 
 .dropdown-language, .rules-menu {
   font-size: 20px;
-  color: #FBF6F3;
+  color: #FBF6F3; /* Light text color */
   text-decoration: none;
-  transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out; /* Smooth color transition */
 }
 
 .dropdown-language:hover, .rules-menu:hover {
-  color: #FEB06A;
+  color: #FEB06A; /* Change color on hover */
 }
 
 .dropdown-language:active, .rules-menu:active {
-  color: #FEB06A;
+  color: #FEB06A; /* Same color on active */
 }
 
 .icon-menu {
@@ -41,8 +58,8 @@
 .language-options:active, 
 .language-options:hover, 
 .language-options:focus {
-  background-color: #FEB06A;
-  color: #FBF6F3;
+  background-color: #FEB06A; /* Highlight background on interaction */
+  color: #FBF6F3; /* Keep text readable */
 }
 
 #dropdown-language {
@@ -55,7 +72,7 @@
 }
 
 #dropdown-language.show {
-  color: #FEB06A;
+  color: #FEB06A; /* Keep highlight when menu is open */
 }
 
 #dropdown-language:not(.show):not(:hover) {
@@ -63,8 +80,8 @@
 }
 
 .rules-menu:focus, .icon-menu:focus {
-  outline: none !important;
-  box-shadow: none !important;
+  outline: none !important; /* Remove default outline */
+  box-shadow: none !important; /* Remove default shadow */
 }
 
 .icon-menu svg {
@@ -73,7 +90,7 @@
 }
 
 .icon-menu:hover svg {
-  fill: #FEB06A !important;
+  fill: #FEB06A !important; /* Change icon color on hover */
 }
 
 .rules-menu {
@@ -93,4 +110,58 @@
 
 .rules-menu:active {
   color: #FEB06A !important; 
+}
+
+/* ===================== RESPONSIVE STYLE ===================== */
+@media (max-width: 992px) {
+  .navbar-custom {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    justify-content: space-between;
+    align-items: center;
+    height: auto; /* Adjust height automatically */
+    padding: 10px 15px;
+    overflow: visible;
+    gap: 10px;
+  }
+
+  .navbar-custom .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navbar-logo {
+    height: 60px;
+    width: auto; /* Keep aspect ratio */
+    margin-right: auto;
+  }
+
+  .navbar-custom .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .navbar-custom .nav-link, 
+  .navbar-custom .dropdown-language {
+    font-size: 14px; /* Make the font size even smaller */
+    padding: 5px;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  .navbar-custom .icon-menu svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .navbar-custom .dropdown-menu {
+    position: absolute;
+    background-color: #5D6C89;
+    border: none;
+    width: auto;
+  }
 }

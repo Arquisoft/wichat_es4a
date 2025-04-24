@@ -7,24 +7,41 @@ import { useTranslation } from "react-i18next";
 import "./configuration.css";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useConfig } from "../contextProviders/GameConfigProvider";
+
+/**
+ * Component that allows the user to configure the game settings before starting.
+ * The user can select:
+ *  - Number of questions
+ *  - Time per round
+ *  - Topics of interest (multiple selection allowed)
+ *
+ * The configuration is stored in context to be accessible during gameplay.
+ * Upon starting the game, the user is redirected to the game screen.
+ *
+ * @param {Function} onClose - Callback to close the configuration modal or panel.
+ * @returns {JSX.Element} Game configuration UI.
+ */
 
 const Configuration = ({ onClose }) => {
 
   // Constant to store the configuration of the game
   const { config, setConfig, resetConfig } = useConfig();
 
-  const [questions, setQuestions] = useState(30);
-  const [time, setTime] = useState(120);
+  const [questions, setQuestions] = useState(30); // Default number of questions
+  const [time, setTime] = useState(120); // Default time per round
   const { t } = useTranslation();
-  const [selectedButtons, setSelectedButtons] = useState([]);
-  const [topics, setTopics] = useState([]);
+  const [selectedButtons, setSelectedButtons] = useState([]); // UI state for selected topic buttons
+  const [topics, setTopics] = useState([]);  // Selected topic names
 
-  const topicList = ["history", "entertainment", "art", "sport", "geography"];
+  const topicList = ["history", "entertainment", "art", "sport", "geography"]; // Topic options
 
   const navigate = useNavigate();
 
+  /**
+   * Closes the configuration panel and resets configuration
+   */
   const handleClose = () => {
     resetConfig();
     onClose();
@@ -59,6 +76,10 @@ const Configuration = ({ onClose }) => {
     setConfig((prevConfig) => ({ ...prevConfig, topics: updatedTopics }));
   };
 
+  /**
+   * Navigates to the game screen with current time setting
+   */
+  
   const startGame = () => {
     navigate('/game', { state: { questionTime: time } })
   }
@@ -73,7 +94,7 @@ const Configuration = ({ onClose }) => {
   return (
     <div className="overlay">
       <div className="config-container">
-        <CloseButton onClick={handleClose} className="close-icon" />
+      <CloseButton onClick={handleClose} className="close-icon" aria-label="Close configuration" />
         <h2 className="title">{t("title-configuration")}</h2>
         <div className="config-option">
           <label>{t("numberQuestions-configuration")}</label>

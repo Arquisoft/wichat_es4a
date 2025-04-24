@@ -10,7 +10,7 @@ async function getClue(name, userQuestion, language) {
         return message;
 
     } catch (error) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     }
 }
 

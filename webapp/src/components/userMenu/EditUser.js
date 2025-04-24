@@ -74,6 +74,7 @@ export const EditUser = ({ userName }) => {
             }
 
             setShowModal(response.success); // Muestra el modal de confirmación
+            setCurrentPassword('');
             setPassword('');
             setConfirmPassword('');
         } catch (error) {

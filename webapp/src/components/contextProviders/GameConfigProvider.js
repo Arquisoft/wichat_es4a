@@ -41,3 +41,5 @@ export const GameConfigProvider = ({ children }) => {
 export const useConfig = () => {
     return useContext(ConfigContext);
 };
+
+export default ConfigContext;

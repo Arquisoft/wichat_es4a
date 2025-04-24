@@ -15,6 +15,11 @@ const privateKey = "your-secret-key";
 jest.mock('axios');  // Esto permite simular todas las llamadas axios dentro de las pruebas
 
 let mongoServer;
+
+jest.mock('./db/mongo/Connection', () => ({
+  connect: jest.fn(),
+  disconnect: jest.fn(),
+}));
 // Mock del modelo Question para evitar llamadas reales a la base de datos
 jest.mock('./models/Question', () => ({
     Question: {

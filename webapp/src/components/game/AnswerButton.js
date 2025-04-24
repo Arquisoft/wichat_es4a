@@ -21,7 +21,6 @@ const AnswerButton = ({answerText, isCorrectAnswer, answerAction, isDisabled}) =
     const handleClick = () => {
         answerAction(isCorrectAnswer, answerText);
         setWasSelected(true);
-        console.log(`${buttonClassName}`);
     }
 
     return (

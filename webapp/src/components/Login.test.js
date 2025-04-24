@@ -1,62 +1,83 @@
 import React from 'react';
-import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import {Login}  from './Login';
+import { render, screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Login } from './Login';
+import { MemoryRouter } from 'react-router';
+import i18n from 'i18next';
+import AuthContext from './contextProviders/AuthContext';
 
-const mockAxios = new MockAdapter(axios);
+const mockLogin = jest.fn();
+
+// It makes the import of the AuthContext to be mocked so it's not the real one
+// and it uses the mock one instead
+jest.mock('./contextProviders/AuthContext', () => {
+  const React = require('react');
+  const AuthContext = React.createContext({});
+  return {
+    __esModule: true,
+    default: AuthContext,
+  };
+});
+
+// Function thta renders the component with the AuthContext provider with the login function mocked
+const renderWithAuth = (ui) => {
+  return render(
+    <AuthContext.Provider value={{ login: mockLogin }}>
+      <MemoryRouter>
+        {ui}
+      </MemoryRouter>
+    </AuthContext.Provider>
+  );
+};
 
 describe('Login component', () => {
+  const usernameText = i18n.t('username-message');
+  const passwordText = i18n.t('password-message');
+
   beforeEach(() => {
-    mockAxios.reset();
+    mockLogin.mockReset();
   });
 
-  it('should log in successfully', async () => {
-    render(<Login />);
-
-    const usernameInput = screen.getByLabelText(/Username/i);
-    const passwordInput = screen.getByLabelText(/Password/i);
-    const loginButton = screen.getByRole('button', { name: /Login/i });
-
-    // Mock the axios.post request to simulate a successful response
-    mockAxios.onPost('http://localhost:8000/login').reply(200, { createdAt: '2024-01-01T12:34:56Z' });
-    mockAxios.onPost('http://localhost:8000/askllm').reply(200, { answer: 'Hello test user' });
-
-    // Simulate user input
-    await act(async () => {
-        fireEvent.change(usernameInput, { target: { value: 'testUser' } });
-        fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
-        fireEvent.click(loginButton);
-      });
-
-    // Verify that the user information is displayed
-    expect(screen.getByText(/Your account was created on 1\/1\/2024/i)).toBeInTheDocument();
-  });
-
-  it('should handle error when logging in', async () => {
-    render(<Login />);
-
-    const usernameInput = screen.getByLabelText(/Username/i);
-    const passwordInput = screen.getByLabelText(/Password/i);
-    const loginButton = screen.getByRole('button', { name: /Login/i });
-
-    // Mock the axios.post request to simulate an error response
-    mockAxios.onPost('http://localhost:8000/login').reply(401, { error: 'Unauthorized' });
-
-    // Simulate user input
-    fireEvent.change(usernameInput, { target: { value: 'testUser' } });
-    fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
-
-    // Trigger the login button click
-    fireEvent.click(loginButton);
-
-    // Wait for the error Snackbar to be open
-    await waitFor(() => {
-      expect(screen.getByText(/Error: Unauthorized/i)).toBeInTheDocument();
+  it('should log in successfully and show a confirmation message', async () => {
+    mockLogin.mockImplementation((user, pass, callback) => {
+      callback({ success: true });
     });
 
-    // Verify that the user information is not displayed
-    expect(screen.queryByText(/Hello testUser!/i)).toBeNull();
-    expect(screen.queryByText(/Your account was created on/i)).toBeNull();
+    renderWithAuth(<Login />);
+
+    const usernameInput = screen.getByLabelText(usernameText);
+    const passwordInput = screen.getByLabelText(passwordText);
+    const loginButton = screen.getByRole('button', { name: /Login/i });
+
+    // Input the username and password and click the login button
+    await act(async () => {
+      await userEvent.type(usernameInput, 'testUser');
+      await userEvent.type(passwordInput, 'testPassword');
+      await userEvent.click(loginButton);
+    });
+
+    expect(screen.getByText(i18n.t('login-success'))).toBeInTheDocument();
+  });
+
+  it('should show an error message on failed login', async () => {
+    mockLogin.mockImplementation((user, pass, callback) => {
+      callback({ success: false, error: 'Invalid credentials' });
+    });
+
+    renderWithAuth(<Login />);
+
+    const usernameInput = screen.getByLabelText(usernameText);
+    const passwordInput = screen.getByLabelText(passwordText);
+    const loginButton = screen.getByRole('button', { name: /Login/i });
+
+    // Input the username and password and click the login button
+    await act(async () => {
+      await userEvent.type(usernameInput, 'testUser');
+      await userEvent.type(passwordInput, 'wrongPassword');
+      await userEvent.click(loginButton);
+    });
+
+    expect(screen.getByRole('alert')).toBeInTheDocument();
+    expect(screen.getByText('Invalid credentials')).toBeInTheDocument();
   });
 });

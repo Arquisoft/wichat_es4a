@@ -327,4 +327,26 @@ describe('Gateway Service', () => {
     expect(response.body.history).toEqual(['game1', 'game2']);
   });
 
+  it('should return 401 if userId is missing in /api/game/history/gameList', async () => {
+    const token = jwt.sign({}, privateKey);
+    const response = await request(app)
+      .post('/api/game/history/gameList')
+      .set('Authorization', `Bearer ${token}`)
+      .send({});
+    
+    expect(response.statusCode).toBe(401);
+    expect(response.body.error).toBe("Unauthorized: User ID is missing");
+  });
+
+  it('should return 401 if userId is missing in /api/game/endAndSaveGame', async () => {
+    const token = jwt.sign({}, privateKey); // No incluye userId
+    const response = await request(app)
+      .post('/api/game/endAndSaveGame')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ score: 100 });
+    
+    expect(response.statusCode).toBe(401);
+    expect(response.body.error).toBe("Unauthorized: User ID is missing");
+  });
+
 });

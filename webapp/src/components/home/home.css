@@ -1,3 +1,4 @@
+/* ===================== HOME PAGE STYLE ===================== */
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -5,7 +6,12 @@ body {
 
 .home-heading, .home-subheading, .app-name {
   font-family: 'Roboto', sans-serif;
-  font-size: 40px;
+  font-size: 3em; /* Large title text */
+  font-weight: bold;
+}
+
+.app-name {
+  font-size: 1em /* Make the app name smaller than heading */
 }
 
 .home-container {
@@ -14,12 +20,13 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, #F3F4F6, #B8C6D8); 
-  transition: background 1s ease-in-out; 
+  background: linear-gradient(135deg, #F3F4F6, #B8C6D8); /* Soft gradient background */
+  transition: background 6s ease-in-out;
 }
 
 .home-container:hover {
-  background: linear-gradient(135deg, #B8C6D8, #F3F4F6); 
+  background: linear-gradient(135deg, #B8C6D8, #F3F4F6); /* Reverse gradient on hover */
+  transition: background 3s ease-in-out;
 }
 
 .home-heading {
@@ -27,14 +34,19 @@ body {
   font-weight: bold;
   margin-top: 2rem;
   color: #5D6C89;
-  letter-spacing: 1px;
-  animation: fadeIn 2s ease-out; 
+  letter-spacing: 1px; /* Slight spacing between letters */
+  animation: fadeIn 2s ease-out; /* Animate entrance */
+}
+
+.btn-close.white {
+  filter: invert(1); /* White icon on dark background */
+  opacity: 1; /* Ensure visibility */
 }
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-20px); /* Slide in from top */
   }
   100% {
     opacity: 1;
@@ -47,53 +59,132 @@ body {
   font-size: 1.2rem;
   margin-top: 0.5rem;
   opacity: 0;
-  animation: fadeInSubheading 2s ease-out forwards 0.5s; 
+  animation: fadeInSubheading 2s ease-out forwards 0.5s; /* Delayed appearance */
 }
 
 @keyframes fadeInSubheading {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-
-.icon {
-  font-size: 40px; 
-  margin: 0.5rem;
-  color: #5D6C89;
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .home-buttons {
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1rem; /* Vertical space between buttons */
 }
 
 .game-options {
   background-color: #5D6C89;
   color: #FBF6F3;
   border: none;
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem; /* Button padding */
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 1.2rem;  
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   transition: all 0.3s ease-in-out; 
+  letter-spacing: 1px;
+  font-weight: bold; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .game-options:hover {
-  background-color: #36D6E7;
+  background-color: #36D6E7; /* Highlight on hover */
   color: #FBF6F3;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
-  transform: translateY(-4px); 
+  transform: translateY(-4px); /* Lift button slightly */
   transition: all 0.3s ease-in-out;
 }
 
 .game-options:active {
-  transform: translateY(2px); 
+  transform: translateY(2px); /* Pressed effect */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+@keyframes pulseChaos {
+  0% { box-shadow: 0 0 5px #ff4d4d; }
+  50% { box-shadow: 0 0 20px #ff0000; }
+  100% { box-shadow: 0 0 5px #ff4d4d; }
+}
+
+/* ===================== CHAOS MODE STYLE ===================== */
+
+.chaos-modal-content {
+  background: linear-gradient(135deg, #ff4e50, #ea8980); /* Vivid gradient background */
+  font-family: 'Roboto', sans-serif;
+  border-radius: 12px;
+  padding: 20px;
+  color: white;
+}
+
+.chaos-modal-content .modal-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.chaos-modal-content p {
+  font-size: 1.1rem;
+  margin: 0.5em 0;
+}
+
+.chaos-slogan {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.chaos-button {
+  background-color: #f14848 !important;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;  
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px #f14848, 0 0 20px #ff4d4d;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+  animation: pulseChaos 1.5s infinite; /* Glowing pulse effect */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.chaos-btn:hover {
+  opacity: 0.9; /* Slight transparency on hover */
+}
+
+@keyframes chaosFadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ===================== RESPONSIVE STYLES ===================== */
+
+@media (max-width: 768px) {
+  .home-heading, .home-subheading, .app-name {
+    font-size: 5vw; /* Responsive font scaling */
+  }
+
+  .game-options {
+    font-size: 1.1rem; 
+    padding: 0.6rem 1.2rem;
+  }
+
+  .icon {
+    font-size: 6vw; /* Resize icons for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .home-heading, .home-subheading, .app-name {
+    font-size: 6vw; /* Further reduce text size on mobile */
+  }
+
+  .game-options {
+    font-size: 1rem; 
+    padding: 0.5rem 1rem;
+  }
+}
+
+

@@ -1,8 +1,11 @@
-h2 {
-    font-size: 33px;
-}
+/* ===================== CONFIG MODAL STYLES ===================== */
 
-.overlay {
+h2 {
+    font-size: 33px; /* Default heading size */
+  }
+  
+  /* Full-screen overlay for modal */
+  .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,125 +14,177 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.config-container {
+    background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent bg */
+    padding: 1em;
+    z-index: 1050;
+  }
+  
+  /* Modal container */
+  .config-container {
     background: white;
-    padding: 45px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     position: relative;
-    width: 325px;
-}
-
-.close-icon {
+    width: 100%;
+    max-width: 400px;
+    min-width: 280px;
+    box-sizing: border-box;
+    z-index: 1100;
+  }
+  
+  /* Close icon styling */
+  .close-icon {
     position: absolute;
-    top: 7%;
-    left: 6px;
+    top: 3%;
+    left: 90%;
     color: red;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
-}
-
-.title {
+    z-index: 1200;
+    transition: font-size 0.2s ease-in-out;
+  }
+  
+  .title {
     margin-bottom: 15px;
-}
-
-.config-option {
+    font-size: 1.8em;
+  }
+  
+  /* Style for each config option row */
+  .config-option {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
-}
-
-.toggle-btn-history {
-    background-color: #5D6C89 !important;
-    color: white;
-
-}
-
-.toggle-btn-science {
-    background-color: #5D6C89 !important;
-    color: white;
-    border: none;
-}
-
-.toggle-btn-art {
-    background-color:  #5D6C89 !important;
-    color: white;
-    border: none;
-}
-
-.toggle-btn-sport {
-    background-color:  #5D6C89 !important;
-    color: white;
-    border: none;
-}
-
-.toggle-btn-geography {
+  }
+  
+  /* Category toggle buttons base style */
+  .toggle-btn-history,
+  .toggle-btn-science,
+  .toggle-btn-art,
+  .toggle-btn-sport,
+  .toggle-btn-geography {
     background-color: #5D6C89 !important;
     color: white;
     border: none;
-}
-
-
-.toggle-btn-art.selected {
-    background-color: #e74c3c !important;
-}
-
-.toggle-btn-geography.selected {
-    background-color: blue !important;
-}
-
-.toggle-btn-sport.selected {
-    background-color: #FEB06A !important;
-}
-
-.toggle-btn-science.selected {
-    background-color: #2ecc71 !important;
-}
-
-.toggle-btn-history.selected {
+  }
+  
+  /* Selected styles for each category */
+  .toggle-btn-history.selected {
     background-color: #9b59b6 !important;
-}
-
-
-
-
-
-
-.buttonGroup {
+  }
+  
+  .toggle-btn-science.selected {
+    background-color: #794c53 !important;
+  }
+  
+  .toggle-btn-art.selected {
+    background-color: #e74c3c !important;
+  }
+  
+  .toggle-btn-geography.selected {
+    background-color: blue !important;
+  }
+  
+  .toggle-btn-sport.selected {
+    background-color: #FEB06A !important;
+  }
+  
+  /* Button grouping layout */
+  .buttonGroup {
     display: flex;
     flex-direction: column;
-    align-items: center; 
-}
-
-.buttonGroup > div {
+    align-items: center;
+  }
+  
+  .buttonGroup > div {
     display: flex;
     justify-content: center;
-    gap: 10px; 
+    gap: 10px;
     width: 100%;
-}
-
-.first-row {
-    justify-content: flex-start; 
-}
-
-.second-row {
-    justify-content: center; 
-    margin-top: 15px; 
+  }
+  
+  /* Specific layout tweaks for rows */
+  .first-row {
+    justify-content: flex-start;
+  }
+  
+  .second-row {
+    justify-content: center;
+    margin-top: 15px;
     margin-bottom: 15px;
-}
-
-.play-button {
+  }
+  
+  /* Play button styling */
+  .play-button {
     width: 100%;
     background-color: #5D6C89;
     border: none;
     transition: background-color 0.3s;
-}
-
-.play-button:hover {
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .play-button:hover {
     background-color: #36D6E7;
-}
+  }
+  
+  .play-button:disabled {
+    background-color: #d3d3d3 !important;
+    color: #7a7a7a !important;
+    cursor: not-allowed;
+  }
+  
+  /* ===================== RESPONSIVE STYLES ===================== */
+  
+  @media (max-width: 600px) {
+    .config-container {
+      padding: 20px;
+      max-width: 85%;
+    }
+  
+    h2 {
+      font-size: 22px;
+    }
+  
+    .config-option label {
+      font-size: 13px;
+    }
+  
+    .play-button {
+      font-size: 14px;
+    }
+  
+    .close-icon {
+      font-size: 18px;
+      top: 8px;
+      left: 8px;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .close-icon {
+      font-size: 16px;
+      top: 5px;
+      left: 5px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .config-container {
+      max-width: 450px;
+      padding: 40px;
+    }
+  
+    h2 {
+      font-size: 30px;
+    }
+  
+    .play-button {
+      font-size: 16px;
+    }
+  }
+  

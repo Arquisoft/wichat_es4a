@@ -10,12 +10,7 @@ import axios from 'axios';
      */
     const getNextQuestion = async () => {
         try {
-            console.log("La cacheId es: " + cacheId);
-
-            console.log("Estoy en GameService.js y el apiEndpoint es: " + apiEndpoint + '/api/game/question');
             const response = await axios.post(apiEndpoint + '/api/game/question', {"cacheId" : cacheId});
-
-            console.log("Hay este número de respuestas: " + response.data.answers.length);
 
             const fullStructure = {
                 question: {
@@ -83,7 +78,7 @@ import axios from 'axios';
             axios.post(apiEndpoint + '/api/game/endAndSaveGame', gameData,
                 {   // Options (including headers)
                     headers: {
-                        authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${token}`
                     }
                 }
             );
@@ -99,10 +94,7 @@ import axios from 'axios';
      * @param {"es" | "en"} lang language selected for the game questions
      */
     const configureGame = async (topics, lang) => {
-        console.log("Estoy en GameService.js y el apiEndpoint es: " + apiEndpoint + '/api/game/new');
         try {
-            console.log("topics que llegan: " + topics);
-
             const gameConfig = {
                 "topics": topics,
                 "lang": lang

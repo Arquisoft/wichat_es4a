@@ -1,19 +1,27 @@
+/* ===================== RULES MODAL STYLE ===================== */
+
 .modal-content {
-  background-color: #5D6C89;
-  border-radius: 0.5em;
-  padding: 1em; 
-  color: white;
-  font-family: Arial, sans-serif;
-  width: 70%;
-  max-width: 20em; 
-  margin: auto;
+  background-color: #5D6C89; 
+  border-radius: 12px; /* Rounded corners */
+  padding: 1.5em; /* Internal spacing */
+  color: #FBF6F3; 
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Subtle drop shadow */
+  width: 100%;
+  max-width: 600px; /* Limit modal width */
 }
 
+.rules-modal .modal-header {
+  border-bottom: 1px solid #FBF6F3; /* Divider line below header */
+}
 
+.rules-modal .modal-title {
+  font-size: 1.4rem; /* Slightly larger title text */
+  font-weight: bold; /* Emphasize title */
+  color: #FBF6F3;
+}
 
-
-  
-  
-  
-
-  
+.rules-modal .modal-body p {
+  margin-bottom: 1em; /* Space between paragraphs */
+  line-height: 1.5; /* Improve readability */
+}

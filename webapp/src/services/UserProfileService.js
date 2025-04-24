@@ -9,8 +9,6 @@ const getUserHistory = async (token) => {
                 Authorization: `Bearer ${token}`,
             }
         });
-        
-        console.log("Response de UserProfileService - getUserHistory:", response.data);
 
         return response.data;
     } catch (error) {
@@ -24,8 +22,6 @@ const getQuestionsById = async (gameId) => {
         const content = {
             "gameId": gameId
         }
-
-        console.log("Envio este gameId: ", gameId);
 
         const response = await axios.post(`${apiEndpoint}/api/game/history/gameQuestions`, content);
         return response.data;
@@ -44,7 +40,7 @@ const changePassword = async (token, currentPassword, newPassword) => {
             },
             {   // Options (including headers)
                 headers: {
-                    authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 }
             }
         );

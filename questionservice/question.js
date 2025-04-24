@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';  // We use fetch to make HTTP requests to external APIs
 import fs from 'fs';  // We need the fs module to read JSON files
-import path from 'path';  // We use path to handle file and directory paths
+import { dirname, join } from 'path';  // We use path to handle file and directory paths
 import { fileURLToPath } from 'url';  // We use fileURLToPath to convert file URLs to local paths in ES modules
 import express from 'express';  // We use express to create and manage the API server
 
@@ -23,10 +23,11 @@ app.use(express.json());  // Middleware para leer JSON en las solicitudes
  * This would return all the templates related to "geography" in Spanish.
  */
 function loadQuestionTemplatesWithTopicLanguage(topics, lang) {
-  const __dirname = path.resolve();
-  const filePath = path.join(__dirname, 'question_template.json');
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
 
-  console.log("Ruta del archivo:", filePath);
+  const filePath = join(__dirname, 'question_template.json');
+
   if (!fs.existsSync(filePath)) {
     throw new Error('El archivo question_template.json no se encuentra');
   }
@@ -37,12 +38,12 @@ function loadQuestionTemplatesWithTopicLanguage(topics, lang) {
   const topicsArray = Array.isArray(topics) ? topics : [topics];
 
   const filteredTemplates = templates.filter(template =>
-  topicsArray.some(topic => template.topics.includes(topic))
+    topicsArray.some(topic => template.topics.includes(topic))
   );
 
   const filteredTemplatesLanguage = filteredTemplates.filter(template => template.lang === lang);
 
-  return filteredTemplatesLanguage; 
+  return filteredTemplatesLanguage;
 }
 
 
@@ -85,8 +86,7 @@ async function executeQuery(query) {
   const offset = Math.floor(Math.random() * 100); // Generate a random offset between 0 and 99
   const finalQuery = query + ` LIMIT 100 OFFSET ${offset}`; // Add offset and limit to the query
 
-  console.log("Ejecutando consulta SPARQL: ", finalQuery);
-  
+
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -129,8 +129,6 @@ async function generateQuestion(topics, lang) {
   // If there are results, generate the question with its options(correct and false ones)
   if (results.length > 0) {
     const filteredResults = generateQuestionWithOptions(results, "label", "image", randomTemplate);
-    console.log("Final Results:");
-    console.log(JSON.stringify(filteredResults, null, 2));
 
     return filteredResults;
   }
@@ -187,11 +185,9 @@ function generateQuestionWithOptions(results, labelKey, imageKey, randomTemplate
  */
 app.post('/api/question/generate', async (req, res) => {
   try {
-    
+
     const topics = req.body.topics;
     const lang = req.body.lang;
-    console.log("Que me llega", topics);
-    console.log("Que me llega", lang);
     const questionData = await generateQuestion(topics, lang);
     if (!questionData) {
       return res.status(404).json({ error: "No valid question generated" });

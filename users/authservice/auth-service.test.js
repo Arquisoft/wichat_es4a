@@ -9,7 +9,7 @@ let app;
 //test user
 const user = {
   username: 'testuser',
-  password: 'testpassword',
+  password: 'Password123',
 };
 
 async function addUser(user){
@@ -41,5 +41,23 @@ describe('Auth Service', () => {
     const response = await request(app).post('/login').send(user);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('username', 'testuser');
+  });
+
+  it('Should fail login with wrong password', async () => { 
+    const response = await request(app).post('/login').send({
+      username: user.username,
+      password: 'wrongPassword',
+    });
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty('error', 'Invalid credentials');
+  });
+
+  it('Should fail login with non existing username', async () => { 
+    const response = await request(app).post('/login').send({
+      username: 'wrongUsername',
+      password: user.password,
+    });
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty('error', 'Invalid credentials');
   });
 });

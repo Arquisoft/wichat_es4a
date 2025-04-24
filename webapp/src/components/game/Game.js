@@ -6,7 +6,7 @@ import LLMChat from './LLMChat';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Spinner from 'react-bootstrap/Spinner';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import './game.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getNextQuestion, saveGame, configureGame } from '../../services/GameService';
@@ -25,9 +25,11 @@ export const Game = () => {
 
     // Game configuration
     const { config } = useConfig();
+    const isChaosMode = config.isChaos || false;
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
+    
 
     const questionTime = config.timePerRound; // Get the question time from the configuration
     const numberOfQuestions = config.questions; // Get the number of questions from tge configuration
@@ -75,12 +77,15 @@ export const Game = () => {
                 points,
                 numOfCorrectAnswers: correctAnswers,
                 numOfWrongAnswers: wrongAnswers,
-                numOfNotAnswered: notAnswered
+                numOfNotAnswered: notAnswered,
+                isChaosMode: isChaosMode
             }));
+
+            const valor = isChaosMode ? "caos" : "normal";
 
             // If there's a user authenticated, the game will be saved in the database
             if (token) {
-                saveGame(token, questionResults, numberOfQuestions, correctAnswers, "normal", points)
+                saveGame(token, questionResults, numberOfQuestions, correctAnswers, valor, points)
                     .catch(err => {
                         console.error("Error saving game:", err)
                     })
@@ -107,11 +112,8 @@ export const Game = () => {
             return;
         }
         setNumberOfQuestionsAnswered(numberOfQuestionsAnswered + 1);
-
-        console.log("VOY A PEDIR LA SIGUIENTE PREGUNTA")
+        
         getNextQuestion().then((questionInfo) => {
-
-            console.log("La pregunta es: " + questionInfo.question.text);
             setQuestion(questionInfo.question);
             setAnswers(questionInfo.answers);
             setStopTimer(false);
@@ -124,9 +126,11 @@ export const Game = () => {
 
     // UseEffect to send the information to configure the game and ask for the first question
     useEffect(() => {
-        configureGame(topics, i18n.language.split('-')[0]).then(() => {
+        const run = async () => {
+            await configureGame(topics, i18n.language.split('-')[0]);
             askForNextQuestion();
-        })
+        };
+        run();
     }, []); // Empty dependency array means this effect runs only once on mount
 
     /**
@@ -186,10 +190,12 @@ export const Game = () => {
         if (wasUserCorrect) {
             addPoints(100);
             setCorrectAnswers(correctAnswers + 1);
-        }
-        else {
+        } else {
+            if (isChaosMode) {
+                addPoints(-50);
+            }
             setWrongAnswers(wrongAnswers + 1);
-        }
+        }        
         addQuestionResult(wasUserCorrect, selectedAnswer);
 
         setStopTimer(true);
@@ -285,6 +291,7 @@ export const Game = () => {
     const correctAnswer = answers.find(answer => answer.isCorrect)?.text || '';
 
     return (
+        <div className={isChaosMode ? 'chaos-mode' : ''}>
         <main className='game-screen' key={gameKey}>
             <div className='timer-div'>
                 <Timer initialTime={questionTime} onTimeUp={onTimeUp} stopTime={stopTimer} />
@@ -294,7 +301,8 @@ export const Game = () => {
             </div>
             <div className='game-points-and-exit-div'>
                 {pointsToAdd > 0 && <div className='points-to-add'>+{pointsToAdd}</div>}
-                <div className={points < 1000 ? 'points-div-under-1000' : 'points-div-above-1000'}>{points}pts</div>
+                {pointsToAdd < 0 && isChaosMode && <div className='points-to-remove'>{pointsToAdd}</div>}
+                <div data-testid="gamePoints" className={points < 1000 ? 'points-div-under-1000' : 'points-div-above-1000'}>{points}pts</div>
                 <button
                     onClick={askExitGame}
                     className="exit-button"
@@ -323,30 +331,32 @@ export const Game = () => {
                             isDisabled={blockButtons}
                         />
                     ))}
-
                 </div>
-            </section>
-            <aside className='llm-chat-aside'>
-                {correctAnswer && <LLMChat correctAnswer={correctAnswer} />}
-            </aside>
-            <div className="pass-button-div">
-                <Button className="pass-button" onClick={passQuestion} disabled={blockButtons} >{t('pass-button-text')}</Button>
-            </div>
-            {/* Modal to ask the user if he really wants to exit the game */}
-            <Modal show={showModal} onHide={handleCloseModal} animation={false} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>{t('exit-confirm-msg-title')}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{t('exit-confirm-msg-body')}</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModal}>
-                        {t('exit-confirm-msg-close')}
+                </section>
+                <aside className='llm-chat-aside'>
+                    <LLMChat name={correctAnswer} />
+                </aside>
+                <div className="pass-button-div">
+                    <Button className="pass-button" onClick={passQuestion} disabled={blockButtons} >
+                        {t('pass-button-text')}
                     </Button>
-                    <Button variant="danger" onClick={exitFromGame}>
-                        {t('exit-confirm-msg-exit')}
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </main>
-    )
-}
+                </div>
+    
+                <Modal show={showModal} onHide={handleCloseModal} animation={false} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{t('exit-confirm-msg-title')}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{t('exit-confirm-msg-body')}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseModal}>
+                            {t('exit-confirm-msg-close')}
+                        </Button>
+                        <Button variant="danger" onClick={exitFromGame}>
+                            {t('exit-confirm-msg-exit')}
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </main>
+        </div>
+    );
+}    

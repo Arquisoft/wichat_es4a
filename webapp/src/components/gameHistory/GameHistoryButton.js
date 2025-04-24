@@ -27,6 +27,17 @@ export const GameHistoryButton = ( {points, correctAnswers, totalQuestions, date
                 <CheckCircle size={20} className="me-2 text-success" />
                 {correctAnswers} / {totalQuestions}
             </span>
+            <span
+                className={`d-flex align-items-center ${
+                    gameMode === 'normal'
+                    ? 'text-success'
+                    : gameMode === 'caos'
+                    ? 'text-danger'
+                    : ''
+                }`}
+                >
+                {gameMode.toUpperCase()}
+            </span>
             <Badge bg="secondary" className="fs-5 text-white fw-bold p-2">
                 {points} pts
             </Badge>

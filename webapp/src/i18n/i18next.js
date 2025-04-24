@@ -4,6 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 
+if(!i18n.isInitialized) {
 i18n
   .use(Backend) // To load instructions from a backend server or a file
   .use(LanguageDetector) // Detects the language of the web browser
@@ -17,7 +18,7 @@ i18n
     },
 
   });
-
+}
 
 export default i18n;
 

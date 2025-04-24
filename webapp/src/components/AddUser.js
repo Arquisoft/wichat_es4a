@@ -4,7 +4,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Card, Form, Button, Alert , Row, Col} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -38,7 +38,11 @@ export const AddUser = () => {
         navigate('/login');
       }, 1000);
     } catch (error) {
-      setError(error.response?.data?.error);
+      if (error.response?.status === 409) {
+        setError(t('username-already-exists'));
+      } else {
+        setError(error.response?.data?.error);  
+      }
       setSuccess(false);
     }
   };
@@ -115,14 +119,14 @@ export const AddUser = () => {
                   <Form.Label style={{ color: '#5D6C89', 'fontWeight': 'bold' }}>{t('password-edit-confirm')}</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder={t('enter-password-placeholder')}
+                    placeholder={t('enter-confirm-password-placeholder')}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                   />
                 </Form.Group>
                 <Button type="submit" className="w-100" style={{ backgroundColor: '#FEB06A', borderColor: '#FEB06A', color: '#5D6C89' }}>
-                  Sign Up
+                    {t('signup-message')}
                 </Button>
               </Form>
               {success && <Alert variant="success" className="mt-3">{t('user-added')}</Alert>}
