@@ -80,7 +80,7 @@ const next = async (req, res) => {
        
         // Get values from cache
         const cacheData = gameCache.get(cacheId.toString());
-        if (!cacheData || cacheId.trim() === "") return res.status(400).json({ error: "Game settings not found." });
+        if (!cacheData) return res.status(400).json({ error: "Game settings not found." });
 
         const { topics, lang } = cacheData;
 
@@ -115,14 +115,14 @@ const next = async (req, res) => {
 const endAndSaveGame = async (req, res) => {
     try {
        
-        if (!req.body.user) {
+        if (!req.body.userId) {
             return res.status(401).json({ error: "Unauthorized" });
         }
         
         const game = req.body;
 
         // Validate input data
-        if (!game.user.userId || !game || !game.questions || !Array.isArray(game.questions)) {
+        if (!game.userId || !game || !game.questions || !Array.isArray(game.questions)) {
             return res.status(400).json({ error: "Missing fields or invalid format" });
         }
 
@@ -137,7 +137,7 @@ const endAndSaveGame = async (req, res) => {
 
         // Create a new game entry
         const newGame = new GamePlayed({
-            userId: new mongoose.Types.ObjectId(game.user.userId),
+            userId: new mongoose.Types.ObjectId(game.userId),
             numberOfQuestions: game.numberOfQuestions,
             numberOfCorrectAnswers: game.numberOfCorrectAnswers,
             gameMode: game.gameMode,
@@ -226,7 +226,7 @@ const getGameQuestions = async (req, res) => {
 const getUserGamesWithoutQuestions = async (req, res) => {
     try {
        
-        const userId = req.body.user.userId ;  // Get the user ID from the request body
+        const userId = req.body.userId ;  // Get the user ID from the request body
         if (!userId) {
             return res.status(401).json({ error: "Unauthorized - Invalid or missing token." });
         }

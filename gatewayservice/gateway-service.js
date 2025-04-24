@@ -39,10 +39,10 @@ app.use(metricsMiddleware);
  */
 const verifyToken = (req, res, next) => {
   if (!req.headers["authorization"]) {
-    req.user = { userId: "guest" + Date.now() };
+    req.body.userId = "guest" + Date.now() ;
     next();
   } else {
-    const token = req.headers["authorization"]?.split(" ")[1]; 
+    const token = req.headers["authorization"]?.split(" ")[1];
     if (!token) {
       return res.status(401).json({ message: "Token wasn't provided properly" });
     }
@@ -50,7 +50,8 @@ const verifyToken = (req, res, next) => {
       if (err) {
         return res.status(401).json({ message: "Unauthorized" });
       }
-      req.user = decoded; 
+      console.log(decoded);
+      req.body.userId = decoded.userId;
       next();
     });
   }
@@ -59,7 +60,7 @@ const verifyToken = (req, res, next) => {
 const generateCacheId = (req, res, next) => {
   const min = 10 ** 15; // Número mínimo de 16 dígitos
   const max = 10 ** 16 - 1; // Número máximo de 16 dígitos
-  
+
   req.body.cacheId = Math.floor(Math.random() * (max - min + 1)) + min;
   next();
 }
@@ -115,7 +116,7 @@ app.post('/login', async (req, res) => {
  * @param {Object} req.body - The data required to generate a new question.
  * @returns {Object} The generated question from the question service.
  */
-app.post('/api/question/new', verifyToken, async (req, res) => {
+app.post('/api/question/new', async (req, res) => {
   try {
 
     const endResponse = await axios.post(`${questionServiceUrl}/api/question/generate`, req.body);
@@ -150,7 +151,7 @@ app.post('/adduser', async (req, res) => {
  *
  * @route {POST} /api/user/editUser
  * @param {Object} req.body - The data required to update the user's details.
- * @param {Object} req.user - The authenticated user's information.
+ * @param {Object} req.body.userId - The authenticated user's information.
  * @returns {Object} The response from the user service.
  */
 app.post('/api/user/editUser', verifyToken, async (req, res) => {
@@ -171,7 +172,7 @@ app.post('/api/user/editUser', verifyToken, async (req, res) => {
  */
 app.post('/api/game/new', generateCacheId, async (req, res) => {
   try {
-   
+
     await axios.post(`${gameServiceUrl}/api/game/new`, req.body);
     res.json({ cacheId: req.body.cacheId });
   } catch (error) {
@@ -186,18 +187,9 @@ app.post('/api/game/new', generateCacheId, async (req, res) => {
  * @param {Object} req.body - The data required to retrieve the next question.
  * @returns {Object} The next question from the game service.
  */
-app.post('/api/game/question', verifyToken, async (req, res) => {
+app.post('/api/game/question', async (req, res) => {
   try {
-    console.log("Fetching next question with cacheId:", req.body);
-    console.log("Request body:", req.user);
-    const gameDataWithUser = {
-      ...req.body,
-      user: {
-        userId: req.user.userId 
-      }
-    };
-
-    const questionResponse = await axios.post(`${gameServiceUrl}/api/game/next`, gameDataWithUser);
+    const questionResponse = await axios.post(`${gameServiceUrl}/api/game/next`, req.body);
     res.json(questionResponse.data);
   } catch (error) {
     res.status(error.response?.status || 500).json({ error: error.response?.data?.error || 'Error fetching question' });
@@ -210,23 +202,16 @@ app.post('/api/game/question', verifyToken, async (req, res) => {
  *
  * @route {POST} /api/game/endAndSaveGame
  * @param {Object} req.body - The data required to end and save the game.
- * @param {Object} req.user - The authenticated user's information.
+ * @param {Object} req.body.userId - The authenticated user's information.
  * @returns {Object} The response from the game service after ending and saving the game.
  */
 app.post('/api/game/endAndSaveGame', verifyToken, async (req, res) => {
   try {
-    if (!req.user || !req.user.userId) {
+    if (!req.body.userId) {
       return res.status(401).json({ error: "Unauthorized: User ID is missing" });
     }
 
-    const gameDataWithUser = {
-      ...req.body,
-      user: {
-        userId: req.user.userId 
-      }
-    };
-
-    const endResponse = await axios.post(`${gameServiceUrl}/api/game/endAndSaveGame`, gameDataWithUser);
+    const endResponse = await axios.post(`${gameServiceUrl}/api/game/endAndSaveGame`, req.body);
 
     res.json(endResponse.data);
   } catch (error) {
@@ -243,22 +228,14 @@ app.post('/api/game/endAndSaveGame', verifyToken, async (req, res) => {
  * @param {Object} req.body.user - The authenticated user’s information.
  * @returns {Object} The game history list from the game service.
  */
-app.post('/api/game/history/gameList', verifyToken, async (req, res) => {
+app.get('/api/game/history/gameList', verifyToken, async (req, res) => {
   try {
-    // Verifica si req.user tiene el userId
-    if (!req.user || !req.user.userId) {
+    // Verifica si req.body.userId tiene el userId
+    if (!req.body.userId) {
       return res.status(401).json({ error: "Unauthorized: User ID is missing" });
     }
 
-    
-    // Añadir el userId al cuerpo de la solicitud para el microservicio
-    const gameDataWithUser = {
-      ...req.body, // El cuerpo original de la solicitud
-      user: {
-        userId: req.user.userId // Añadir userId del req.user
-      }
-    };
-    const historyResponse = await axios.post(`${gameServiceUrl}/api/game/history/gameList`, gameDataWithUser);
+    const historyResponse = await axios.post(`${gameServiceUrl}/api/game/history/gameList`, req.body);
     res.json(historyResponse.data);
   } catch (error) {
     res.status(error.response?.status || 500).json({ message: "Internal server error" });
@@ -280,44 +257,6 @@ app.post('/api/game/history/gameQuestions', async (req, res) => {
     res.status(error.response?.status || 500).json({ message: "Internal server error" });
   }
 });
-/**
- * Endpoint to fetch the history of games for the user.
- * Requires JWT token verification for user authentication.
- *
- * @route {GET} /api/game/history/gameList
- * @param {Object} req.body.user - The authenticated user’s information.
- * @returns {Object} The game history list from the game service.
- *//*
-app.get('/api/game/history/gameList', verifyToken, async (req, res) => {
-  try {
-    const { userId } = req.user;  // Get user ID from the decoded token
-    const historyResponse = await axios.get(`${gameServiceUrl}/api/game/history/gameList/${userId}`, {
-      headers: {
-        Authorization: req.headers["authorization"]  // Pasar el token al microservicio si es necesario
-      }
-    });
-
-    res.json(historyResponse.data);
-  } catch (error) {
-    res.status(error.response?.status || 500).json({ message: "Internal server error" });
-  }
-});
-/**
- * Endpoint to fetch the history of questions for a specific game.
- *
- * @route {GET} /api/game/history/gameQuestions/:gameId
- * @param {Object} req.params.gameId - The game ID.
- * @returns {Object} The question history from the game service.
- *//*
-app.get('/api/game/history/gameQuestions/:gameId', async (req, res) => {
-  try {
-    const { gameId } = req.params;  // Get gameId from URL parameter
-    const questionHistoryResponse = await axios.get(`${gameServiceUrl}/api/game/history/gameQuestions/${gameId}`);
-    res.json(questionHistoryResponse.data);
-  } catch (error) {
-    res.status(error.response?.status || 500).json({ message: "Internal server error" });
-  }
-});*/
 
 /**
  * Endpoint to get a clue from the LLM service based on the user’s question.

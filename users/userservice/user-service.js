@@ -75,7 +75,7 @@ app.post('/editUser', async (req, res) => {
     validatePassword(req.body.newPassword);
     
     // Looks for a user with the given id
-    const user = await User.findById(req.body.user.userId);
+    const user = await User.findById(req.body.userId);
     if (!user)
       return res.status(404).json({ error: 'User not found' });
     

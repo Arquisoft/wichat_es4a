@@ -66,9 +66,6 @@ app.post('/api/game/new', (req, res) => {
  * @param {Object} req.body - Request body should include data about the current game and player.
  */
 app.post('/api/game/next', (req, res) => {
-  console.log("Incoming request to /api/game/next");
-console.log("Request body:", req.body);
-
   next(req, res); // Executes the function when the request is received
 });
 
