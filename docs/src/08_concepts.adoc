@@ -1,74 +1,80 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-concepts]]
-== Cross-cutting Concepts
-
+== Conceptos transversales
 
 ifdef::arc42help[]
 [role="arc42help"]
+
 ****
 .Content
-This section describes overall, principal regulations and solution ideas that are relevant in multiple parts (= cross-cutting) of your system.
-Such concepts are often related to multiple building blocks.
-They can include many different topics, such as
+Esta sección describe las regulaciones generales y las ideas de solución que son relevantes en múltiples partes (= transversales) de tu sistema.  
+Estos conceptos suelen estar relacionados con múltiples bloques de construcción.  
+Pueden incluir muchos temas diferentes, tales como:
 
-* models, especially domain models
-* architecture or design patterns
-* rules for using specific technology
-* principal, often technical decisions of an overarching (= cross-cutting) nature
-* implementation rules
+* modelos, especialmente modelos de dominio  
+* patrones de arquitectura o diseño  
+* reglas para el uso de tecnologías específicas  
+* decisiones principales, a menudo técnicas, de naturaleza global (= transversales)  
+* reglas de implementación  
 
+.Motivación  
+Los conceptos forman la base de la _integridad conceptual_ (consistencia, homogeneidad) de la arquitectura.  
+Así, son una contribución importante para lograr las cualidades internas de tu sistema.  
 
-.Motivation
-Concepts form the basis for _conceptual integrity_ (consistency, homogeneity) of the architecture. 
-Thus, they are an important contribution to achieve inner qualities of your system.
+Algunos de estos conceptos no pueden asignarse a bloques de construcción individuales, por ejemplo, seguridad o protección.  
 
-Some of these concepts cannot be assigned to individual building blocks, e.g. security or safety. 
+.Forma  
+La forma puede variar:
 
+* documentos conceptuales con cualquier tipo de estructura  
+* extractos de modelos transversales o escenarios utilizando notaciones de las vistas de arquitectura  
+* implementaciones de muestra, especialmente para conceptos técnicos  
+* referencia al uso típico de marcos estándar (por ejemplo, usar Hibernate para el mapeo objeto-relacional)
 
-.Form
-The form can be varied:
+.Estructura  
+Una estructura potencial (pero no obligatoria) para esta sección podría ser:
 
-* concept papers with any kind of structure
-* cross-cutting model excerpts or scenarios using notations of the architecture views
-* sample implementations, especially for technical concepts
-* reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)
+* Conceptos de dominio  
+* Conceptos de experiencia de usuario (UX)  
+* Conceptos de seguridad y protección  
+* Patrones de arquitectura y diseño  
+* "Bajo el capó"  
+* Conceptos de desarrollo  
+* Conceptos operacionales  
 
-.Structure
-A potential (but not mandatory) structure for this section could be:
+Nota: puede ser difícil asignar conceptos individuales a un tema específico de esta lista.
 
-* Domain concepts
-* User Experience concepts (UX)
-* Safety and security concepts
-* Architecture and design patterns
-* "Under-the-hood"
-* development concepts
-* operational concepts
+image::08-concepts-EN.drawio.png["Posibles temas para conceptos transversales"]
 
-Note: it might be difficult to assign individual concepts to one specific topic
-on this list.
+.Más información
 
-image::08-concepts-EN.drawio.png["Possible topics for crosscutting concepts"]
-
-
-.Further Information
-
-See https://docs.arc42.org/section-8/[Concepts] in the arc42 documentation.
+Consulta https://docs.arc42.org/section-8/[Conceptos] en la documentación de arc42.
 ****
 endif::arc42help[]
 
-=== _<Concept 1>_
+=== Arquitectura de microservicios
 
-_<explanation>_
+Hemos decidido que nuestra arquitectura se basará en microservicios, lo que significa que cada parte de la aplicación se dividirá en un servicio que realiza una función específica. Los servicios pueden comunicarse entre sí utilizando sus respectivas API. Además, en nuestra arquitectura tienen mucha importancia el papel del API Gateway, cuya función es servir como intermediario en la interacción entre servicios, de forma que estos solo se encuentren ligeramente acoplados al gateway y no a múltiples servicios diferentes.
 
+=== Experiencia del usuario
 
+La aplicación será un sitio web donde los usuarios podrán jugar a WICHAT. La funcionalidad básica consiste en mostrar una imagen y una pregunta, y el usuario deberá seleccionar la opción correcta. Además es el propio usuario el que, si se encuentra atascado en una pregunta, puede hacer una consulta, pidiendo una pista, a un modelo de lenguaje.
 
-=== _<Concept 2>_
+=== Persistencia
 
-_<explanation>_
+En cuanto a la gestión de datos en la aplicación, cabe mencionar que en todos los casos usamos MongoDB. El microservicio game_service gestiona la base de datos del juego, las preguntas y el historial de partidas, mientras que el microservicio user se encarga de la base de datos de los usuarios.
 
-...
+image::../images/bds.png[Bases de datos en MongoDB]
 
-=== _<Concept n>_
+=== Seguridad
 
-_<explanation>_
+Para garantizar la seguridad de los usuarios, la aplicación cifra sus contraseñas antes de almacenarlas en la base de datos utilizando el algoritmo bcrypt, lo que asegura que las contraseñas no se guarden de manera visible ni en texto claro. Además, se realiza una validación para asegurarse de que los campos esenciales, como el nombre de usuario y la contraseña, estén presentes en la solicitud antes de crear un nuevo usuario, lo que garantiza que los datos necesarios sean correctos y completos. Además, añadimos un control de fuerza bruta para el login. Si se falla múltiples veces seguidas al intentar hacer login, se bloquea la IP durante varios minutos.
+
+=== Pruebas
+
+Para evitar errores en nuestra aplicación, realizaremos pruebas que cubrirán tanto el frontend como el backend. Se realizarán las pruebas de aquellas funcionalidades de alta relevancia en la aplicación, no pruebas muy específicas que puedan tener poca relevancia en el funcionamiento (como comprobar si un botón cambia de color cuando se pulsa). En su lugar, nos centraremos en pruebas más generales que aseguren que todo funciona correctamente, aunque en algunos casos incluiremos aspectos más detallados si es necesario, pero solo para funcionalidades que no son cruciales.
+
+=== Internacionalización
+
+Hemos decidido adaptar la aplicación para que esté disponible en español e inglés, permitiendo que los usuarios elijan su idioma preferido.

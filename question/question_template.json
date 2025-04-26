@@ -2,7 +2,7 @@
     {
         "question": "¿A qué país pertenece esta bandera?",
         "selector": "<input>",
-        "topics": ["geographyy"],
+        "topics": ["geography"],
         "query": "SELECT DISTINCT ?entity ?label ?image WHERE { ?entity wdt:P31 wd:Q6256. ?entity wdt:P41 ?image. ?entity rdfs:label ?label. FILTER(LANG(?label) = 'es') }",
         "imageurl": "<output>",
         "lang": "es"
@@ -10,7 +10,7 @@
     {
         "question": "To which country does this flag belong?",
         "selector": "<input>",
-        "topics": ["geographyy"],
+        "topics": ["geography"],
         "query": "SELECT DISTINCT ?entity ?label ?image WHERE { ?entity wdt:P31 wd:Q6256. ?entity wdt:P41 ?image. ?entity rdfs:label ?label. FILTER(LANG(?label) = 'en') }",
         "imageurl": "<output>",
         "lang": "en"
@@ -164,7 +164,7 @@
     {
         "question": "¿Qué equipo de fútbol es este?",
         "selector": "<input>",
-        "topics": ["sport"],
+        "topics": ["sports"],
         "query": "SELECT DISTINCT ?entity ?label ?image WHERE { ?entity wdt:P31 wd:Q476028; wdt:P154 ?image. ?entity wdt:P18 ?imagen. ?entity rdfs:label ?label. FILTER(LANG(?label) = 'es')}",
         "imageurl": "<output>",
         "lang": "es"
@@ -172,7 +172,7 @@
     {
         "question": "What football team is this?",
         "selector": "<input>",
-        "topics": ["sport"],
+        "topics": ["sports"],
         "query": "SELECT DISTINCT ?entity ?label ?image WHERE { ?entity wdt:P31 wd:Q476028; wdt:P154 ?image. ?entity wdt:P18 ?imagen. ?entity rdfs:label ?label. FILTER(LANG(?label) = 'en')}",
         "imageurl": "<output>",
         "lang": "en"
@@ -182,7 +182,7 @@
     {
         "question": "¿Quién es el jugador de fútbol en esta imagen?",
         "selector": "<input>",
-        "topics": ["sport"],
+        "topics": ["sports"],
         "query": "SELECT DISTINCT ?entity ?label ?image WHERE { ?entity wdt:P31 wd:Q5; wdt:P106 wd:Q937857. ?entity wdt:P18 ?image. ?entity rdfs:label ?label. FILTER(LANG(?label) = 'es')}",
         "imageurl": "<output>",
         "lang": "es"
@@ -190,7 +190,7 @@
     {
         "question": "Who is the football player in this picture?",
         "selector": "<input>",
-        "topics": ["sport"],
+        "topics": ["sports"],
         "query": "SELECT DISTINCT ?entity ?label ?image WHERE { ?entity wdt:P31 wd:Q5; wdt:P106 wd:Q937857. ?entity wdt:P18 ?image. ?entity rdfs:label ?label. FILTER(LANG(?label) = 'en')}",
         "imageurl": "<output>",
         "lang": "en"
@@ -200,15 +200,15 @@
     {
         "question": "¿En qué estadio deportivo fue tomada esta imagen?",
         "selector": "<input>",
-        "topics": ["sport"],
+        "topics": ["sports"],
         "query": "SELECT DISTINCT ?entity ?label ?image WHERE { ?entity wdt:P31 wd:Q483110. ?entity wdt:P18 ?image. ?entity rdfs:label ?label. FILTER(LANG(?label) = 'es')}",
         "imageurl": "<output>",
         "lang": "es"
     },
     {
-        "question": "In which sport stadium was this image taken?",
+        "question": "In which sports stadium was this image taken?",
         "selector": "<input>",
-        "topics": ["sport"],
+        "topics": ["sports"],
         "query": "SELECT DISTINCT ?entity ?label ?image WHERE { ?entity wdt:P31 wd:Q483110. ?entity wdt:P18 ?image. ?entity rdfs:label ?label. FILTER(LANG(?label) = 'en')}",
         "imageurl": "<output>",
         "lang": "en"

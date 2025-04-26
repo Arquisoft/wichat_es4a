@@ -1,34 +1,116 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-solution-strategy]]
-== Solution Strategy
+== Estrategia de Solución
 
+=== Deciciones tecnológicas
+==== Frontend
+* **Motivación**: Elegimos _**JavaScript**_ y _**React**_ para el desarrollo del frontend por su flexibilidad y su capacidad para crear interfaces dinámicas y altamente interactivas. Dado que uno de los objetivos clave del proyecto es la _usabilidad_, _React_ facilita el desarrollo de interfaces modernas y centradas en el usuario, lo que optimiza la experiencia. Además, _React_ es ampliamente utilizado y bien soportado, lo que facilita la integración y el mantenimiento.
+* **Objetivos de calidad**: _Usabilidad_, _Mantenibilidad_, _Integrabilidad_
+* **Restricciones clave**: El sistema debe ser accesible desde diferentes plataformas y dispositivos, incluyendo navegadores web modernos.
+
+==== Backend
+* **Motivación**: _**Node.js**_ con _**Express**_ fue elegido para el desarrollo del backend debido a su rendimiento, escalabilidad y naturaleza no bloqueante, lo cual es crucial cuando se manejan múltiples solicitudes simultáneas en una aplicación web. _Express_, por su parte, es un framework minimalista y permite construir APIs RESTful eficientes, lo que se adapta bien a las necesidades de integración del sistema con diversas APIs externas.
+* **Objetivos de calidad**: _Rendimiento_, _Escalabilidad_, _Mantenibilidad_
+* **Restricciones clave**: El sistema debe ser capaz de gestionar múltiples servicios de manera independiente y eficiente, con una comunicación fluida entre ellos.
+
+==== Base de Datos
+* **Motivación**: Se optó por _**MongoDB**_ debido a su capacidad para manejar grandes volúmenes de datos sin requerir un esquema riguroso, lo que permite flexibilidad al trabajar con datos no estructurados y su escalabilidad horizontal. Esta decisión responde a la necesidad de escalabilidad y rendimiento en un sistema que debe ser capaz de crecer de manera flexible a medida que aumenta la cantidad de usuarios y datos.
+* **Objetivos de calidad**: _Escalabilidad_, _Mantenibilidad_, _Integrabilidad_, _Rendimiento_
+* **Restricciones clave**: El sistema debe ser capaz de manejar grandes volúmenes de datos y ser altamente escalable.
+
+==== APIs Externas
+* **Motivación**: La elección de _**SPARQL**_ permite integrar consultas semánticas eficientes a bases de datos con información estructurada. Además, utilizamos la _**API de Gemini**_ debido a los problemas recurrentes de caídas de los servidores de _Empathy_, lo que hace que la solución basada en _Gemini_ sea más confiable. Esta decisión ayuda a garantizar la disponibilidad del sistema y evitar puntos de fallo únicos.
+* **Objetivos de calidad**: _Disponibilidad_, _Fiabilidad_, _Rendimiento_
+* **Restricciones clave**: La _API de Gemini_ debe integrarse de manera eficiente con el sistema, proporcionando una solución confiable en lugar de las APIs de _Empathy_ que presentan interrupciones.
+
+==== Contenedores
+* **Motivación**: _**Docker**_ fue elegido para la creación de contenedores por su capacidad para simplificar el proceso de despliegue y asegurar la consistencia entre entornos de desarrollo, pruebas y producción. El uso de _Docker_ facilita la escalabilidad del sistema, permitiendo agregar más instancias de servicios según sea necesario y mejorar la disponibilidad del sistema.
+* **Objetivos de calidad**: _Escalabilidad_, _Disponibilidad_, _Mantenibilidad_
+* **Restricciones clave**: La infraestructura debe ser fácil de gestionar y desplegar en diferentes entornos sin generar complejidad adicional.
+
+==== Infraestructura
+* **Motivación**: _**AWS**_ es la plataforma de elección debido a su alta disponibilidad, flexibilidad y los servicios gestionados ofrecen escalabilidad automática y balanceo de carga, lo que es clave para lograr una infraestructura robusta. Además, al usar _AWS_ se puede aprovechar su seguridad, fiabilidad y la capacidad de escalar recursos según las necesidades del proyecto.
+* **Objetivos de calidad**: _Disponibilidad_, _Escalabilidad_, _Fiabilidad_
+* **Restricciones clave**: El sistema debe ser capaz de escalar horizontalmente y manejar altos volúmenes de tráfico sin sacrificar disponibilidad.
+
+==== Infraestructura como Código
+* **Motivación**: _**Terraform**_ se utilizó para gestionar la infraestructura como código, lo que permite definir y administrar los recursos de _AWS_ de manera repetible y consistente. Esto facilita la creación, actualización y destrucción de recursos de infraestructura de manera automatizada, lo que aumenta la eficiencia y reduce los errores manuales.
+* **Objetivos de calidad**: _Fiabilidad_, _Eficiencia_
+* **Restricciones clave**: La infraestructura debe ser fácil de gestionar y replicar, y las actualizaciones deben ser controladas para garantizar la estabilidad del sistema.
+
+==== Modelado
+* **Motivación**: _**PlantUML**_ se utiliza para crear diagramas de arquitectura y diseño debido a su simplicidad y la capacidad de generar diagramas automáticamente a partir de texto, lo que facilita la documentación continua y permite mantener actualizados los diagramas a lo largo del desarrollo.
+* **Objetivos de calidad**: _Comunicación_, _Claridad_, _Consistencia_
+* **Restricciones clave**: La documentación debe ser fácilmente comprensible y mantenerse actualizada durante todo el ciclo de vida del proyecto.
+
+==== Control de Versiones
+* **Motivación**: _**GitHub**_ es la herramienta de control de versiones elegida debido a su popularidad y facilidad de uso, lo que permite la colaboración entre los miembros del equipo de desarrollo. Además, permite una gestión eficiente del código fuente, la revisión y el seguimiento de cambios, lo que es fundamental para mantener la calidad y la integridad del código.
+* **Objetivos de calidad**: _Colaboración_, _Integridad_, _Mantenibilidad_
+* **Restricciones clave**: El sistema de control de versiones debe ser accesible para todos los miembros del equipo, y debe permitir una colaboración eficiente.
+
+==== Pruebas de Carga
+* **Motivación**: _**Artillery**_ se utiliza para realizar pruebas de carga y estrés en el sistema, lo que permite evaluar el rendimiento y la escalabilidad del sistema bajo diferentes condiciones de carga. _Artillery_ es una herramienta ligera y escalable que proporciona informes detallados sobre el rendimiento y permite identificar posibles cuellos de botella.
+* **Objetivos de calidad**: _Rendimiento_, _Escalabilidad_
+* **Restricciones clave**: El sistema debe soportar un alto volumen de tráfico sin afectar la experiencia del usuario ni comprometer la estabilidad.
+
+=== Decisiones sobre la Descomposición de Alto Nivel
+==== Patrón Arquitectónico
+* **Motivación**: El sistema sigue un patrón de _**microservicios**_, donde cada componente del sistema se gestiona de manera independiente. Sin embargo, _userservice_ y _authservice_ son los únicos servicios que comparten una misma base de datos, ya que ambos requieren acceso frecuente a la misma información de usuarios y autenticación. Los demás servicios tienen bases de datos propias, lo que mejora la modularidad y la independencia de cada servicio. Este enfoque permite escalabilidad y flexibilidad, y facilita el despliegue y la gestión de los servicios de manera autónoma.
+* **Objetivos de calidad**: _Escalabilidad_, _Mantenibilidad_, _Flexibilidad_
+* **Restricciones clave**: La interacción entre los microservicios debe ser eficiente, especialmente entre _userservice_ y _authservice_, que comparten la base de datos, sin generar dependencias críticas entre los demás servicios.
+
+==== Descomposición del Sistema
+* **Motivación**: El sistema se divide en módulos responsables de diferentes partes del proyecto (_backend_, _frontend_, _base de datos_ y _APIs externas_). Cada módulo puede ser desarrollado, desplegado y escalado de manera independiente, lo que mejora la capacidad de mantenimiento y actualización del sistema.
+* **Objetivos de calidad**: _Escalabilidad_, _Mantenibilidad_, _Flexibilidad_
+* **Restricciones clave**: La estructura modular debe garantizar que la comunicación entre los servicios sea efectiva y no introduzca cuellos de botella.
+
+=== Decisiones sobre cómo lograr los Objetivos Clave de Calidad
+==== Usabilidad
+* Se prioriza la usabilidad al usar _React_, ya que permite crear interfaces ricas en interactividad y con un rendimiento fluido. La experiencia de usuario es fundamental en este proyecto, y _React_ facilita la creación de interfaces dinámicas que responden de manera eficiente a las acciones del usuario.
+
+==== Disponibilidad
+* El uso de _AWS_ junto con _Docker_ permite que el sistema sea altamente disponible, ya que facilita la recuperación ante fallos y la escalabilidad automática, lo cual es crucial para mantener el sistema operativo sin interrupciones y manejar picos de tráfico.
+
+==== Compatibilidad
+* Se eligieron _React_ y _Node.js_ por su compatibilidad con una amplia gama de plataformas y dispositivos, lo que permite que la aplicación sea accesible desde diferentes navegadores y dispositivos, mejorando así la accesibilidad para los usuarios.
+
+==== Escalabilidad y Rendimiento
+* Para garantizar la escalabilidad y rendimiento, se seleccionaron tecnologías como _MongoDB_ y _AWS_, que permiten manejar el crecimiento del sistema de manera eficiente. _MongoDB_ ofrece escalabilidad horizontal, mientras que _AWS_ proporciona recursos flexibles que pueden adaptarse a las demandas del sistema. _Docker_ también facilita la replicación de servicios según se requiera.
+
+==== Seguridad
+* Dado que se prioriza la seguridad del sistema, se implementó un sistema de penalización de IP en el login para mitigar ataques de fuerza bruta. Además, los datos sensibles, como las contraseñas de los usuarios, son encriptados en la base de datos para garantizar que no puedan ser accesibles incluso si los datos son comprometidos.
+
+=== Decisiones Organizativas Relevantes
+* **Proceso de desarrollo**: Se eligió un proceso de desarrollo ágil utilizando _GitHub_ para la gestión del código, tareas y colaboración, lo que facilita la integración continua y las entregas incrementales. Esto se adapta a la necesidad de iterar rápidamente y adaptarse a los cambios durante el desarrollo.
+
+* **Delegación de tareas**: Se delegaron tareas de infraestructura y operaciones a _AWS_ (con _Terraform_) y _Docker_ para asegurar un entorno de producción confiable, escalable y fácil de mantener. Esto reduce la carga operativa sobre el equipo de desarrollo y mejora la eficiencia en la gestión de recursos.
 
 ifdef::arc42help[]
 [role="arc42help"]
 ****
 .Contents
-A short summary and explanation of the fundamental decisions and solution strategies, that shape system architecture. It includes
+Un breve resumen y explicación de las decisiones fundamentales y estrategias de solución que dan forma a la arquitectura del sistema. Incluye:
 
-* technology decisions
-* decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern
-* decisions on how to achieve key quality goals
-* relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.
+* decisiones tecnológicas
+* decisiones sobre la descomposición de alto nivel del sistema, por ejemplo, el uso de un patrón arquitectónico o de diseño
+* decisiones sobre cómo lograr los objetivos clave de calidad
+* decisiones organizativas relevantes, por ejemplo, la selección de un proceso de desarrollo o la delegación de ciertas tareas a terceros.
 
 .Motivation
-These decisions form the cornerstones for your architecture. They are the foundation for many other detailed decisions or implementation rules.
+Estas decisiones forman las piedras angulares de tu arquitectura. Son la base para muchas otras decisiones detalladas o reglas de implementación.
 
 .Form
-Keep the explanations of such key decisions short.
+Mantén las explicaciones de dichas decisiones clave breves.
 
-Motivate what was decided and why it was decided that way,
-based upon problem statement, quality goals and key constraints.
-Refer to details in the following sections.
+Motiva lo que se decidió y por qué se decidió de esa manera,
+basándote en la declaración del problema, los objetivos de calidad y las restricciones clave.
+Consulta los detalles en las secciones siguientes.
 
 
 .Further Information
 
-See https://docs.arc42.org/section-4/[Solution Strategy] in the arc42 documentation.
+Consulta https://docs.arc42.org/section-4/[Estrategia de Solución] en la documentación de arc42.
 
 ****
 endif::arc42help[]

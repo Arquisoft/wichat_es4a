@@ -3,78 +3,89 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-deployment-view]]
 
 
-== Deployment View
+== Vista de Despliegue
 
 ifdef::arc42help[]
 [role="arc42help"]
 ****
-.Content
-The deployment view describes:
+.Contenido
+La vista de despliegue describe:
 
- 1. technical infrastructure used to execute your system, with infrastructure elements like geographical locations, environments, computers, processors, channels and net topologies as well as other infrastructure elements and
+La infraestructura técnica utilizada para ejecutar tu sistema, con elementos de infraestructura como 
+ubicaciones geográficas, entornos, computadoras, procesadores, canales y topologías de red, así como otros 
+elementos de infraestructura.
 
-2. mapping of (software) building blocks to that infrastructure elements.
+La asignación de los bloques de construcción (software) a esos elementos de infraestructura.
 
-Often systems are executed in different environments, e.g. development environment, test environment, production environment. In such cases you should document all relevant environments.
+A menudo, los sistemas se ejecutan en diferentes entornos, como el entorno de desarrollo, entorno de 
+pruebas y entorno de producción. En tales casos, debes documentar todos los entornos relevantes.
 
-Especially document a deployment view if your software is executed as distributed system with more than one computer, processor, server or container or when you design and construct your own hardware processors and chips.
+Es especialmente importante documentar una vista de despliegue si tu software se ejecuta como un sistema 
+distribuido con más de una computadora, procesador, servidor o contenedor, o cuando diseñas y construyes 
+tus propios procesadores y chips de hardware.
 
-From a software perspective it is sufficient to capture only those elements of an infrastructure that are needed to show a deployment of your building blocks. Hardware architects can go beyond that and describe an infrastructure to any level of detail they need to capture.
+Desde una perspectiva de software, es suficiente capturar solo aquellos elementos de la infraestructura 
+necesarios para mostrar el despliegue de tus bloques de construcción. Los arquitectos de hardware pueden 
+ir más allá y describir la infraestructura con el nivel de detalle que necesiten capturar.
 
-.Motivation
-Software does not run without hardware.
-This underlying infrastructure can and will influence a system and/or some
-cross-cutting concepts. Therefore, there is a need to know the infrastructure.
+.Motivación
+El software no funciona sin hardware.
+Esta infraestructura subyacente puede y va a influir en un sistema y/o en algunos conceptos transversales. 
+Por lo tanto, es necesario conocer la infraestructura.
 
-.Form
+.Formato
 
-Maybe a highest level deployment diagram is already contained in section 3.2. as
-technical context with your own infrastructure as ONE black box. In this section one can
-zoom into this black box using additional deployment diagrams:
+Es posible que un diagrama de despliegue de alto nivel ya esté contenido en la sección 3.2 como contexto técnico, 
+con tu propia infraestructura representada como UNA caja negra. 
+En esta sección se puede hacer zoom en esa caja negra utilizando diagramas de despliegue adicionales:
 
-* UML offers deployment diagrams to express that view. Use it, probably with nested diagrams,
-when your infrastructure is more complex.
-* When your (hardware) stakeholders prefer other kinds of diagrams rather than a deployment diagram, let them use any kind that is able to show nodes and channels of the infrastructure.
+* UML ofrece diagramas de despliegue para expresar esa vista. Úsalos, probablemente 
+con diagramas anidados, cuando tu infraestructura sea más compleja.
+* Si tus stakeholders (de hardware) prefieren otros tipos de diagramas en lugar de un diagrama de despliegue, permíteles usar 
+cualquier tipo que sea capaz de mostrar nodos y canales de la infraestructura.
 
 
-.Further Information
+.Información Adicional
 
-See https://docs.arc42.org/section-7/[Deployment View] in the arc42 documentation.
+Consulta la https://docs.arc42.org/section-7/[Deployment View] en la documentación de arc42.
 
 ****
 endif::arc42help[]
 
-=== Infrastructure Level 1
+=== Infraestructura Nivel 1
 
 ifdef::arc42help[]
 [role="arc42help"]
 ****
-Describe (usually in a combination of diagrams, tables, and text):
+Describe (usualmente mediante una combinación de diagramas, tablas y texto):
 
-* distribution of a system to multiple locations, environments, computers, processors, .., as well as physical connections between them
-* important justifications or motivations for this deployment structure
-* quality and/or performance features of this infrastructure
-* mapping of software artifacts to elements of this infrastructure
+* La distribución de un sistema en múltiples ubicaciones, entornos, computadoras, procesadores, etc., así como las conexiones físicas entre ellos.
+* Las justificaciones o motivaciones importantes para esta estructura de despliegue.
+* Las características de calidad y/o rendimiento de esta infraestructura.
+* La asignación de los artefactos de software a los elementos de esta infraestructura.
 
-For multiple environments or alternative deployments please copy and adapt this section of arc42 for all relevant environments.
+Para múltiples entornos o despliegues alternativos, copia y adapta esta sección de arc42 para todos los entornos relevantes.
 ****
 endif::arc42help[]
 
-_**<Overview Diagram>**_
+image::../images/vista-de-despliegue-nivel-1.png[Vista de Despliegue Nivel 1]
 
-Motivation::
+Motivación::
+* Escalabilidad: AWS permite escalar horizontalmente mediante la creación de múltiples instancias de contenedores según la demanda.
+* Disponibilidad: La infraestructura de AWS facilita la alta disponibilidad a través de balanceadores de carga y zonas de disponibilidad.
+* Integración con servicios externos: La integración con Wikidata y LLM_API permite extender las capacidades de la plataforma sin complejidad adicional.
 
-_<explanation in text form>_
+Características de Calidad y Rendimiento::
+* Bajo tiempo de respuesta: La cercanía geográfica de los servidores AWS al usuario final reduce la latencia.
+* Mantenibilidad: Docker facilita la gestión de versiones de los microservicios y la rápida recuperación ante fallos.
 
-Quality and/or Performance Features::
-
-_<explanation in text form>_
-
-Mapping of Building Blocks to Infrastructure::
-_<description of the mapping>_
+Asignación de artefactos de software a la infraestructura::
+* Microservicios: Desplegados como contenedores Docker dentro de AWS.
+* Frontend (Web Browser): Ejecutado en el dispositivo del usuario, interactuando con la API del backend alojada en AWS.
+* Base de Datos MongoDB: Desplegada en un contenedor propio dentro de AWS.
 
 
-=== Infrastructure Level 2
+=== Infraestructura Nivel 2
 
 ifdef::arc42help[]
 [role="arc42help"]
@@ -85,16 +96,16 @@ Please copy the structure from level 1 for each selected element.
 ****
 endif::arc42help[]
 
-==== _<Infrastructure Element 1>_
+image::../images/vista-de-despliegue-nivel-2.png[Vista de Despliegue Nivel 2]
 
-_<diagram + explanation>_
+Microservicios::
+* WebApp: Servicio que sirve la aplicación frontend y se comunica con el GatewayService.
+* GatewayService: Actúa como punto de entrada único para el frontend, enrutando solicitudes a los microservicios adecuados.
+* Question Service: Gestiona las llamadas a Wikidata para conseguir las preguntas.
+* UserService: Maneja las operaciones con los usuarios.
+* AuthService: Gestiona la autenticación y autorización de usuarios.
+* Game_Service: Controla la lógica de la aplicación (modelo de dominio, conexión con la base de datos).
+* LlmService: Se conecta con la API de Gemini y gestiona el funcionamiento del LLM.
+* Base de Datos: Almacena información de usuarios, partidas y preguntas.
 
-==== _<Infrastructure Element 2>_
 
-_<diagram + explanation>_
-
-...
-
-==== _<Infrastructure Element n>_
-
-_<diagram + explanation>_

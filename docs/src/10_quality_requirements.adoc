@@ -1,7 +1,7 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-quality-scenarios]]
-== Quality Requirements
+== Requisitos de calidad
 
 
 ifdef::arc42help[]
@@ -27,53 +27,64 @@ See https://docs.arc42.org/section-10/[Quality Requirements] in the arc42 docume
 ****
 endif::arc42help[]
 
-=== Quality Tree
+=== Árbol de calidad
 
 ifdef::arc42help[]
 [role="arc42help"]
 ****
-.Content
-The quality tree (as defined in ATAM – Architecture Tradeoff Analysis Method) with quality/evaluation scenarios as leafs.
+.Contenido
+El árbol de calidad (según lo definido en ATAM – Architecture Tradeoff Analysis Method) con escenarios de calidad/evaluación como hojas.
 
-.Motivation
-The tree structure with priorities provides an overview for a sometimes large number of quality requirements.
+.Motivación
+La estructura en forma de árbol con prioridades proporciona una visión general de lo que a veces puede ser un gran número de requisitos de calidad.
 
-.Form
-The quality tree is a high-level overview of the quality goals and requirements:
+.Formato
+El árbol de calidad es una vista general de alto nivel sobre los objetivos y requisitos de calidad:
 
-* tree-like refinement of the term "quality". Use "quality" or "usefulness" as a root
-* a mind map with quality categories as main branches
+* refinamiento en forma de árbol del término "calidad". Usa "calidad" o "utilidad" como raíz
 
-In any case the tree should include links to the scenarios of the following section.
+* un mapa mental con categorías de calidad como ramas principales
 
+En cualquier caso, el árbol debe incluir enlaces a los escenarios de la siguiente sección.
 
 ****
 endif::arc42help[]
 
-=== Quality Scenarios
+|===
+|Escenario |Requisito |Objetivo
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-Concretization of (sometimes vague or implicit) quality requirements using (quality) scenarios.
+|Esc1
+|Rendimiento
+|Mantener el tiempo de respuesta en pocos segundos.
+|Esc2
+|Escalabilidad
+|El sistema debe escalar sin afectar el rendimiento.
+|Esc3
+|Seguridad
+|Implementar medidas de seguridad robustas, incluyendo el bloqueo de acceso tras cinco intentos fallidos, el cifrado de contraseñas y la transmisión segura de información sensible del sistema mediante tokens de sesión ocultos.
+|Esc4
+|Mantenibilidad
+|Modularidad y facilidad de integración.
+|Esc5
+|Usabilidad
+|Debe haber reglas y guías en otro idioma para comprender el sistema, además de una interfaz amigable para el usuario.
+|===
 
-These scenarios describe what should happen when a stimulus arrives at the system.
+=== Escenarios de calidad
 
-For architects, two kinds of scenarios are important:
+|===
+|Id |Escenario
 
-* Usage scenarios (also called application scenarios or use case scenarios) describe the system’s runtime reaction to a certain stimulus. This also includes scenarios that describe the system’s efficiency or performance. Example: The system reacts to a user’s request within one second.
-* Change scenarios describe a modification of the system or of its immediate environment. Example: Additional functionality is implemented or requirements for a quality attribute change.
+|Esc1
+|Un gran número de usuarios accede a la aplicación simultáneamente. El sistema debe mantener en pocos segundos el tiempo de respuesta.
+|Esc2
+|Crecimiento del número de usuarios en los primeros meses de lanzamiento de la aplicación. El sistema escala sin afectar al rendimiento. Los tiempos de respuesta siguen siendo lo más cortos posibles.
+|Esc3
+|Un usuario malintencionado quiere acceder a datos privados usando un ataque de fuerza bruta en la autenticación. Tras intentarlo cinco veces se le prohíbe acceder a la aplicación.
+|Esc4
+|El equipo de desarrollo tiene que añadir una nueva funcionalidad a la aplicación. La funcionalidad debe implementarse sin afectar negativamente a otras áreas del sistema.
+|Esc5
+|Un usuario nuevo entra en la aplicación. Este usuario no habla español. Además es la primera vez que accede al sistema, por tanto debe haber un apartado de reglas en su idioma para que entienda que puede hacer en la aplicación.
+|===
 
-.Motivation
-Scenarios make quality requirements concrete and allow to
-more easily measure or decide whether they are fulfilled.
 
-Especially when you want to assess your architecture using methods like
-ATAM you need to describe your quality goals (from section 1.2)
-more precisely down to a level of scenarios that can be discussed and evaluated.
-
-.Form
-Tabular or free form text.
-****
-endif::arc42help[]

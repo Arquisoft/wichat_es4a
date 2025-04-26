@@ -1,27 +1,66 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-technical-risks]]
-== Risks and Technical Debts
+== Riesgos y Deuda Técnica
 
 
 ifdef::arc42help[]
 [role="arc42help"]
 ****
-.Contents
-A list of identified technical risks or technical debts, ordered by priority
+.Contenidos
+Lista de riesgos y deudas técnicas identificadas, ordenadas por prioridad
 
-.Motivation
-“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.) 
+.Motivación
+“La gestión de riesgos es la gestión de proyectos para adultos” (Tim Lister, Atlantic Systems Guild).
 
-This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.
+Este debería ser tu lema para la detección y evaluación sistemática de riesgos y deudas técnicas en la arquitectura. 
+Esta información será necesaria para los interesados en la gestión (por ejemplo, gerentes de proyecto, propietarios 
+de productos) como parte del análisis general de riesgos y la planificación de medición.
 
-.Form
-List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.
+.Formato
+Lista de riesgos y/o deudas técnicas, probablemente incluyendo medidas sugeridas para minimizar, mitigar 
+o evitar riesgos, o reducir deudas técnicas.
 
+.Más Información
 
-.Further Information
-
-See https://docs.arc42.org/section-11/[Risks and Technical Debt] in the arc42 documentation.
+Ver https://docs.arc42.org/section-11/[Risks and Technical Debt] en la documentación arc42.
 
 ****
 endif::arc42help[]
+
+[cols="e,2e" options="header"]
+|===
+| Riesgo | Descripción
+
+| **Inexperiencia del equipo en diseño arquitectónico y sistemas modulares** 
+| El equipo de desarrollo cuenta con experiencia limitada en el diseño de arquitecturas de software y en 
+la implementación de sistemas de gran escala con múltiples módulos interconectados, como los basados en microservicios
+
+| **Inexperiencia en el uso de Node.js**
+| El equipo de desarrollo cuenta con experiencia limitada en Node.js, lo que puede derivar en dificultades 
+para aplicar buenas prácticas en la arquitectura y seguridad del backend. Esto podría afectar la estabilidad, 
+escalabilidad y mantenimiento del sistema.
+
+| **Lagunas del LLM**
+| El LLM en ocasiones tiene lagunas y proporciona outputs con información errónea a preguntas largas
+
+| **Inexperiencia en el uso de Docker y tecnologías de contenedorización**
+| El equipo de desarrollo tiene experiencia limitada en el uso de Docker y tecnologías de contenedorización. 
+Esto puede derivar en configuraciones ineficientes, dificultades en la gestión de contenedores y errores en el 
+despliegue del sistema, afectando la estabilidad y la portabilidad del proyecto.
+|===
+
+[cols="e,2e" options="header"]
+|===
+| Deuda Técnica | Descripción
+
+| **Servicio de Autenticación y de Usuarios Comparten Base de Datos** 
+| Los microservicios ```authservice``` y ```userservice``` comparten la misma base de datos pues ambos tienen que acceder a los
+datos de los usuarios. 
+
+Esto implica que los microservicios están más acoplados entre sí, ya que comparten el acceso a 
+la base de datos. Debido a esto, podrían volverse más difíciles de escalar a medida que la aplicación crece.
+
+Para evitar problemas en este aspecto trataremos de mantener una clara separación de responsabilidades entre los servicios, 
+asegurándonos de que cada servicio solo modifique los datos que le corresponden
+|===

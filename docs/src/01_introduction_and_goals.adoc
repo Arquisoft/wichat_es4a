@@ -1,19 +1,19 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-introduction-and-goals]]
-== Introduction and Goals
+== Introducción y Objetivos
 
 ifdef::arc42help[]
 [role="arc42help"]
 ****
-Describes the relevant requirements and the driving forces that software architects and development team must consider. 
-These include
+Describe las necesidades importantes y las fuerzas mayores que los arquitectos del software y el equipo de desarrollo deben considerar 
+Esto incluye
 
-* underlying business goals, 
-* essential features, 
-* essential functional requirements, 
-* quality goals for the architecture and
-* relevant stakeholders and their expectations
+* Objetivos comerciales subyacentes,
+* Características esenciales,
+* Requisitos funcionales esenciales,
+* Objetivos de calidad para la arquitectura y
+* Partes interesadas relevantes y sus expectativas.
 ****
 endif::arc42help[]
 
@@ -37,7 +37,7 @@ endif::arc42help[]
 
 ifdef::arc42help[]
 [role="arc42help"]
-
+****
 .Contenido
 Los tres (máximo cinco) objetivos de calidad más importantes para la arquitectura, cuya satisfacción es de máxima importancia para los principales interesados.
 Nos referimos realmente a los objetivos de calidad de la arquitectura. No los confundas con los objetivos del proyecto.
@@ -55,6 +55,7 @@ Si como arquitecto no sabes cómo se juzgará la calidad de tu trabajo...
 .Formato
 Una tabla con los objetivos de calidad y escenarios concretos, ordenados por prioridades.
 
+****
 endif::arc42help[]
 
 [cols="2,3", options="header"]

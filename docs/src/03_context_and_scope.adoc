@@ -16,7 +16,7 @@ Si es necesario, diferencie el contexto empresarial (entradas y salidas específ
 .Motivación
 Las interfaces de dominio y las interfaces técnicas con los socios de comunicación se encuentran entre los aspectos más críticos de su sistema. Asegúrese de comprenderlas por completo.
 
-.Forma
+.Formato
 Varias opciones:
 
 * Varios diagramas de contexto
@@ -32,17 +32,7 @@ endif::arc42help[]
 
 === Contexto de Negocio
 
-[plantuml,png]
-----
-  actor Usuario
-  database Pod as "Base de Datos"
-  Usuario --> (WIChat): Interactúa
-  WIChat --> (Wikidata): Solicita datos
-  Wikidata --> (WIChat): Devuelve imágenes y respuestas
-  WIChat --> (LLM_API): Envía consultas
-  LLM_API --> (WIChat): Devuelve respuestas
-  Usuario --> (Pod): Inicia sesión y registra resultados de partida
-----
+image::../images/contexto-de-negocio.png[Contexto de Negocio]
 
 
 [options="header",cols="1,2"]
@@ -65,7 +55,7 @@ Opcionalmente, puede añadir formatos o protocolos de comunicación específicos
 .Motivación
 Todas las partes interesadas deben comprender qué datos se intercambian con el entorno del sistema.
 
-.Forma
+.Formato
 Todo tipo de diagramas que muestran el sistema como una caja negra y especifican las interfaces del dominio con los socios de comunicación.
 
 Como alternativa (o adicionalmente), puede utilizar una tabla. 
@@ -87,7 +77,7 @@ Interfaces técnicas (canales y medios de transmisión) que juntan el sistema co
 .Motivación
 Muchos stakeholders toman decisiones arquitectónicas basadas en las interfaces técnicas entre el sistema y su contexto. En especial, los diseñadores de hardware o infraestructura deciden estas interfaces técnicas.
 
-.Forma
+.Formato
 E.g. Diagrama UML de despliegue describiendo canales con los sistemas vecinos,
 junto a una tabla de mapeo mostrando las relaciones entre canales y la entrada/salida.
 
@@ -96,107 +86,68 @@ endif::arc42help[]
 
 ==== Diagrama de Despliegue
 
-[plantuml,diagrama-despliegue,png]
-----
-@startuml
-skinparam cloudColor LightBlue
-skinparam databaseColor LightGreen
-skinparam nodeColor LightGray
+image::../images/03-Diagrama-Despliegue.png[Diagrama de Despliegue]
 
-cloud "Usuario" {
-    [Navegador Web]
-}
-
-node "WebApp" {
-    [Aplicación React]
-}
-
-node "Backend (Servidor)" {
-    [Gateway]
-    [Servicio LLM]
-    [Servicio Autenticación (authservice)]
-    [Servicio Usuario (userservice)]
-}
-
-database "WikiData" {
-    [API WikiData] 
-}
-
-database "MongoDB" {
-    [Base de Datos de Usuarios]
-}
-
-node "Monitorización" {
-    [Prometheus]
-    [Grafana]
-}
-
-
-[Navegador Web] --> [Aplicación React] : HTTP Request
-[Aplicación React] --> [Gateway] : API Request (REST)
-[Gateway] --> [Servicio Autenticación (authservice)] : Solicita autenticación de usuario
-[Gateway] --> [Servicio LLM] : Solicitar pista
-[Gateway] --> [Servicio Usuario (userservice)] : Inserta/Consulta datos
-[API WikiData] --> [Gateway] : Envía imagen y respuesta
-[API WikiData] --> [Servicio LLM] : Envía pistas
-[Servicio LLM] --> [Gateway] : Responder con pista
-[Gateway] --> [Aplicación React] : Enviar info al usuario
-[Servicio Autenticación (authservice)] --> [Base de Datos de Usuarios] : Verifica LogIn
-[Servicio Usuario (userservice)] --> [Base de Datos de Usuarios] : Inserta/Consulta datos
-
-
-[Prometheus] --> [Gateway] : Recolectar métricas
-[Grafana] --> [Prometheus] : Visualización de métricas
-
-@enduml
-----
 
 ==== Explicación de Interfaces Técnicas
 
-===== Gateway
-API que hace de enlace entre las distintas partes de la aplicación
-
-===== Aplicación React
+===== WebApp
 Aplicación web hecha con React que aporta al usuario una interfaz con la que interactuar y por medio de la cual hacer las peticiones
 correspondientes al backend
 
-===== Base de Datos de Usuarios
-Base de datos que almacena toda la información referente a los usuarios como su nombre de usuario, sus datos de logIn, su histórico de partidas, etc
+===== gatewayservice
+API que hace de enlace entre las distintas partes de la aplicación. Funciona como una especie de fachada que sirve para que los
+distintos microservicios no tengan por qué conocerse entre ellos, para comunicarse solo deben de hacer peticiones al gateway y este
+hará una redirección de la petición al servicio correspondiente.
 
-===== Servicio de Autenticación
-Interfaz que se comunica con la base de datos de usuarios a fin de comprobar si los datos introducidos de inicio de sesión
-se corresponden con un usuario relaciones
+===== authservice
+Servicio que se comunica con la base de datos de usuarios a fin de comprobar si los datos introducidos de inicio de sesión
+se corresponden con un usuario
 
-===== Servicio de Usuario
-Interfaz que se comunica con la base de datos de usuarios a fin de consultar y actualizar la información referente a los usuarios y
-sus partidas
+===== userservice
+Servicio que se comunica con la base de datos de usuarios a fin de añadir usuarios y modificar los datos relativos a los usuarios
 
-===== Servicio LLM
-Servicio que, por medio de las pistas obtenidas de WikiData, procesará y responderá a las pistas que pida el usuario
+===== Base de Datos "userdb"
+Base de datos que almacena toda la información de los usuarios como su nombre de usuario, sus datos de logIn, etc
+
+===== gameservice
+Servicio que guarda la información relativa a las partidas de los usuarios en la base de datos "bd". Además, gestiona 
+los datos de configuración de la partida (topics e idioma), almacenandolos en una caché para un rápido acceso. Estos datos posteriormente
+son utilizados por el questionservice para obtener las preguntas usando dicha configuración.
+
+===== Base de Datos "bd"
+Base de datos que almacena la información de las partidas jugadas por los usuarios
+
+===== questionservice
+Servicio que genera las preguntas por medio de plantillas para los diferentes topics e idiomas y utiliza Wikidata para la 
+obtención de las respuestas correctas y falsas.
 
 ===== API WikiData
 API del servicio web WikiData que aportará a la aplicación las imágenes para el juego, las respuestas a las mismas y las
 pistas que el LLM utilizará para responder a los usuarios
 
-===== Prometheus
-Interfaz que almacena en su base de datos optimizada las métricas traidas de la Gateway
+===== llmservice
+Servicio que, por medio de la respuesta correcta a la pregunta actual de la partida, procesará y responderá a las preguntas que tenga 
+el usuario por medio de pistas, sin dar dicha respuesta correcta directamente
 
-===== Grafana
-Interfaz que por medio de consultas a Prometheus, muestra gráficamente los datos obtenidos de las mismas
+===== API LLM
+Servicio externo que nos permite acceder al modelo de lenguaje y utilizarlo
 
 ==== Mapeo de Canales de Entrada/salida
 
 [options="header",cols="1,2,2"]
 |===
 | Canal | Entrada | Salida
-| Aplicación React | Peticiones HTTP del usuario indicando sus acciones | Responde con información a través de la interfaz.
-| Gateway | Peticiones REST de webapp para obtener datos como imágenes y respuestas o solicitar operaciones como iniciar sesión | Respuesta con la información solicitada.
-| Servicio Autenticación | Datos de inicio de sesión de un usuario | Consulta de comprobación de los datos de inicio de sesión
-| Servicio Usuario | Datos a consultar o insertar en la base de datos | Consulta o inserción completa a la base de datos
-| Base de Datos de Usuarios | Instrucciones SQL para consultas o insercioes | Resultado de las consultas o confirmación de las inserciones
-| Servicio LLM | Prompt de solicitud de pistas | Pista generada por el modelo a partir de información de Wikidata
+| WebApp | Peticiones HTTP del usuario indicando sus acciones | Responde con información a través de la interfaz.
+| gatewayservice | Peticiones REST de los microservicios para realizar acciones en la aplicación | Respuesta con la información/acciones solicitadas obtenida de otros microservicios.
+| authservice | Datos de inicio de sesión de un usuario | Resultado de comprobación de los datos de inicio de sesión
+| userservice | Datos a insertar/modificar en la base de datos | Modificación o inserción completa a la base de datos
+| Base de Datos "userdb" | Instrucciones para consultas o insercioes en base de datos | Resultado de las consultas o confirmación de las inserciones
+| gameservice | Información de inicio de partida o final de partida | Responde con confirmación de las operaciones o con id de caché para rápido acceso a la configuración de la partida
+| Base de Datos "bd" | Instrucciones para consultas o inserciones en base de datos | Resultado de las consultas o confirmación de las inserciones
+| questionservice | Configuración de la partida | Pregunta con las posibles respuestas (correcta e incorrectas)
 | API Wikidata | Solicitud de imagenes o pistas | Imagen nueva, respuesta o pista sobre la imagen ofrecida con anterioridad
-| Prometheus | Métricas de Gateway | Almacenamiento de las métricas en su base de datos
-| Grafana | Métricas organizadas en Prometheus | Gráficos de visualización de las métricas
+| llmservice | Prompt de solicitud de pistas y respuesta correcta a la pregunta | Pista generada por el modelo evitando decir la respuesta correcta
+| API LLM | Prompt de solicitud de pistas | Respuesta del modelo de lenguaje generada a partir del prompt
 |===
 

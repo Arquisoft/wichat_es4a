@@ -1,33 +1,29 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-glossary]]
-== Glossary
+== Glosario
 
 ifdef::arc42help[]
 [role="arc42help"]
 ****
-.Contents
-The most important domain and technical terms that your stakeholders use when discussing the system.
+.Contenido
+Los términos técnicos y de dominio más importantes que utilizan tus stakeholders al hablar del sistema.
 
-You can also see the glossary as source for translations if you work in multi-language teams.
+También puedes usar el glosario como fuente de traducciones si trabajas en equipos multilingües.
 
-.Motivation
-You should clearly define your terms, so that all stakeholders
+.Motivación
+Debes definir claramente tus términos para que todos los stakeholders:
 
-* have an identical understanding of these terms
-* do not use synonyms and homonyms
+* tengan una comprensión idéntica de estos términos
+* no utilicen sinónimos ni homónimos
 
+.Formato
+Una tabla con las columnas <Término> y <Definición>.
 
-.Form
+Se pueden agregar más columnas si necesitas traducciones.
 
-A table with columns <Term> and <Definition>.
-
-Potentially more columns in case you need translations.
-
-
-.Further Information
-
-See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
+.Información adicional
+Consulta https://docs.arc42.org/section-12/[Glossary] en la documentación de arc42.
 
 ****
 endif::arc42help[]
@@ -36,9 +32,59 @@ endif::arc42help[]
 |===
 |Term |Definition
 
-|<Term-1>
-|<definition-1>
+| **LLM (Modelo Largo de Lenguaje)**
+| **Modelo de inteligencia artificial**, conversacional en el caso de este proyecto, que recibe un input, 
+lo procesa y, en base a una serie de instrucciones e información de la cual dispone con anterioridad, 
+ofrece un output al usuario
 
-|<Term-2>
-|<definition-2>
+| **API (Interfaz de Programación de Aplicaciones)**
+| **Conjunto de reglas y herramientas que permiten que diferentes programas 
+o sistemas se comuniquen entre sí**. Es como un "mensajero" que recibe solicitudes, las envía al sistema adecuado y devuelve la respuesta
+
+| **Wikidata**
+| **Base de conocimiento libre y abierta** que puede ser leída y editada tanto por humanos como por máquinas. 
+Es utilizada como fuente de información para la generación de las preguntas en el sistema
+
+| **SPARQL**
+| **Lenguaje de consulta diseñado para interactuar con bases de datos que utilizan el modelo RDF** (Resource Description Framework), 
+en nuestro caso utilizado para hacer consultas a Wikidata
+
+| **Git**
+| **Sistema de control de versiones** que permite rastrear cambios en el código, colaborar con otros desarrolladores 
+y gestionar diferentes versiones de un proyecto. Funciona como un "historial" que guarda cada modificación, 
+facilitando la recuperación de versiones anteriores y el trabajo en equipo sin sobrescribir el trabajo de otros
+
+| **Github**
+| **Plataforma en la nube que permite almacenar, compartir y colaborar en proyectos que usan Git**. 
+Facilita el trabajo en equipo mediante herramientas para gestión de código, control de versiones, 
+seguimiento de problemas y automatización de tareas
+
+| **REST**
+| **Estilo de arquitectura para diseñar servicios web que permite la comunicación entre sistemas a 
+través de Internet**. Usa peticiones HTTP (como GET, POST, PUT, DELETE) para intercambiar datos
+
+| **React**
+| **Biblioteca de JavaScript para construir interfaces de usuario** interactivas y dinámicas
+
+| **MongoDB**
+| **Sistema de gestión de bases de datos no relacional basado en documentos**. Almacena la información de los datos
+en documentos en formato BSON (Binary JSON)
+
+| ** Microservicio**
+| **Componente autónomo y desacoplado de una aplicación más grande**. 
+Cada microservicio tiene una responsabilidad única y puede ser desarrollado, desplegado y escalado de manera independiente. 
+Estos servicios se comunican entre sí a través de interfaces bien definidas, generalmente usando protocolos ligeros 
+como HTTP o mensajería asíncrona
+
+| **Docker**
+| Plataforma de código abierto que **permite automatizar el despliegue, la ejecución y la gestión de aplicaciones 
+dentro de contenedores**. Los contenedores son entornos aislados y ligeros que permiten ejecutar aplicaciones de manera 
+consistente, independientemente del entorno en el que se encuentren, ya sea en un servidor local, en la nube o en diferentes 
+sistemas operativos
+
+| **Terraform**
+| **Herramienta de infraestructura como código (IaC)** de código abierto que permite definir, provisionar y gestionar 
+infraestructuras a través de archivos de configuración escritos en un lenguaje declarativo llamado 
+HCL (HashiCorp Configuration Language).
+Lo utilizamos para describir de manera codificada los recuross necesarios para nuestro despliegue en AWS.
 |===
