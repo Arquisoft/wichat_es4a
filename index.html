@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <br><span id="revremark">(based upon AsciiDoc version)</span>
 </div>
 <div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">Tabla de Contenido</div>
 <ul class="sectlevel1">
 <li><a href="#section-introduction-and-goals">1. Introducción y Objetivos</a>
 <ul class="sectlevel2">
@@ -497,20 +497,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_internacionalización">8.6. Internacionalización</a></li>
 </ul>
 </li>
-<li><a href="#section-design-decisions">9. Architecture Decisions</a>
+<li><a href="#section-design-decisions">9. Decisiones Arquitectónicas</a>
 <ul class="sectlevel2">
-<li><a href="#_uso_de_javascript">9.1. <strong>Uso de JavaScript</strong></a></li>
-<li><a href="#_uso_de_react_para_el_front_end">9.2. <strong>Uso de React para el Front-End</strong></a></li>
-<li><a href="#_uso_de_mongodb">9.3. <strong>Uso de MongoDB</strong></a></li>
-<li><a href="#_uso_de_docker">9.4. <strong>Uso de Docker</strong></a></li>
-<li><a href="#_uso_de_cache_game">9.5. <strong>Uso de Cache (Game)</strong></a></li>
-<li><a href="#_uso_de_question_templates">9.6. <strong>Uso de Question Templates</strong></a></li>
-<li><a href="#_uso_de_i18next_para_internacionalización">9.7. <strong>Uso de i18next para Internacionalización</strong></a></li>
-<li><a href="#_uso_de_wikidata">9.8. <strong>Uso de WikiData</strong></a></li>
-<li><a href="#_uso_de_la_plantilla_arc42">9.9. <strong>Uso de la Plantilla Arc42</strong></a></li>
-<li><a href="#_microservicios_userservice_y_authservice_con_la_misma_base_de_datos">9.10. <strong>Microservicios UserService y AuthService con la misma base de datos</strong></a></li>
-<li><a href="#_decisión_de_empezar_el_proyecto_desde_cero">9.11. <strong>Decisión de empezar el proyecto desde cero</strong></a></li>
-<li><a href="#_conclusión">9.12. <strong>Conclusión</strong></a></li>
+<li><a href="#_uso_de_javascript">9.1. Uso de JavaScript</a></li>
+<li><a href="#_uso_de_react_para_el_front_end">9.2. Uso de React para el Front-End</a></li>
+<li><a href="#_uso_de_mongodb">9.3. Uso de MongoDB</a></li>
+<li><a href="#_uso_de_docker">9.4. Uso de Docker</a></li>
+<li><a href="#_uso_de_cache_game">9.5. Uso de Cache (Game)</a></li>
+<li><a href="#_uso_de_question_templates">9.6. Uso de Question Templates</a></li>
+<li><a href="#_uso_de_i18next_para_internacionalización">9.7. Uso de i18next para Internacionalización</a></li>
+<li><a href="#_uso_de_wikidata">9.8. Uso de WikiData</a></li>
+<li><a href="#_uso_de_la_plantilla_arc42">9.9. Uso de la Plantilla Arc42</a></li>
+<li><a href="#_microservicios_userservice_y_authservice_con_la_misma_base_de_datos">9.10. Microservicios UserService y AuthService con la misma base de datos</a></li>
+<li><a href="#_decisión_de_empezar_el_proyecto_desde_cero">9.11. Decisión de empezar el proyecto desde cero</a></li>
+<li><a href="#_conclusión">9.12. Conclusión</a></li>
 </ul>
 </li>
 <li><a href="#section-quality-scenarios">10. Requisitos de calidad</a>
@@ -608,16 +608,16 @@ Esto incluye</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Registro e Inicio de Sesión de Usuarios:</strong> Los usuarios deberán registrarse para participar en los juegos, o iniciar sesión si ya se han registrado previamente.</p>
+<p><strong>Registro e Inicio de Sesión de Usuarios:</strong> Los usuarios podrán registrarse para guardar o consultar los resultados de sus partidas, o iniciar sesión si ya se han registrado previamente.</p>
 </li>
 <li>
 <p><strong>Generación de Preguntas y Respuestas:</strong> El sistema proporcionará preguntas de diversas temáticas. Se generarán automáticamente respuestas correctas e incorrectas utilizando datos de Wikidata. Cada pregunta tendrá 4 posibles respuestas.</p>
 </li>
 <li>
-<p><strong>Interacción con el Sistema de Pistas:</strong> Los usuarios podrán interactuar con la aplicación para obtener pistas sobre las preguntas Las pistas serán generadas de forma conversacional mediante un modelo de lenguaje (LLM), accediendo a través de una API.</p>
+<p><strong>Interacción con el Sistema de Pistas:</strong> Los usuarios podrán interactuar con la aplicación para obtener pistas sobre las preguntas. Las pistas serán generadas de forma conversacional mediante un modelo de lenguaje (LLM), accediendo a través de una API.</p>
 </li>
 <li>
-<p><strong>Historial de Participación del Usuario:</strong> El sistema registrará el historial de los usuarios. Se almacenarán datos como el número de juegos jugados, preguntas acertadas y falladas, y el tiempo utilizado.</p>
+<p><strong>Historial de Participación del Usuario:</strong> El sistema registrará el historial de los usuarios. Se almacenarán datos como el número de puntos obtenidos, las preguntas acertadas y falladas, y la fecha.</p>
 </li>
 <li>
 <p><strong>Límite de Tiempo para Responder:</strong> Cada pregunta tendrá un límite de tiempo determinado para ser respondida por los usuarios.</p>
@@ -627,6 +627,9 @@ Esto incluye</p>
 </li>
 <li>
 <p><strong>Generación Automática de Contenidos:</strong> Las imágenes de las preguntas y las pistas serán generadas automáticamente utilizando datos de Wikidata. Esto garantizará la variedad y el contexto adecuado de las preguntas.</p>
+</li>
+<li>
+<p><strong>Donaciones con PayPal:</strong> Implementamos un flujo completo donde, tras capturar un pago exitoso en PayPal, enviamos automáticamente un email personalizado de agradecimiento al donante. Además, configuramos tanto el entorno sandbox para pruebas como la preparación para producción real.</p>
 </li>
 </ul>
 </div>
@@ -675,7 +678,7 @@ Si como arquitecto no sabes cómo se juzgará la calidad de tu trabajo&#8230;&#8
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Rendimiento</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El sistema debe garantizar tiempos de respuesta dentro de los límites aceptables, incluso en condiciones de alta demanda. Se optimizará el uso de recursos para minimizar la latencia y mejorar la experiencia del usuario. Además, se implementarán optimizaciones de consultas para reducir la carga en los servidores y mejorar la velocidad de ejecución de las funciones más críticas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se realizan consultas al servicio que proporciona las imágenes y las preguntas del juego de manera eficiente para que el tiempo de carga de estas sea el menor posible y el rendimiento sea el máximo alcanzable.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Escalabilidad</p></td>
@@ -824,7 +827,7 @@ No tenemos total libertad ni para diseñar el sistema ni para implementarlo. Ade
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Uso de un LLM</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizará un modelo de lenguaje grande (LLM) para generar automáticamente preguntas y respuestas y permitir obtener pistas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizará un modelo de lenguaje grande (LLM) para generar automáticamente respuestas al usuario y que le permita obtener pistas.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wikidata</em></p></td>
@@ -832,23 +835,23 @@ No tenemos total libertad ni para diseñar el sistema ni para implementarlo. Ade
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docker</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La web deberá estar desplegada y accesible a través de la Web.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La aplicación deberá estar desplegada y accesible a través de la Web.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Generación de Preguntas</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Las preguntas tendrán una respuesta correcta y varias incorrectas. Las respuestas se generarán automáticamente.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>API Usage</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizarán APIs para acceder a la información de usuarios y preguntas generadas.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Frontend Web</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El sistema tendrá al menos un frontend web desplegado y accesible a través de la Web.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Las preguntas tendrán una respuesta correcta y varias incorrectas y se generarán automáticamente.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Límite de tiempo</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Las preguntas deben ser respondidas dentro de un plazo de tiempo determinado.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Sistema de Donaciones (PayPal)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se implementará un sistema de donaciones integrando PayPal, enviando un email automático de agradecimiento tras cada donación exitosa.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Correo Transaccional</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se utilizará un servicio de correo para notificaciones automáticas, empleando autenticación segura (App Passwords).</p></td>
 </tr>
 </tbody>
 </table>
@@ -869,7 +872,7 @@ No tenemos total libertad ni para diseñar el sistema ni para implementarlo. Ade
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Gestión de Usuarios</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Los usuarios podrán registrarse, iniciar sesión y revisar su historial de participación en el sistema.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Los usuarios podrán registrarse, iniciar sesión y revisar su historial de partidas.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Grupos de 4-6 personas</em></p></td>
@@ -923,7 +926,7 @@ No tenemos total libertad ni para diseñar el sistema ni para implementarlo. Ade
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Convenciones de Nombres</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El nombre de la aplicación será WIChat.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El nombre de la aplicación será WiChat.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Uso de Git y Github</em></p></td>
@@ -1078,7 +1081,7 @@ correspondientes al backend</p>
 <h5 id="_gatewayservice">gatewayservice</h5>
 <div class="paragraph">
 <p>API que hace de enlace entre las distintas partes de la aplicación. Funciona como una especie de fachada que sirve para que los
-distintos microservicios no tengan por qué conocerse entre ellos, para comunicarse solo deben de hacer peticiones al gateway y este
+distintos microservicios no tengan por qué conocerse entre ellos. Para comunicarse solo deben de hacer peticiones al gateway y este
 hará una redirección de la petición al servicio correspondiente.</p>
 </div>
 </div>
@@ -1092,7 +1095,7 @@ se corresponden con un usuario</p>
 <div class="sect4">
 <h5 id="_userservice">userservice</h5>
 <div class="paragraph">
-<p>Servicio que se comunica con la base de datos de usuarios a fin de añadir usuarios y modificar los datos relativos a los usuarios</p>
+<p>Servicio que se comunica con la base de datos de usuarios a fin de añadir usuarios y modificar los datos relativos a los usuarios.</p>
 </div>
 </div>
 <div class="sect4">
@@ -1237,7 +1240,7 @@ el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p
 <p><strong>Objetivos de calidad</strong>: <em>Usabilidad</em>, <em>Mantenibilidad</em>, <em>Integrabilidad</em></p>
 </li>
 <li>
-<p><strong>Restricciones clave</strong>: El sistema debe ser accesible desde diferentes plataformas y dispositivos, incluyendo navegadores web modernos.</p>
+<p><strong>Restricciones clave</strong>: El sistema debe ser accesible desde diferentes plataformas, incluyendo navegadores web modernos.</p>
 </li>
 </ul>
 </div>
@@ -1582,7 +1585,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_1_caja_blanca_del_sistema_general">5.1. Nivel 1: Caja blanca del Sistema General</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view1.png" alt="building block view1" width="736" height="221">
+<img src="./images/building_block_view1.png" alt="building block view1" width="704" height="225">
 </div>
 </div>
 <div class="dlist">
@@ -1591,7 +1594,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <dd>
 <p><em>La aplicación WiChat tiene la estructura básica para generar preguntas desde WikiData, plantearlas al usuario y, si lo desea, puede recibir pistas generadas por un modelo de lenguaje.</em></p>
 </dd>
-<dt class="hdlist1">Contained Building Blocks</dt>
+<dt class="hdlist1">Bloques de Construcción Contenidos</dt>
 </dl>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -1607,20 +1610,20 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Usuario</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usuario de la aplicación que interactúa con ella.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Usuario</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usuario de la aplicación que interactúa con ella.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WiChat</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El sistema a implementar, tomará la información necesaria de <em>WikiData</em> para generar preguntas y generará pistas con el uso de un <em>LLM</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>WiChat</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>El sistema a implementar, tomará la información necesaria de <em>WikiData</em> para generar preguntas y generará pistas con el uso de un <em>LLM</em>.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>WikiData</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tiene la información necesaria para generar preguntas genéricas de varias temáticas para las partidas de los usuarios.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>WikiData</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Tiene la información necesaria para generar preguntas genéricas de varias temáticas para las partidas de los usuarios.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Gemini</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Es un modelo de lenguaje que se utiliza para generar pistas basadas en las preguntas generadas, proporcionando respuestas coherentes y contextuales.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Gemini</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es un modelo de lenguaje que se utiliza para generar pistas basadas en las preguntas generadas, proporcionando respuestas coherentes y contextuales.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1629,7 +1632,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_2">5.2. Nivel 2</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view2.png" alt="building block view2" width="1228" height="240">
+<img src="./images/building_block_view2.png" alt="building block view2" width="1163" height="245">
 </div>
 </div>
 <div class="dlist">
@@ -1638,13 +1641,13 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <dd>
 <p>Esto muestra el flujo principal de datos de la aplicación y también la decisión arquitectónica de usar microservicios a los cuales se conectará la <em>Interfaz de Usuario</em>.</p>
 </dd>
-<dt class="hdlist1">Contained Building Blocks</dt>
+<dt class="hdlist1">Bloques de Construcción Contenidos</dt>
 </dl>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
@@ -1654,12 +1657,12 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Interfaz de Usuario</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Proporciona una interfaz que el usuario final de la aplicación puede utilizar.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Interfaz de Usuario</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Proporciona una interfaz que el usuario final de la aplicación puede utilizar.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Microservicios</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Proveen un backend para la <em>Interfaz de Usuario</em>, manteniendo la aplicación modular, mantenible, reutilizable y fácil de distribuir.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Microservicios</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Proveen un backend para la <em>Interfaz de Usuario</em>, manteniendo la aplicación modular, mantenible, reutilizable y fácil de distribuir.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1668,7 +1671,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_3">5.3. Nivel 3</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view3.png" alt="building block view3" width="1161" height="659">
+<img src="./images/building_block_view3.png" alt="building block view3" width="1138" height="676">
 </div>
 </div>
 <div class="dlist">
@@ -1677,13 +1680,13 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <dd>
 <p>En este diagrama podemos ver los microservicios que proporcionarán todas las operaciones necesarias para que la aplicación funcione como el usuario se espera.</p>
 </dd>
-<dt class="hdlist1">Contained Building Blocks</dt>
+<dt class="hdlist1">Bloques de Construcción Contenidos</dt>
 </dl>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
@@ -1693,28 +1696,28 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Game Service</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Es el microservicio que se encargará de la creación, mantenimiento y finalización de juegos, registrará todos los juegos y las puntuaciones de los usuarios.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Game Service</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es el microservicio que se encargará de la creación, mantenimiento y finalización de juegos, registrará todos los juegos y las puntuaciones de los usuarios.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>User Service</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Es un microservicio que proporciona a la Interfaz de Usuario todos los datos necesarios relacionados con los usuarios, como su perfil y estadísticas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>User Service</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es un microservicio que proporciona a la Interfaz de Usuario todos los datos necesarios relacionados con los usuarios, como su perfil y estadísticas.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Auth Service</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Es un microservicio que los usuarios pueden usar para iniciar sesión en la aplicación. Funciona mediante autenticación por <em>token</em> para que sea compatible entre microservicios.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Auth Service</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es un microservicio que los usuarios pueden usar para iniciar sesión en la aplicación. Funciona mediante autenticación por <em>token</em> para que sea compatible entre microservicios.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Question Service</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Su propósito principal es ser una abstracción sobre la <em>API de WikiData</em>, de modo que el microservicio <em>Game Service</em> pueda solicitarle preguntas directamente en lugar de tener que interactuar con la <em>API de WikiData</em>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Question Service</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Su propósito principal es ser una abstracción sobre la <em>API de WikiData</em>, de modo que el microservicio <em>Game Service</em> pueda solicitarle preguntas directamente en lugar de tener que interactuar con la <em>API de WikiData</em>.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>LLM Service</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Es un microservicio que utiliza un modelo de lenguaje para generar pistas basadas en las preguntas proporcionadas, asegurando respuestas coherentes y contextuales para mejorar la experiencia del usuario.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>LLM Service</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es un microservicio que utiliza un modelo de lenguaje para generar pistas basadas en las preguntas proporcionadas, asegurando respuestas coherentes y contextuales para mejorar la experiencia del usuario.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Game Data y User Data</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Son las bases de datos principales de la aplicación y juntas almacenarán todos los datos persistentes importantes de la aplicación.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Game Data y User Data</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Son las bases de datos principales de la aplicación y juntas almacenarán todos los datos persistentes importantes de la aplicación.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1728,53 +1731,46 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:</p>
+<div class="title">Contenido</div>
+<p>La vista de tiempo de ejecución describe el comportamiento concreto y las interacciones de los bloques constructivos del sistema en forma de escenarios de las siguientes áreas:</p>
+</div>
+<div class="paragraph">
+<p>casos de uso o funcionalidades importantes: ¿cómo los ejecutan los bloques constructivos?</p>
+</div>
+<div class="paragraph">
+<p>interacciones en interfaces externas críticas: ¿cómo cooperan los bloques constructivos con los usuarios y sistemas vecinos?</p>
+</div>
+<div class="paragraph">
+<p>operación y administración: lanzamiento, inicio, detención</p>
+</div>
+<div class="paragraph">
+<p>escenarios de error y excepciones</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivación</div>
+<p>Debes comprender cómo (las instancias de) los bloques constructivos de tu sistema realizan su trabajo y se comunican en tiempo de ejecución.
+Capturarás principalmente escenarios en tu documentación para comunicar tu arquitectura a los interesados que tienen menor disposición o capacidad para leer y entender los modelos estáticos (vista de bloques constructivos, vista de despliegue).</p>
+</div>
+<div class="paragraph">
+<div class="title">Formato</div>
+<p>Existen muchas notaciones para describir escenarios, por ejemplo:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>important use cases or features: how do building blocks execute them?</p>
+<p>lista numerada de pasos (en lenguaje natural)</p>
 </li>
 <li>
-<p>interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?</p>
+<p>diagramas de actividades o diagramas de flujo</p>
 </li>
 <li>
-<p>operation and administration: launch, start-up, stop</p>
+<p>diagramas de secuencia</p>
 </li>
 <li>
-<p>error and exception scenarios</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their <strong>architectural relevance</strong>. It is <strong>not</strong> important to describe a large number of scenarios. You should rather document a representative selection.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
-You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>There are many notations for describing scenarios, e.g.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>numbered list of steps (in natural language)</p>
+<p>BPMN o EPC (cadenas de procesos de eventos)</p>
 </li>
 <li>
-<p>activity diagrams or flow charts</p>
-</li>
-<li>
-<p>sequence diagrams</p>
-</li>
-<li>
-<p>BPMN or EPCs (event process chains)</p>
-</li>
-<li>
-<p>state machines</p>
+<p>máquinas de estados</p>
 </li>
 <li>
 <p>&#8230;&#8203;</p>
@@ -1783,7 +1779,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </div>
 <div class="paragraph">
 <div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-6/">Runtime View</a> in the arc42 documentation.</p>
+<p>Consulta <a href="https://docs.arc42.org/section-6/">Runtime View</a> en la documentación de arc42.</p>
 </div>
 </div>
 </div>
@@ -1791,7 +1787,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_un_usuario_se_registra_en_el_sistema">6.1. Un usuario se registra en el sistema</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/User%20Registration%20Sequence.png" alt="User Registration Sequence" width="434" height="324">
+<img src="./images/User%20Registration%20Sequence.png" alt="User Registration Sequence" width="402" height="331">
 </div>
 </div>
 </div>
@@ -1799,7 +1795,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_un_usuario_juega_al_juego_de_las_preguntas_y_solicita_pistas">6.2. Un usuario juega al juego de las preguntas y solicita pistas</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Question%20Game%20with%20Hint%20Sequence.png" alt="Question Game with Hint Sequence" width="528" height="604">
+<img src="./images/Question%20Game%20with%20Hint%20Sequence.png" alt="Question Game with Hint Sequence" width="499" height="621">
 </div>
 </div>
 </div>
@@ -1807,7 +1803,7 @@ You will mainly capture scenarios in your documentation to communicate your arch
 <h3 id="_el_usuario_quiere_ver_su_historial_de_la_partida">6.3. El usuario quiere ver su historial de la partida</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Game%20History%20Sequence.png" alt="Game History Sequence" width="436" height="298">
+<img src="./images/Game%20History%20Sequence.png" alt="Game History Sequence" width="406" height="305">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -2005,6 +2001,9 @@ cualquier tipo que sea capaz de mostrar nodos y canales de la infraestructura.</
 <li>
 <p>Base de Datos: Almacena información de usuarios, partidas y preguntas.</p>
 </li>
+<li>
+<p>DonationService: Gestiona las donaciones de los usuarios a través de PayPal y envía correos automáticos de agradecimiento.</p>
+</li>
 </ul>
 </div>
 </dd>
@@ -2130,7 +2129,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 <div class="sect2">
 <h3 id="_persistencia">8.3. Persistencia</h3>
 <div class="paragraph">
-<p>En cuanto a la gestión de datos en la aplicación, cabe mencionar que en todos los casos usamos MongoDB. El microservicio game_service gestiona la base de datos del juego, las preguntas y el historial de partidas, mientras que el microservicio user se encarga de la base de datos de los usuarios.</p>
+<p>En cuanto a la gestión de datos en la aplicación, cabe mencionar que en todos los casos usamos MongoDB. El microservicio gameservice gestiona la base de datos del juego, las preguntas y el historial de partidas, mientras que los microservicios userservice y authservice se encargan de la base de datos de los usuarios.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2141,7 +2140,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 <div class="sect2">
 <h3 id="_seguridad_2">8.4. Seguridad</h3>
 <div class="paragraph">
-<p>Para garantizar la seguridad de los usuarios, la aplicación cifra sus contraseñas antes de almacenarlas en la base de datos utilizando el algoritmo bcrypt, lo que asegura que las contraseñas no se guarden de manera visible ni en texto claro. Además, se realiza una validación para asegurarse de que los campos esenciales, como el nombre de usuario y la contraseña, estén presentes en la solicitud antes de crear un nuevo usuario, lo que garantiza que los datos necesarios sean correctos y completos. Además, añadimos un control de fuerza bruta para el login. Si se falla múltiples veces seguidas al intentar hacer login, se bloquea la IP durante varios minutos.</p>
+<p>Para garantizar la seguridad de los usuarios, la aplicación cifra sus contraseñas antes de almacenarlas en la base de datos utilizando el algoritmo bcrypt, lo que asegura que las contraseñas no se guarden de manera visible ni en texto plano. Además, se realiza una validación para asegurarse de que los campos esenciales, como el nombre de usuario y la contraseña, estén presentes en la solicitud antes de crear un nuevo usuario, lo que garantiza que los datos necesarios sean correctos y completos. Además, añadimos un control de fuerza bruta para el login. Si se falla múltiples veces seguidas al intentar hacer login, se bloquea la IP durante varios minutos.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2160,13 +2159,13 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-design-decisions">9. Architecture Decisions</h2>
+<h2 id="section-design-decisions">9. Decisiones Arquitectónicas</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Durante el desarrollo de la aplicación, se han tomado diversas decisiones arquitectónicas que afectan tanto a la elección de tecnologías como a la estructura general del proyecto. A continuación, se detallan las principales decisiones, sus ventajas y desventajas, así como las razones detrás de cada una de ellas.</p>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_javascript">9.1. <strong>Uso de JavaScript</strong></h3>
+<h3 id="_uso_de_javascript">9.1. Uso de JavaScript</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2202,7 +2201,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_react_para_el_front_end">9.2. <strong>Uso de React para el Front-End</strong></h3>
+<h3 id="_uso_de_react_para_el_front_end">9.2. Uso de React para el Front-End</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2238,7 +2237,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_mongodb">9.3. <strong>Uso de MongoDB</strong></h3>
+<h3 id="_uso_de_mongodb">9.3. Uso de MongoDB</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2271,7 +2270,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_docker">9.4. <strong>Uso de Docker</strong></h3>
+<h3 id="_uso_de_docker">9.4. Uso de Docker</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2307,7 +2306,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_cache_game">9.5. <strong>Uso de Cache (Game)</strong></h3>
+<h3 id="_uso_de_cache_game">9.5. Uso de Cache (Game)</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2340,7 +2339,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_question_templates">9.6. <strong>Uso de Question Templates</strong></h3>
+<h3 id="_uso_de_question_templates">9.6. Uso de Question Templates</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2373,7 +2372,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_i18next_para_internacionalización">9.7. <strong>Uso de i18next para Internacionalización</strong></h3>
+<h3 id="_uso_de_i18next_para_internacionalización">9.7. Uso de i18next para Internacionalización</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2406,7 +2405,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_wikidata">9.8. <strong>Uso de WikiData</strong></h3>
+<h3 id="_uso_de_wikidata">9.8. Uso de WikiData</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2439,7 +2438,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_uso_de_la_plantilla_arc42">9.9. <strong>Uso de la Plantilla Arc42</strong></h3>
+<h3 id="_uso_de_la_plantilla_arc42">9.9. Uso de la Plantilla Arc42</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2472,7 +2471,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_microservicios_userservice_y_authservice_con_la_misma_base_de_datos">9.10. <strong>Microservicios UserService y AuthService con la misma base de datos</strong></h3>
+<h3 id="_microservicios_userservice_y_authservice_con_la_misma_base_de_datos">9.10. Microservicios UserService y AuthService con la misma base de datos</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2505,7 +2504,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_decisión_de_empezar_el_proyecto_desde_cero">9.11. <strong>Decisión de empezar el proyecto desde cero</strong></h3>
+<h3 id="_decisión_de_empezar_el_proyecto_desde_cero">9.11. Decisión de empezar el proyecto desde cero</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2538,7 +2537,7 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 </div>
 </div>
 <div class="sect2">
-<h3 id="_conclusión">9.12. <strong>Conclusión</strong></h3>
+<h3 id="_conclusión">9.12. Conclusión</h3>
 <div class="paragraph">
 <p>Las decisiones arquitectónicas que se tomaron a lo largo del desarrollo del proyecto han sido cuidadosamente consideradas para garantizar un sistema escalable, eficiente y fácil de mantener. A pesar de que algunos de los miembros del equipo no estaban familiarizados con ciertas tecnologías, como Docker o MongoDB, las decisiones se basaron en las necesidades actuales del proyecto y en las tendencias tecnológicas que ofrecen ventajas a largo plazo. Estas decisiones no solo buscan cumplir con los requisitos inmediatos, sino también permitir un crecimiento sostenible del sistema en el futuro.</p>
 </div>
@@ -2552,18 +2551,15 @@ Así, son una contribución importante para lograr las cualidades internas de tu
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Content</div>
-<p>This section contains all quality requirements as quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)</p>
+<div class="title">Contenido</div>
+<p>Esta sección contiene todos los requisitos de calidad en forma de un árbol de calidad con escenarios. Los más importantes ya han sido descritos en la sección 1.2 (objetivos de calidad).</p>
 </div>
 <div class="paragraph">
-<p>Here you can also capture quality requirements with lesser priority,
-which will not create high risks when they are not fully achieved.</p>
+<p>Aquí también se pueden capturar los requisitos de calidad de menor prioridad, los cuales no generarán altos riesgos si no se logran completamente.</p>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
-<p>Since quality requirements will have a lot of influence on architectural
-decisions you should know for every stakeholder what is really important to them,
-concrete and measurable.</p>
+<div class="title">Motivación</div>
+<p>Dado que los requisitos de calidad tendrán una gran influencia en las decisiones arquitectónicas, es importante saber qué es realmente importante para cada parte interesada, de manera concreta y medible.</p>
 </div>
 <div class="paragraph">
 <div class="title">Further Information</div>
@@ -2576,70 +2572,75 @@ concrete and measurable.</p>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Content</div>
-<p>The quality tree (as defined in ATAM – Architecture Tradeoff Analysis Method) with quality/evaluation scenarios as leafs.</p>
+<div class="title">Contenido</div>
+<p>El árbol de calidad (según lo definido en ATAM – Architecture Tradeoff Analysis Method) con escenarios de calidad/evaluación como hojas.</p>
 </div>
 <div class="paragraph">
-<div class="title">Motivation</div>
-<p>The tree structure with priorities provides an overview for a sometimes large number of quality requirements.</p>
+<div class="title">Motivación</div>
+<p>La estructura en forma de árbol con prioridades proporciona una visión general de lo que a veces puede ser un gran número de requisitos de calidad.</p>
 </div>
 <div class="paragraph">
-<div class="title">Form</div>
-<p>The quality tree is a high-level overview of the quality goals and requirements:</p>
+<div class="title">Formato</div>
+<p>El árbol de calidad es una vista general de alto nivel sobre los objetivos y requisitos de calidad:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>tree-like refinement of the term "quality". Use "quality" or "usefulness" as a root</p>
+<p>refinamiento en forma de árbol del término "calidad". Usa "calidad" o "utilidad" como raíz</p>
 </li>
 <li>
-<p>a mind map with quality categories as main branches</p>
+<p>un mapa mental con categorías de calidad como ramas principales</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>In any case the tree should include links to the scenarios of the following section.</p>
+<p>En cualquier caso, el árbol debe incluir enlaces a los escenarios de la siguiente sección.</p>
 </div>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Escenario</th>
 <th class="tableblock halign-left valign-top">Requisito</th>
-<th class="tableblock halign-left valign-top">Objetivo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Rendimiento</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mantener el tiempo de respuesta en pocos segundos.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Objetivo</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc1</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Escalabilidad</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El sistema debe escalar sin afectar el rendimiento.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Rendimiento</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Mantener el tiempo de respuesta en pocos segundos.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Seguridad</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implementar medidas de seguridad robustas, incluyendo el bloqueo de acceso tras cinco intentos fallidos, el cifrado de contraseñas y la transmisión segura de información sensible del sistema mediante tokens de sesión ocultos.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc2</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Escalabilidad</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mantenibilidad</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Modularidad y facilidad de integración.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>El sistema debe escalar sin afectar el rendimiento.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc3</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usabilidad</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Debe haber reglas y guías en otro idioma para comprender el sistema, además de una interfaz amigable para el usuario.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Seguridad</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Implementar medidas de seguridad robustas, incluyendo el bloqueo de acceso tras cinco intentos fallidos, el cifrado de contraseñas y la transmisión segura de información sensible del sistema mediante tokens de sesión ocultos.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc4</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Mantenibilidad</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Modularidad y facilidad de integración.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc5</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usabilidad</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Debe haber reglas y guías en otro idioma para comprender el sistema, además de una interfaz amigable para el usuario.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -2648,8 +2649,8 @@ concrete and measurable.</p>
 <h3 id="_escenarios_de_calidad">10.2. Escenarios de calidad</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
 </colgroup>
 <thead>
 <tr>
@@ -2659,24 +2660,24 @@ concrete and measurable.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Un gran número de usuarios accede a la aplicación simultáneamente. El sistema debe mantener en pocos segundos el tiempo de respuesta.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc1</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Un gran número de usuarios accede a la aplicación simultáneamente. El sistema debe mantener en pocos segundos el tiempo de respuesta.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Crecimiento del número de usuarios en los primeros meses de lanzamiento de la aplicación. El sistema escala sin afectar al rendimiento. Los tiempos de respuesta siguen siendo lo más cortos posibles.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc2</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Crecimiento del número de usuarios en los primeros meses de lanzamiento de la aplicación. El sistema escala sin afectar al rendimiento. Los tiempos de respuesta siguen siendo lo más cortos posibles.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario malintencionado quiere acceder a datos privados usando un ataque de fuerza bruta en la autenticación. Tras intentarlo cinco veces se le prohíbe acceder a la aplicación.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc3</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Un usuario malintencionado quiere acceder a datos privados usando un ataque de fuerza bruta en la autenticación. Tras intentarlo cinco veces se le prohíbe acceder a la aplicación.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El equipo de desarrollo tiene que añadir una nueva funcionalidad a la aplicación. La funcionalidad debe implementarse sin afectar negativamente a otras áreas del sistema.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc4</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>El equipo de desarrollo tiene que añadir una nueva funcionalidad a la aplicación. La funcionalidad debe implementarse sin afectar negativamente a otras áreas del sistema.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Esc5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Un usuario nuevo entra en la aplicación. Este usuario no habla español. Además es la primera vez que accede al sistema, por tanto debe haber un apartado de reglas en su idioma para que entienda que puede hacer en la aplicación.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Esc5</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Un usuario nuevo entra en la aplicación. Este usuario no habla español. Además es la primera vez que accede al sistema, por tanto debe haber un apartado de reglas en su idioma para que entienda que puede hacer en la aplicación.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -2901,7 +2902,7 @@ Lo utilizamos para describir de manera codificada los recuross necesarios para n
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2025-04-08 13:19:40 +0200
+Last updated 2025-04-27 13:39:59 +0200
 </div>
 </div>
 </body>
