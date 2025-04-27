@@ -1017,6 +1017,10 @@ sus interlocutores (sistemas y usuarios vecinos, es decir, el contexto del siste
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>LLM_API</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>API que integra un modelo de lenguaje que se utiliza para generar pistas dinámicas y conversacionales que ayudan al concursante a responder las preguntas.</em></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>API Paypal</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>API que integra el servicio de Paypal a fin de poder realizar donaciones a los desarrolladores de la aplicación.</em></p></td>
+</tr>
 </tbody>
 </table>
 <div class="sidebarblock arc42help">
@@ -1145,6 +1149,18 @@ el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p
 <p>Servicio externo que nos permite acceder al modelo de lenguaje y utilizarlo</p>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_donationservice">donationservice</h5>
+<div class="paragraph">
+<p>Servicio que gestiona las donaciones a los desarrolladores de la aplicación por medio de su conexión con la API de Paypal</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_api_paypal">API Paypal</h5>
+<div class="paragraph">
+<p>API de Paypal que permite acceder a sus servicios para usarlos como medio para enviar dinero a los desarrolladores</p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_mapeo_de_canales_de_entradasalida">3.2.3. Mapeo de Canales de Entrada/salida</h4>
@@ -1216,6 +1232,16 @@ el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p
 <td class="tableblock halign-left valign-top"><p class="tableblock">API LLM</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prompt de solicitud de pistas</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Respuesta del modelo de lenguaje generada a partir del prompt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">donationservice</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Petición HTTP de acceso al servicio de donación</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redirección al servicio de Paypal</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API Paypal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Petición HTTP con la configuración</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Petición HTTP para confirmación o cancelación de la operación</p></td>
 </tr>
 </tbody>
 </table>
@@ -1585,7 +1611,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_1_caja_blanca_del_sistema_general">5.1. Nivel 1: Caja blanca del Sistema General</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view1.png" alt="building block view1" width="704" height="225">
+<img src="./images/building_block_view1.png" alt="building block view1" width="790" height="235">
 </div>
 </div>
 <div class="dlist">
@@ -1625,6 +1651,10 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Gemini</strong></em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es un modelo de lenguaje que se utiliza para generar pistas basadas en las preguntas generadas, proporcionando respuestas coherentes y contextuales.</em></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Paypal</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es una plataforma de pagos en línea que permite que se puedan realizar donaciones a los desarrolladores de la aplicación.</em></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1632,7 +1662,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_2">5.2. Nivel 2</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view2.png" alt="building block view2" width="1163" height="245">
+<img src="./images/building_block_view2.png" alt="building block view2" width="1313" height="262">
 </div>
 </div>
 <div class="dlist">
@@ -1671,7 +1701,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_3">5.3. Nivel 3</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view3.png" alt="building block view3" width="1138" height="676">
+<img src="./images/building_block_view3.png" alt="building block view3" width="1214" height="693">
 </div>
 </div>
 <div class="dlist">
@@ -1714,6 +1744,10 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>LLM Service</strong></em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es un microservicio que utiliza un modelo de lenguaje para generar pistas basadas en las preguntas proporcionadas, asegurando respuestas coherentes y contextuales para mejorar la experiencia del usuario.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Donation Service</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es un microservicio responsable de gestionar las donaciones de los usuarios a través de PayPal, capturando los pagos exitosos y enviando automáticamente correos de agradecimiento personalizados para fortalecer el vínculo con la comunidad.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Game Data y User Data</strong></em></p></td>
@@ -1917,7 +1951,7 @@ cualquier tipo que sea capaz de mostrar nodos y canales de la infraestructura.</
 <p>Disponibilidad: La infraestructura de AWS facilita la alta disponibilidad a través de balanceadores de carga y zonas de disponibilidad.</p>
 </li>
 <li>
-<p>Integración con servicios externos: La integración con Wikidata y LLM_API permite extender las capacidades de la plataforma sin complejidad adicional.</p>
+<p>Integración con servicios externos: La integración con Wikidata, LLM_API y Paypal API permite extender las capacidades de la plataforma sin complejidad adicional.</p>
 </li>
 </ul>
 </div>
@@ -1984,7 +2018,7 @@ cualquier tipo que sea capaz de mostrar nodos y canales de la infraestructura.</
 <p>GatewayService: Actúa como punto de entrada único para el frontend, enrutando solicitudes a los microservicios adecuados.</p>
 </li>
 <li>
-<p>Question Service: Gestiona las llamadas a Wikidata para conseguir las preguntas.</p>
+<p>QuestionService: Gestiona las llamadas a Wikidata para conseguir las preguntas.</p>
 </li>
 <li>
 <p>UserService: Maneja las operaciones con los usuarios.</p>
@@ -1993,7 +2027,7 @@ cualquier tipo que sea capaz de mostrar nodos y canales de la infraestructura.</
 <p>AuthService: Gestiona la autenticación y autorización de usuarios.</p>
 </li>
 <li>
-<p>Game_Service: Controla la lógica de la aplicación (modelo de dominio, conexión con la base de datos).</p>
+<p>GameService: Controla la lógica de la aplicación (modelo de dominio, conexión con la base de datos).</p>
 </li>
 <li>
 <p>LlmService: Se conecta con la API de Gemini y gestiona el funcionamiento del LLM.</p>
@@ -2893,6 +2927,12 @@ sistemas operativos</em></p></td>
 infraestructuras a través de archivos de configuración escritos en un lenguaje declarativo llamado
 HCL (HashiCorp Configuration Language).
 Lo utilizamos para describir de manera codificada los recuross necesarios para nuestro despliegue en AWS.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Paypal</strong></em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>Plataforma de pagos en línea</strong> que permite a usuarios y empresas enviar y recibir dinero de forma segura a través de internet.
+Facilita transacciones sin necesidad de compartir información financiera directamente entre comprador y vendedor, y ofrece
+servicios como protección al comprador y al vendedor.</em></p></td>
 </tr>
 </tbody>
 </table>
