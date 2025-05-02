@@ -438,8 +438,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1><span class="image"><img src="./images/logo.png" alt="WiChat Logo"></span> wichat_es4a</h1>
 <div class="details">
-<span id="revnumber">version 8.2 EN,</span>
-<span id="revdate">January 2023</span>
+<span id="revnumber">version 8.2 ES,</span>
+<span id="revdate">May 2025</span>
 <br><span id="revremark">(based upon AsciiDoc version)</span>
 </div>
 <div id="toc" class="toc">
@@ -543,7 +543,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>arc42, the template for documentation of software and system architecture.</p>
 </div>
 <div class="paragraph">
-<p>Template Version 8.2 EN. (based upon AsciiDoc version), January 2023</p>
+<p>Template Version 8.2 ES. (based upon AsciiDoc version), May 2025</p>
 </div>
 <div class="paragraph">
 <p>Created, maintained and &#169; by Dr. Peter Hruschka, Dr. Gernot Starke and contributors.
@@ -1308,13 +1308,13 @@ el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Motivación</strong>: La elección de <em><strong>SPARQL</strong></em> permite integrar consultas semánticas eficientes a bases de datos con información estructurada. Además, utilizamos la <em><strong>API de Gemini</strong></em> debido a los problemas recurrentes de caídas de los servidores de <em>Empathy</em>, lo que hace que la solución basada en <em>Gemini</em> sea más confiable. Esta decisión ayuda a garantizar la disponibilidad del sistema y evitar puntos de fallo únicos.</p>
+<p><strong>Motivación</strong>: La elección de <em><strong>SPARQL</strong></em> permite integrar consultas semánticas eficientes a bases de datos con información estructurada. Además, utilizamos la <em><strong>API de Gemini</strong></em> debido a los problemas recurrentes de caídas de los servidores de <em>Empathy</em>, lo que hace que la solución basada en <em>Gemini</em> sea más confiable. Esta decisión ayuda a garantizar la disponibilidad del sistema y evitar puntos de fallo únicos. También integramos la API de PayPal para gestionar un apartado de donaciones, proporcionando una forma segura y ampliamente reconocida para que los usuarios puedan apoyar el proyecto.</p>
 </li>
 <li>
-<p><strong>Objetivos de calidad</strong>: <em>Disponibilidad</em>, <em>Fiabilidad</em>, <em>Rendimiento</em></p>
+<p><strong>Objetivos de calidad</strong>: <em>Disponibilidad</em>, <em>Fiabilidad</em>, <em>Rendimiento</em>, <em>Seguridad</em></p>
 </li>
 <li>
-<p><strong>Restricciones clave</strong>: La <em>API de Gemini</em> debe integrarse de manera eficiente con el sistema, proporcionando una solución confiable en lugar de las APIs de <em>Empathy</em> que presentan interrupciones.</p>
+<p><strong>Restricciones clave</strong>: La <em>API de Gemini</em> debe integrarse de manera eficiente con el sistema, proporcionando una solución confiable en lugar de las APIs de <em>Empathy</em> que presentan interrupciones. La API de PayPal debe cumplir con los requisitos de seguridad y privacidad en el manejo de transacciones financieras.</p>
 </li>
 </ul>
 </div>
@@ -1611,7 +1611,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_1_caja_blanca_del_sistema_general">5.1. Nivel 1: Caja blanca del Sistema General</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view1.png" alt="building block view1" width="790" height="235">
+<img src="./images/building_block_view1.png" alt="building block view1" width="822" height="232">
 </div>
 </div>
 <div class="dlist">
@@ -1662,7 +1662,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_2">5.2. Nivel 2</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view2.png" alt="building block view2" width="1313" height="262">
+<img src="./images/building_block_view2.png" alt="building block view2" width="1394" height="258">
 </div>
 </div>
 <div class="dlist">
@@ -1701,7 +1701,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_3">5.3. Nivel 3</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view3.png" alt="building block view3" width="1214" height="693">
+<img src="./images/building_block_view3.png" alt="building block view3" width="1234" height="675">
 </div>
 </div>
 <div class="dlist">
@@ -1821,7 +1821,7 @@ Capturarás principalmente escenarios en tu documentación para comunicar tu arq
 <h3 id="_un_usuario_se_registra_en_el_sistema">6.1. Un usuario se registra en el sistema</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/User%20Registration%20Sequence.png" alt="User Registration Sequence" width="402" height="331">
+<img src="./images/User%20Registration%20Sequence.png" alt="User Registration Sequence" width="434" height="324">
 </div>
 </div>
 </div>
@@ -1829,7 +1829,7 @@ Capturarás principalmente escenarios en tu documentación para comunicar tu arq
 <h3 id="_un_usuario_juega_al_juego_de_las_preguntas_y_solicita_pistas">6.2. Un usuario juega al juego de las preguntas y solicita pistas</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Question%20Game%20with%20Hint%20Sequence.png" alt="Question Game with Hint Sequence" width="499" height="621">
+<img src="./images/Question%20Game%20with%20Hint%20Sequence.png" alt="Question Game with Hint Sequence" width="528" height="604">
 </div>
 </div>
 </div>
@@ -1837,7 +1837,7 @@ Capturarás principalmente escenarios en tu documentación para comunicar tu arq
 <h3 id="_el_usuario_quiere_ver_su_historial_de_la_partida">6.3. El usuario quiere ver su historial de la partida</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Game%20History%20Sequence.png" alt="Game History Sequence" width="406" height="305">
+<img src="./images/Game%20History%20Sequence.png" alt="Game History Sequence" width="436" height="298">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -2941,8 +2941,8 @@ servicios como protección al comprador y al vendedor.</em></p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 8.2 EN<br>
-Last updated 2025-04-27 13:39:59 +0200
+Version 8.2 ES<br>
+Last updated 2025-05-02 10:30:22 +0200
 </div>
 </div>
 </body>
