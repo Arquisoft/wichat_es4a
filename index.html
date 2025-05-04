@@ -520,11 +520,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#section-technical-risks">11. Riesgos y Deuda Técnica</a></li>
-<li><a href="#section-testing-report">12. Informe de Pruebas</a>
+<li><a href="#section-testing-report">12. Test unitarios</a>
 <ul class="sectlevel2">
-<li><a href="#_test_unitarios">12.1. Test unitarios</a></li>
-<li><a href="#_test_e2e">12.2. Test E2E</a></li>
-<li><a href="#_test_de_carga">12.3. Test de carga</a></li>
+<li><a href="#_test_e2e">12.1. Test E2E</a></li>
+<li><a href="#_test_de_carga">12.2. Test de carga</a></li>
 </ul>
 </li>
 <li><a href="#section-glossary">13. Glosario</a></li>
@@ -1634,7 +1633,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_1_caja_blanca_del_sistema_general">5.1. Nivel 1: Caja blanca del Sistema General</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view1.png" alt="building block view1" width="822" height="232">
+<img src="./images/building_block_view1.png" alt="building block view1" width="999" height="638">
 </div>
 </div>
 <div class="dlist">
@@ -1685,7 +1684,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_2">5.2. Nivel 2</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view2.png" alt="building block view2" width="1394" height="258">
+<img src="./images/building_block_view2.png" alt="building block view2" width="1015" height="638">
 </div>
 </div>
 <div class="dlist">
@@ -1724,7 +1723,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_3">5.3. Nivel 3</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view3.png" alt="building block view3" width="1234" height="675">
+<img src="./images/building_block_view3.png" alt="building block view3" width="990" height="638">
 </div>
 </div>
 <div class="dlist">
@@ -1844,7 +1843,7 @@ Capturarás principalmente escenarios en tu documentación para comunicar tu arq
 <h3 id="_un_usuario_se_registra_en_el_sistema">6.1. Un usuario se registra en el sistema</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/User%20Registration%20Sequence.png" alt="User Registration Sequence" width="434" height="324">
+<img src="./images/User%20Registration%20Sequence.png" alt="User Registration Sequence" width="402" height="331">
 </div>
 </div>
 </div>
@@ -1852,7 +1851,7 @@ Capturarás principalmente escenarios en tu documentación para comunicar tu arq
 <h3 id="_un_usuario_juega_al_juego_de_las_preguntas_y_solicita_pistas">6.2. Un usuario juega al juego de las preguntas y solicita pistas</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Question%20Game%20with%20Hint%20Sequence.png" alt="Question Game with Hint Sequence" width="528" height="604">
+<img src="./images/Question%20Game%20with%20Hint%20Sequence.png" alt="Question Game with Hint Sequence" width="499" height="621">
 </div>
 </div>
 </div>
@@ -1860,7 +1859,7 @@ Capturarás principalmente escenarios en tu documentación para comunicar tu arq
 <h3 id="_el_usuario_quiere_ver_su_historial_de_la_partida">6.3. El usuario quiere ver su historial de la partida</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Game%20History%20Sequence.png" alt="Game History Sequence" width="436" height="298">
+<img src="./images/Game%20History%20Sequence.png" alt="Game History Sequence" width="406" height="305">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -2833,10 +2832,8 @@ asegurándonos de que cada servicio solo modifique los datos que le corresponden
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-testing-report">12. Informe de Pruebas</h2>
+<h2 id="section-testing-report">12. Test unitarios</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_test_unitarios">12.1. Test unitarios</h3>
 <div class="paragraph">
 <p>Cada componente del Front-End tiene sus correspondientes pruebas unitarias que verfican que funciona correctamente, proporcionando seguridad, fiabilidad y consistencia al proyecto realizado.</p>
 </div>
@@ -2852,9 +2849,8 @@ Para este proyecto nos piden un 80% de cobertura de código y menos de un 3% de 
 <img src="./images/sonarqube.png" alt="Imagen SonarQube" width="600">
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="_test_e2e">12.2. Test E2E</h3>
+<h3 id="_test_e2e">12.1. Test E2E</h3>
 <div class="paragraph">
 <p>Los tests end-to-end (E2E) se utilizan para verificar que toda la aplicación funciona correctamente desde la perspectiva del usuario final. Simulan escenarios reales de uso, interactuando con la interfaz tal como lo haría un usuario, para asegurar que todos los componentes del sistema (frontend, backend, base de datos, etc.) funcionan como se espera.</p>
 </div>
@@ -2883,7 +2879,7 @@ Verifica que un nuevo usuario pueda completar el formulario de registro correcta
 </div>
 </div>
 <div class="sect2">
-<h3 id="_test_de_carga">12.3. Test de carga</h3>
+<h3 id="_test_de_carga">12.2. Test de carga</h3>
 <div class="paragraph">
 <p>Los tests de carga miden el rendimiento antes de la carga normal o de carga máxima. Para llevar a cabo estas pruebas hemos utilizado la herramienta Artillery. Mediante ficheros .yml podíamos especificar todos los escenarios posibles.</p>
 </div>
@@ -3028,7 +3024,7 @@ servicios como protección al comprador y al vendedor.</em></p></td>
 <div id="footer">
 <div id="footer-text">
 Version 8.2 ES<br>
-Last updated 2025-05-04 18:11:41 +0200
+Last updated 2025-05-04 21:53:23 +0200
 </div>
 </div>
 </body>
