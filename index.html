@@ -520,13 +520,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#section-technical-risks">11. Riesgos y Deuda Técnica</a></li>
-<li><a href="#section-testing-report">12. Test unitarios</a>
-<ul class="sectlevel2">
-<li><a href="#_test_e2e">12.1. Test E2E</a></li>
-<li><a href="#_test_de_carga">12.2. Test de carga</a></li>
-</ul>
-</li>
-<li><a href="#section-glossary">13. Glosario</a></li>
+<li><a href="#section-glossary">12. Glosario</a></li>
 </ul>
 </div>
 </div>
@@ -1633,7 +1627,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_1_caja_blanca_del_sistema_general">5.1. Nivel 1: Caja blanca del Sistema General</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view1.png" alt="building block view1" width="1001" height="638">
+<img src="./images/building_block_view1.png" alt="building block view1" width="988" height="638">
 </div>
 </div>
 <div class="dlist">
@@ -1684,7 +1678,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_2">5.2. Nivel 2</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view2.png" alt="building block view2" width="1004" height="638">
+<img src="./images/building_block_view2.png" alt="building block view2" width="1003" height="638">
 </div>
 </div>
 <div class="dlist">
@@ -1723,7 +1717,7 @@ Por lo tanto, contiene la descripción de caja blanca de bloques de construcció
 <h3 id="_nivel_3">5.3. Nivel 3</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/building_block_view3.png" alt="building block view3" width="1011" height="638">
+<img src="./images/building_block_view3.png" alt="building block view3" width="999" height="638">
 </div>
 </div>
 <div class="dlist">
@@ -2832,67 +2826,7 @@ asegurándonos de que cada servicio solo modifique los datos que le corresponden
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-testing-report">12. Test unitarios</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Cada componente del Front-End tiene sus correspondientes pruebas unitarias que verfican que funciona correctamente, proporcionando seguridad, fiabilidad y consistencia al proyecto realizado.</p>
-</div>
-<div class="paragraph">
-<p><strong>Cobertura de código</strong></p>
-</div>
-<div class="paragraph">
-<p>Para la cobertura de código utilizamos la herramienta SonarQube.Esta herramienta ofrece una métrica que indica qué porcentaje del código fuente ha sido ejecutado por las pruebas automatizadas (unitarias, de integración, etc.). Es un indicador clave de la calidad del software y de cuán bien está siendo probado.
-Para este proyecto nos piden un 80% de cobertura de código y menos de un 3% de duplicación. En la siguiente imagen vemos como cumplimos con estos dos parámetros:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/sonarqube.png" alt="Imagen SonarQube" width="600">
-</div>
-</div>
-<div class="sect2">
-<h3 id="_test_e2e">12.1. Test E2E</h3>
-<div class="paragraph">
-<p>Los tests end-to-end (E2E) se utilizan para verificar que toda la aplicación funciona correctamente desde la perspectiva del usuario final. Simulan escenarios reales de uso, interactuando con la interfaz tal como lo haría un usuario, para asegurar que todos los componentes del sistema (frontend, backend, base de datos, etc.) funcionan como se espera.</p>
-</div>
-<div class="paragraph">
-<p>En nuestro proyecto hemos incorporado los siguientes casos de prueba E2E:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Cambio de contraseña: </strong>
-Verifica el correcto funcionamiento del formulario de cambio de contraseña, incluyendo los casos de éxito y los principales errores de validación: coincidencia entre contraseñas, longitud mínima, uso de mayúsculas, números, espacios y manejo de errores en la contraseña actual.</p>
-</li>
-<li>
-<p><strong>Simulación de un juego: </strong>
-Verifica que el usuario pueda configurar e iniciar una partida con distintas opciones, completar o salir de ella antes de tiempo, consultar el historial de partidas jugadas y solicitar pistas al modelo LLM durante la partida.</p>
-</li>
-<li>
-<p><strong>Inicio de sesión: </strong>
-Comprueba que el sistema gestione correctamente intentos de inicio de sesión con credenciales inválidas, incluyendo la visualización de mensajes de error y la limitación de intentos fallidos por motivos de seguridad.</p>
-</li>
-<li>
-<p><strong>Registro de usuario: </strong>
-Verifica que un nuevo usuario pueda completar el formulario de registro correctamente y que el sistema gestione adecuadamente errores comunes como contraseñas inválidas, contraseñas no coincidentes y nombres de usuario ya registrados.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_test_de_carga">12.2. Test de carga</h3>
-<div class="paragraph">
-<p>Los tests de carga miden el rendimiento antes de la carga normal o de carga máxima. Para llevar a cabo estas pruebas hemos utilizado la herramienta Artillery. Mediante ficheros .yml podíamos especificar todos los escenarios posibles.</p>
-</div>
-<div class="paragraph">
-<p>Toda la información sobre las pruebas realizadas en nuestro trabajo aparece en el este enlace:
-<a href="pdfs/Informe_Resultados_Pruebas_De_Carga.pdf">Informe de resultados de pruebas de carga en PDF</a></p>
-</div>
-<div style="page-break-after: always;"></div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="section-glossary">13. Glosario</h2>
+<h2 id="section-glossary">12. Glosario</h2>
 <div class="sectionbody">
 <div class="sidebarblock arc42help">
 <div class="content">
@@ -3024,7 +2958,7 @@ servicios como protección al comprador y al vendedor.</em></p></td>
 <div id="footer">
 <div id="footer-text">
 Version 8.2 ES<br>
-Last updated 2025-05-04 21:53:23 +0200
+Last updated 2025-05-04 22:30:26 +0200
 </div>
 </div>
 </body>
