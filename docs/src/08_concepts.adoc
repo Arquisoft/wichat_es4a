@@ -1,7 +1,7 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-concepts]]
-== Conceptos transversales
+== Conceptos Transversales
 
 ifdef::arc42help[]
 [role="arc42help"]
@@ -53,11 +53,11 @@ Consulta https://docs.arc42.org/section-8/[Conceptos] en la documentación de ar
 ****
 endif::arc42help[]
 
-=== Arquitectura de microservicios
+=== Arquitectura de Microservicios
 
 Hemos decidido que nuestra arquitectura se basará en microservicios, lo que significa que cada parte de la aplicación se dividirá en un servicio que realiza una función específica. Los servicios pueden comunicarse entre sí utilizando sus respectivas API. Además, en nuestra arquitectura tienen mucha importancia el papel del API Gateway, cuya función es servir como intermediario en la interacción entre servicios, de forma que estos solo se encuentren ligeramente acoplados al gateway y no a múltiples servicios diferentes.
 
-=== Experiencia del usuario
+=== Experiencia del Usuario
 
 La aplicación será un sitio web donde los usuarios podrán jugar a WICHAT. La funcionalidad básica consiste en mostrar una imagen y una pregunta, y el usuario deberá seleccionar la opción correcta. Además es el propio usuario el que, si se encuentra atascado en una pregunta, puede hacer una consulta, pidiendo una pista, a un modelo de lenguaje.
 

@@ -2,7 +2,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-testing-report]]
 
-== Test unitarios
+== Informe de Pruebas
+=== Test unitarios
 Cada componente del Front-End tiene sus correspondientes pruebas unitarias que verfican que funciona correctamente, proporcionando seguridad, fiabilidad y consistencia al proyecto realizado.
 
 *Cobertura de código*

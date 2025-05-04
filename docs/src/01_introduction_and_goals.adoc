@@ -17,7 +17,7 @@ Esto incluye
 ****
 endif::arc42help[]
 
-=== Descripción de los requisitos
+=== Descripción de los Requisitos
 
 * **Registro e Inicio de Sesión de Usuarios:** Los usuarios podrán registrarse para guardar o consultar los resultados de sus partidas, o iniciar sesión si ya se han registrado previamente.
 

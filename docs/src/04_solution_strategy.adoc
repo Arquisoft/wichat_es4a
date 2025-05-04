@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-solution-strategy]]
 == Estrategia de Solución
 
-=== Deciciones tecnológicas
+=== Deciciones Tecnológicas
 ==== Frontend
 * **Motivación**: Elegimos _**JavaScript**_ y _**React**_ para el desarrollo del frontend por su flexibilidad y su capacidad para crear interfaces dinámicas y altamente interactivas. Dado que uno de los objetivos clave del proyecto es la _usabilidad_, _React_ facilita el desarrollo de interfaces modernas y centradas en el usuario, lo que optimiza la experiencia. Además, _React_ es ampliamente utilizado y bien soportado, lo que facilita la integración y el mantenimiento.
 * **Objetivos de calidad**: _Usabilidad_, _Mantenibilidad_, _Integrabilidad_
