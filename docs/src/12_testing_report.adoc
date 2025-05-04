@@ -2,7 +2,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-testing-report]]
 
-=== Test unitarios
+== Test unitarios
 Cada componente del Front-End tiene sus correspondientes pruebas unitarias que verfican que funciona correctamente, proporcionando seguridad, fiabilidad y consistencia al proyecto realizado.
 
 *Cobertura de código*
@@ -35,4 +35,5 @@ En nuestro proyecto hemos incorporado los siguientes casos de prueba E2E:
 Los tests de carga miden el rendimiento antes de la carga normal o de carga máxima. Para llevar a cabo estas pruebas hemos utilizado la herramienta Artillery. Mediante ficheros .yml podíamos especificar todos los escenarios posibles.
 
 Toda la información sobre las pruebas realizadas en nuestro trabajo aparece en el este enlace:
-link:../pdfs/Informe_Resultados_Pruebas_De_Carga.pdf[Informe de resultados de pruebas de carga en PDF]
+link:/wichat_es4a/pdfs/Informe_Resultados_Pruebas_De_Carga.pdf[Informe de resultados de pruebas de carga en PDF]
+
