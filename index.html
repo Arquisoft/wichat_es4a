@@ -1075,65 +1075,22 @@ junto a una tabla de mapeo mostrando las relaciones entre canales y la entrada/s
 <h4 id="_diagrama_de_despliegue">3.2.1. Diagrama de Despliegue</h4>
 <div class="imageblock">
 <div class="content">
-<img src="./images/03-Diagrama-Despliegue.png" alt="Diagrama de Despliegue">
+<img src="./images/03-Diagrama-Despliegue.png" alt="Diagrama de Despliegue" width="600">
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_explicación_de_interfaces_técnicas">3.2.2. Explicación de Interfaces Técnicas</h4>
 <div class="sect4">
-<h5 id="_webapp">WebApp</h5>
+<h5 id="_microservicios_wichat">Microservicios WiChat</h5>
 <div class="paragraph">
-<p>Aplicación web hecha con React que aporta al usuario una interfaz con la que interactuar y por medio de la cual hacer las peticiones
-correspondientes al backend</p>
+<p>Microservicios de la aplicación que implementan la funcionalidad de la misma de forma modular</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_gatewayservice">gatewayservice</h5>
+<h5 id="_base_de_datos">Base de Datos</h5>
 <div class="paragraph">
-<p>API que hace de enlace entre las distintas partes de la aplicación. Funciona como una especie de fachada que sirve para que los
-distintos microservicios no tengan por qué conocerse entre ellos. Para comunicarse solo deben de hacer peticiones al gateway y este
-hará una redirección de la petición al servicio correspondiente.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_authservice">authservice</h5>
-<div class="paragraph">
-<p>Servicio que se comunica con la base de datos de usuarios a fin de comprobar si los datos introducidos de inicio de sesión
-se corresponden con un usuario</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_userservice">userservice</h5>
-<div class="paragraph">
-<p>Servicio que se comunica con la base de datos de usuarios a fin de añadir usuarios y modificar los datos relativos a los usuarios.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_base_de_datos_userdb">Base de Datos "userdb"</h5>
-<div class="paragraph">
-<p>Base de datos que almacena toda la información de los usuarios como su nombre de usuario, sus datos de logIn, etc</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_gameservice">gameservice</h5>
-<div class="paragraph">
-<p>Servicio que guarda la información relativa a las partidas de los usuarios en la base de datos "bd". Además, gestiona
-los datos de configuración de la partida (topics e idioma), almacenandolos en una caché para un rápido acceso. Estos datos posteriormente
-son utilizados por el questionservice para obtener las preguntas usando dicha configuración.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_base_de_datos_bd">Base de Datos "bd"</h5>
-<div class="paragraph">
-<p>Base de datos que almacena la información de las partidas jugadas por los usuarios</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_questionservice">questionservice</h5>
-<div class="paragraph">
-<p>Servicio que genera las preguntas por medio de plantillas para los diferentes topics e idiomas y utiliza Wikidata para la
-obtención de las respuestas correctas y falsas.</p>
+<p>Contenedor con MongoDB que será el que almacene la instancia de MongoDB con las bases de datos de toda la aplicación</p>
 </div>
 </div>
 <div class="sect4">
@@ -1144,22 +1101,9 @@ pistas que el LLM utilizará para responder a los usuarios</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_llmservice">llmservice</h5>
-<div class="paragraph">
-<p>Servicio que, por medio de la respuesta correcta a la pregunta actual de la partida, procesará y responderá a las preguntas que tenga
-el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_api_llm">API LLM</h5>
 <div class="paragraph">
 <p>Servicio externo que nos permite acceder al modelo de lenguaje y utilizarlo</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_donationservice">donationservice</h5>
-<div class="paragraph">
-<p>Servicio que gestiona las donaciones a los desarrolladores de la aplicación por medio de su conexión con la API de Paypal</p>
 </div>
 </div>
 <div class="sect4">
@@ -1186,44 +1130,14 @@ el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WebApp</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Peticiones HTTP del usuario indicando sus acciones</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Responde con información a través de la interfaz.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Microservicios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Respuestas o peticiones HTTP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Peticiones HTTP a otros microservicios o servicios externos</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gatewayservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Peticiones REST de los microservicios para realizar acciones en la aplicación</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Respuesta con la información/acciones solicitadas obtenida de otros microservicios.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">authservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Datos de inicio de sesión de un usuario</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resultado de comprobación de los datos de inicio de sesión</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">userservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Datos a insertar/modificar en la base de datos</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Modificación o inserción completa a la base de datos</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Base de Datos "userdb"</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Instrucciones para consultas o insercioes en base de datos</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resultado de las consultas o confirmación de las inserciones</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">gameservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Información de inicio de partida o final de partida</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Responde con confirmación de las operaciones o con id de caché para rápido acceso a la configuración de la partida</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Base de Datos "bd"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base de Datos</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Instrucciones para consultas o inserciones en base de datos</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resultado de las consultas o confirmación de las inserciones</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">questionservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Configuración de la partida</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pregunta con las posibles respuestas (correcta e incorrectas)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resultado de las consultas o confirmación de operaciones</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">API Wikidata</p></td>
@@ -1231,19 +1145,9 @@ el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p
 <td class="tableblock halign-left valign-top"><p class="tableblock">Imagen nueva, respuesta o pista sobre la imagen ofrecida con anterioridad</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">llmservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prompt de solicitud de pistas y respuesta correcta a la pregunta</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pista generada por el modelo evitando decir la respuesta correcta</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">API LLM</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Prompt de solicitud de pistas</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Respuesta del modelo de lenguaje generada a partir del prompt</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">donationservice</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Petición HTTP de acceso al servicio de donación</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Redirección al servicio de Paypal</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">API Paypal</p></td>
@@ -1295,7 +1199,7 @@ el usuario por medio de pistas, sin dar dicha respuesta correcta directamente</p
 </div>
 </div>
 <div class="sect3">
-<h4 id="_base_de_datos">4.1.3. Base de Datos</h4>
+<h4 id="_base_de_datos_2">4.1.3. Base de Datos</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1958,7 +1862,7 @@ cualquier tipo que sea capaz de mostrar nodos y canales de la infraestructura.</
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/vista-de-despliegue-nivel-1.png" alt="Vista de Despliegue Nivel 1">
+<img src="./images/07-Diagrama-Despliegue-Nivel-1.png" alt="Vista de Despliegue Nivel 1" width="600">
 </div>
 </div>
 <div class="dlist">
@@ -2025,7 +1929,7 @@ cualquier tipo que sea capaz de mostrar nodos y canales de la infraestructura.</
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/vista-de-despliegue-nivel-2.png" alt="Vista de Despliegue Nivel 2">
+<img src="./images/07-Diagrama-Despliegue-Nivel-2.png" alt="Vista de Despliegue Nivel 2">
 </div>
 </div>
 <div class="dlist">
@@ -3028,7 +2932,7 @@ servicios como protección al comprador y al vendedor.</em></p></td>
 <div id="footer">
 <div id="footer-text">
 Version 8.2 ES<br>
-Last updated 2025-05-04 18:26:50 +0200
+Last updated 2025-05-06 17:37:16 +0200
 </div>
 </div>
 </body>
